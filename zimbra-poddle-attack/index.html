@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="dgprasetya">
+  
+  <title>Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL - blog.dgprasetya.com</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/extra.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL";
+    var mkdocs_page_input_path = "zimbra-poddle-attack.md";
+    var mkdocs_page_url = "/zimbra-poddle-attack/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-55420243-2', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> blog.dgprasetya.com</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Index</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ci-cd-with-gitlab/">CI/CD with Gitlab</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../net-boot-ipxe-docker-tomcat-centos-coreos/">Docker auto setup via IPXE for Centos and Core OS</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-connect-two-instances-with-ip-private-via-vpc-peering/">GCP - How to connect two instances with IP Private via VPC Peering</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-multiple-nics-with-vpc-peering/">GCP - How to connect Multiple Nics with VPC Peering at Google Cloud Platform</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../kimsufi-dns-ipv6-openvz-promox/">OVH - Build DNS Server IPV6 dengan DBNDNS di Kimsufi menggunakan OpenVZ Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-7-network-configuration-without-network-manager/">OVH - Centos 7 Network configuration without network manager daemon</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-upgrade-7-to-8/">Centos - Upgrade from 7 to 8</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ceph-osds-troubleshooting/">OpenStack - Ceph OSDS Troubleshooting</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../freebsd-11-upgrade-to-12/">FreeBSD - Upgrade from 11 to 12</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lets-encrypt-autossl-wildcard-acme.sh/">Lets Encrypt - Create wildcard ssl with acme.sh</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-from-rocky-to-stein/">OpenStack - Upgrade from Rocky to Stein Release</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-integrasi-ceph-dengan-openstack/">OpenStack - Integrasi dengan Ceph Cluster</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-ceph-mimic-ke-nautilus/">OpenStack - Upgrade Ceph Mimic ke Nautilus</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-install-with-packstack-puppet/">OpenStack - Install OpenStack dengan PackStack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7/">VMWare  - How to upgrade Esxi 5.5 to 6.7 </a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7-vum/">VMWare  - How to upgrade Esxi 5.5 to 6.7 with VCenter Update Manager</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Patch-Upgrade-ESXi-15018017-to-latest-build/">VMWare - Patch Upgrade ESXi 15018017 ke latest version</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../proxmox-extend-lvm-partition/">Proxmox - How to extend LVM Partition on Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../promox-extend-lvm-partition-ofly/">Promox - How to extend LVM Partition VM Proxmox on the Fly</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-native-smtp-server-dengan-support-submission-authentication/">Postfix - Build native Postix smtp server dengan support submission authentication</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth/">Postfix - Build load balancer native smtp server dengan postfix dan saslauth</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-add-intermediate-cert-untuk-trusted-android/">RapidSSL - Menambahkan Intermediate Cert agar Trusted Cert Security di Android</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vestacp-exim-roundcube-manage-sieve-plugins-setting/">VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-clustering-large-deployment-mail-servers/">Zimbra - Clustering large deployment Mail Servers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zabbix-install-4.4-version/">Zabbix - Install zabbix latest version with Telegram Notifications</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-server-performance-dan-Tuning/">Zimbra - Set Performance dan Tuning</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../reject-fake-email-dari-certain-domain/">Zimbra - Reject Fake Email Certain Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../rate-limit-user-mail-server-zimbra/">Zimbra - Rate Limit user di Mail server Zimbra</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-queue/">Zimbra - Monitoring Queue Mail</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../dns-build-RBL-DNS-untuk-anti-spam-based-ip-address/">Zimbra - build RBL DNS untuk anti spam based ip address</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-enable-original-ip-nginx-proxy/">Zimbra - Enable Original IP Public Nginx Proxy</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-setting-glusterfs-untuk-backup-mail-account/">Zimbra - setup GlusterFS untuk NFS sharing backup email account zimbra di Ubuntu 12.04</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-diagnosa-vmware-55-psod-kernel-panic/">Zimbra - Diagnosa kernel Panic PSOD VMware 5.5 HP StoreEasy 1430 Storage</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-black-list-domain/">Zimbra - black list domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-disclaimer/">Zimbra - Setting Disclaimer</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-backup-restore/">Zimbra - Cara Backup dan Restore Mail Account</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-build-saml-server-untuk-google-apps/">Zimbra - Build SAML server untuk google apps</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-AHBL-scoring-issue/">Zimbra - DNS AHBL Scoring issue</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#mengamankan-zimbra-804-di-mail2abccoid-dari-serangan-ccs-injection-vulnerability-dan-poddle-attack">Mengamankan zimbra 8.0.4 di mail2.abc.co.id dari serangan CCS Injection Vulnerability dan Poddle Attack</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mailbox-usages-report/">Zimbra - Mailbox Usages Report</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-trusted-domain-zimbra/">Zimbra - Menambahkan Trusted Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-unusual-login-activity/">Zimbra - Unusual Login Activity</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-milter-reject/">Zimbra - message milter-reject: END-OF-MESSAGE</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-filter-sender-dl/">Zimbra - filter sender distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-reset-password-ldap-admin/">Zimbra - Reset Password zimbra ldap admin</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-update-ssl-non-wilcard-ke-wildcard/">Zimbra - Update ssl non wildcard ke wildcard</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-send-as-distribution-list/">Zimbra - send as distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-create-mass-account-mail-via-CLI/">Zimbra - Create mass Account Mail via CLI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-relay-certain-domain-to-exim/">Zimbra - Relay certain domain to Exim via ESMTP</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install/">Gammu - Installation</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install-configure-playsms/">Gammu - Install dan Configure PlaySMS Web Interface</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-configure-multiple-modem-playsms/">Gammu - How to configure multiple modem PlaySMS Gammu</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cpanel-force-ssl-username/">CPanel - How to force generate autossl for the user CPanel</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-osticket/">Nginx - Osticket</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-PageSpeed-module/">Nginx - Build PageSpeed Module for Nginx di Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-conf-dan-server-xml-tomcat-SSL-Jira/">Nginx - conf dan server.xml tomcat SSL Jira</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../wazuh-monitoring-log-management/">Wazuh - Monitoring dan Log Management</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">blog.dgprasetya.com</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="mengamankan-zimbra-804-di-mail2abccoid-dari-serangan-ccs-injection-vulnerability-dan-poddle-attack">Mengamankan zimbra 8.0.4 di mail2.abc.co.id dari serangan CCS Injection Vulnerability dan Poddle Attack</h1>
+<p>hasil cek di ssl labs:</p>
+<p><img alt="sslv3-poodle-attack-" src="https://cloud.githubusercontent.com/assets/275259/8274281/99d99044-18b8-11e5-87dd-57b419dd5cc9.png" /></p>
+<ol>
+<li><a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0224">CCS Injection Vulnerability</a></li>
+<li><a href="https://community.qualys.com/blogs/securitylabs/2014/10/15/ssl-3-is-dead-killed-by-the-poodle-attack?_ga=1.80919511.1517101407.1427855349">Poddle Attack</a></li>
+</ol>
+<p>solusi:</p>
+<ol>
+<li>set TLSv1 TLSv1.1 TLSv1.2 pada koneksi https.</li>
+<li>Disable weak cipher TLS termasuk SSLv3.</li>
+<li>Update / Patch OpenSSL.</li>
+</ol>
+<p>Percobaan ini dilakukan di mail2.abc.co.id mengingat versi yang digunakan sama yaitu 8.0.4 dan mengingat pula server mail production tidak mungkin untuk dicoba-coba</p>
+<p>install zm proxy via installer dari versi zimbra yang running. untuk mengetahui zimbra version cukup ketikan perintah zmcontrol -v ( as zimbra user) .
+lalu execute installer:</p>
+<pre><code>./install.sh
+</code></pre>
+<p>ikuti langkah dst:</p>
+<pre><code>Do you agree with the terms of the software license agreement? [N] Y
+
+Do you agree with the terms of the software license agreement? [N] Y
+
+Do you want to verify message store database integrity? [Y] N
+
+Do you wish to upgrade? [Y] Y
+
+Install zimbra-memcached [N] N
+Install zimbra-proxy [N] Y
+
+The system will be modified.  Continue? [N] Y
+
+Notify Zimbra of your installation? [Yes] Yes
+log full:
+root@mail2:/home/dhuka/zcs-8.0.4_GA_5737.UBUNTU12_64.20130524120036# ./install.sh 
+Operations logged to /tmp/install.log.8895
+Checking for existing installation...
+    zimbra-ldap...FOUND zimbra-ldap-8.0.4.GA.5737.UBUNTU12.64
+    zimbra-logger...FOUND zimbra-logger-8.0.4.GA.5737.UBUNTU12.64
+    zimbra-mta...FOUND zimbra-mta-8.0.4.GA.5737.UBUNTU12.64
+    zimbra-snmp...FOUND zimbra-snmp-8.0.4.GA.5737.UBUNTU12.64
+    zimbra-store...FOUND zimbra-store-8.0.4.GA.5737.UBUNTU12.64
+    zimbra-apache...FOUND zimbra-apache-8.0.4.GA.5737.UBUNTU12.64
+    zimbra-spell...FOUND zimbra-spell-8.0.4.GA.5737.UBUNTU12.64
+    zimbra-convertd...NOT FOUND
+    zimbra-memcached...NOT FOUND
+    zimbra-proxy...NOT FOUND
+    zimbra-archiving...NOT FOUND
+    zimbra-cluster...NOT FOUND
+    zimbra-core...FOUND zimbra-core-8.0.4.GA.5737.UBUNTU12.64
+ZCS upgrade from 8.0.4 to 8.0.4 will be performed.
+Saving existing configuration file to /opt/zimbra/.saveconfig
+
+PLEASE READ THIS AGREEMENT CAREFULLY BEFORE USING THE SOFTWARE.
+ZIMBRA, INC. ("ZIMBRA") WILL ONLY LICENSE THIS SOFTWARE TO YOU IF YOU
+FIRST ACCEPT THE TERMS OF THIS AGREEMENT. BY DOWNLOADING OR INSTALLING
+THE SOFTWARE, OR USING THE PRODUCT, YOU ARE CONSENTING TO BE BOUND BY
+THIS AGREEMENT. IF YOU DO NOT AGREE TO ALL OF THE TERMS OF THIS
+AGREEMENT, THEN DO NOT DOWNLOAD, INSTALL OR USE THE PRODUCT.
+License Terms for the Zimbra Collaboration Suite:
+  http://www.zimbra.com/license/zimbra_public_eula_2.1.html
+Do you agree with the terms of the software license agreement? [N] Y
+
+Oracle Binary Code License Agreement for the Java SE Platform Products
+ORACLE  AMERICA, INC. ("ORACLE"), FOR AND ON BEHALF OF ITSELF AND ITS SUBSIDIARIES AND AFFILIATES UNDER COMMON CONTROL, IS WILLING TO  LICENSE  THE SOFTWARE  TO YOU ONLY UPON THE CONDITION THAT YOU ACCEPT ALL OF THE TERMS  CONTAINED IN THIS BINARY CODE LICENSE AGREEMENT AND SUPPLEMENTAL  LICENSE TERMS (COLLECTIVELY "AGREEMENT").  PLEASE READ THE AGREEMENT  CAREFULLY.  BY SELECTING THE "ACCEPT LICENSE AGREEMENT" (OR THE EQUIVALENT) BUTTON AND/OR BY USING THE SOFTWARE YOU ACKNOWLEDGE THAT YOU HAVE READ THE TERMS AND AGREE TO THEM.  IF YOU ARE AGREEING TO THESE TERMS ON BEHALF OF A  COMPANY OR OTHER LEGAL ENTITY, YOU REPRESENT THAT YOU HAVE THE LEGAL  AUTHORITY TO BIND THE LEGAL ENTITY TO THESE TERMS.  IF YOU DO NOT HAVE SUCH  AUTHORITY, OR IF YOU DO NOT WISH TO BE BOUND BY THE TERMS, THEN SELECT THE "DECLINE LICENSE AGREEMENT" (OR THE EQUIVALENT) BUTTON AND YOU MUST NOT USE THE SOFTWARE ON THIS SITE OR ANY OTHER MEDIA ON WHICH THE SOFTWARE IS CONTAINED.
+|
+--8&lt;--SNIP--
+|
+Redwood Shores, California 94065, USA.
+Last updated May 17, 2011
+
+Do you agree with the terms of the software license agreement? [N] Y
+Checking for prerequisites...
+     FOUND: NPTL
+     FOUND: netcat-openbsd-1.89-4ubuntu1
+     FOUND: sudo-1.8.3p1-1ubuntu3.3
+     FOUND: libidn11-1.23-2
+     FOUND: libpcre3-8.12-4
+     FOUND: libgmp3c2-2:4.3.2+dfsg-2ubuntu1
+     FOUND: libexpat1-2.0.1-7.2ubuntu1.1
+     FOUND: libstdc++6-4.6.3-1ubuntu5
+     FOUND: libperl5.14-5.14.2-6ubuntu2.2
+Checking for suggested prerequisites...
+     FOUND: pax
+     FOUND: perl-5.14.2
+     FOUND: sysstat
+     FOUND: sqlite3
+Prerequisite check complete.
+Checking current number of databases...
+Do you want to verify message store database integrity? [Y] N
+Checking for installable packages
+Found zimbra-core
+Found zimbra-ldap
+Found zimbra-logger
+Found zimbra-mta
+Found zimbra-snmp
+Found zimbra-store
+Found zimbra-apache
+Found zimbra-spell
+Found zimbra-memcached
+Found zimbra-proxy
+
+The Zimbra Collaboration Server appears already to be installed.
+It can be upgraded with no effect on existing accounts,
+or the current installation can be completely removed prior
+to installation for a clean install.
+Do you wish to upgrade? [Y] Y
+Select the packages to install
+    Upgrading zimbra-core
+    Upgrading zimbra-ldap
+    Upgrading zimbra-logger
+    Upgrading zimbra-mta
+    Upgrading zimbra-snmp
+    Upgrading zimbra-store
+    Upgrading zimbra-apache
+    Upgrading zimbra-spell
+Install zimbra-memcached [N] N
+Install zimbra-proxy [N] Y
+Checking required space for zimbra-core
+Checking space for zimbra-store
+Installing:
+    zimbra-core
+    zimbra-ldap
+    zimbra-logger
+    zimbra-mta
+    zimbra-snmp
+    zimbra-store
+    zimbra-apache
+    zimbra-spell
+    zimbra-proxy
+The system will be modified.  Continue? [N] Y
+Shutting down zimbra mail
+Backing up the ldap database...done.
+Removing existing packages
+   zimbra-ldap...done
+   zimbra-logger...done
+   zimbra-mta...done
+   zimbra-snmp...done
+   zimbra-store...done
+   zimbra-spell...done
+   zimbra-apache...done
+   zimbra-core...done
+Removing deployed webapp directories
+Installing packages
+    zimbra-core......zimbra-core_8.0.4.GA.5737.UBUNTU12.64_amd64.deb...done
+    zimbra-ldap......zimbra-ldap_8.0.4.GA.5737.UBUNTU12.64_amd64.deb...done
+    zimbra-logger......zimbra-logger_8.0.4.GA.5737.UBUNTU12.64_amd64.deb...done
+    zimbra-mta......zimbra-mta_8.0.4.GA.5737.UBUNTU12.64_amd64.deb...done
+    zimbra-snmp......zimbra-snmp_8.0.4.GA.5737.UBUNTU12.64_amd64.deb...done
+    zimbra-store......zimbra-store_8.0.4.GA.5737.UBUNTU12.64_amd64.deb...done
+    zimbra-apache......zimbra-apache_8.0.4.GA.5737.UBUNTU12.64_amd64.deb...done
+    zimbra-spell......zimbra-spell_8.0.4.GA.5737.UBUNTU12.64_amd64.deb...done
+    zimbra-proxy......zimbra-proxy_8.0.4.GA.5737.UBUNTU12.64_amd64.deb...done
+Setting defaults from saved config in /opt/zimbra/.saveconfig/config.save
+   HOSTNAME=mail2.abc.co.id
+   LDAPHOST=mail2.abc.co.id
+   LDAPPORT=389
+   SNMPTRAPHOST=mail2.abc.co.id
+   SMTPSOURCE=admin@mail2.abc.co.id
+   SMTPDEST=admin@mail2.abc.co.id
+   SNMPNOTIFY=yes
+   SMTPNOTIFY=yes
+   LDAPROOTPW=GLcHa6eCA
+   LDAPZIMBRAPW=GLcHa6eCA
+   LDAPPOSTPW=GLcHa6eCA
+   LDAPREPPW=GLcHa6eCA
+   LDAPAMAVISPW=GLcHa6eCA
+   LDAPNGINXPW=GLcHa6eCA
+Restoring existing configuration file from /opt/zimbra/.saveconfig/localconfig.xml...done
+Operations logged to /tmp/zmsetup.04072015-090607.log
+Running zmldapapplyldif...done.
+Checking ldap status....not running.
+Starting ldap...done.
+Setting defaults...done.
+Setting defaults from existing config...done.
+Checking for port conflicts
+Setting defaults from ldap...done.
+Saving config in /opt/zimbra/config.3638...done.
+Operations logged to /tmp/zmsetup.04072015-090607.log
+Setting local config values...done.
+Initializing core config...Setting up CA...done.
+Deploying CA to /opt/zimbra/conf/ca ...done.
+Setting replication password...done.
+Setting Postfix password...done.
+Setting amavis password...done.
+Setting nginx password...done.
+Creating server entry for mail2.abc.co.id...already exists.
+Setting Zimbra IP Mode...done.
+Saving CA in ldap ...done.
+Saving SSL Certificate in ldap ...done.
+Setting service ports on mail2.abc.co.id...done.
+Adding mail2.abc.co.id to zimbraMailHostPool in default COS...done.
+Setting Keyboard Shortcut Preferences...done.
+Setting zimbraFeatureTasksEnabled=TRUE...done.
+Setting zimbraFeatureBriefcasesEnabled=FALSE...done.
+Setting MTA auth host...done.
+Setting TimeZone Preference...done.
+Initializing mta config...done.
+Setting services on mail2.abc.co.id...done.
+Creating user spam.lacztdgpp@mail2.abc.co.id...already exists.
+Creating user ham.whtwh7nnri@mail2.abc.co.id...already exists.
+Creating user virus-quarantine.yldr5t3vht@mail2.abc.co.id...already exists.
+Setting spam training and Anti-virus quarantine accounts...done.
+Configuring SNMP...done.
+Setting up syslog.conf...done.
+Starting servers...done.
+Checking for deprecated zimlets...done.
+Checking for network zimlets in LDAP...done.
+Removing network zimlets...
+Finished removing network zimlets.
+Installing common zimlets...
+    com_zimbra_srchhighlighter...done.
+    com_zimbra_url...done.
+    com_zimbra_webex...done.
+    com_zimbra_email...done.
+    com_zimbra_date...done.
+    com_zimbra_attachmail...done.
+    com_zimbra_viewmail...done.
+    com_zimbra_bulkprovision...done.
+    com_zimbra_proxy_config...done.
+    com_zimbra_tooltip...done.
+    com_zimbra_clientuploader...done.
+    com_zimbra_ymemoticons...done.
+    com_zimbra_attachcontacts...done.
+    com_zimbra_adminversioncheck...done.
+    com_zimbra_phone...done.
+    com_zimbra_cert_manager...done.
+Finished installing common zimlets.
+Getting list of all zimlets...done.
+Updating non-standard zimlets...
+Finished updating non-standard zimlets.
+Restarting mailboxd...done.
+Skipping creation of default domain GAL sync account - existing install detected.
+You have the option of notifying Zimbra of your installation.
+This helps us to track the uptake of the Zimbra Collaboration Server.
+The only information that will be transmitted is:
+    The VERSION of zcs installed (8.0.4_GA_5737_UBUNTU12_64)
+    The ADMIN EMAIL ADDRESS created (admin@abc.co.id)
+Notify Zimbra of your installation? [Yes] Yes
+Notifying Zimbra of installation via http://www.zimbra.com/cgi-bin/notify.cgi?VER=8.0.4_GA_5737_UBUNTU12_64&amp;MAIL=admin@abc.co.id
+Notification complete
+Setting up zimbra crontab...done.
+
+Moving /tmp/zmsetup.04072015-090607.log to /opt/zimbra/log
+
+Configuration complete - press return to exit
+
+You have new mail in /var/mail/root
+root@mail2:/home/dhuka/zcs-8.0.4_GA_5737.UBUNTU12_64.20130524120036#
+</code></pre>
+<p>lalu cek status zimbra proxy:</p>
+<pre><code>root@mail2:/home/dhuka/zcs-8.0.4_GA_5737.UBUNTU12_64.20130524120036# su - zimbra
+zimbra@mail2:~$ zmcontrol status
+Host mail2.abc.co.id
+    antispam                Running
+    antivirus               Running
+    ldap                    Running
+    logger                  Running
+    mailbox                 Running
+    mta                     Running
+    opendkim                Running
+    proxy                   Running
+    snmp                    Running
+    stats                   Running
+    zmconfigd               Running
+zimbra@mail2:~$
+</code></pre>
+<p>Karena port proxy akan diset untuk menggantikan yang existing, maka port existing harus diset berbeda untuk menghindari konflik.</p>
+<pre><code>zimbra@mail2:~$ zmprov ms `zmhostname` \                                                 
+&gt; zimbraImapBindPort 6143 \
+&gt; zimbraImapSSLBindPort 6993 \
+&gt; zimbraPop3BindPort 6110 \
+&gt; zimbraPop3SSLBindPort 6995 \
+&gt; zimbraMailSSLPort 6443 \
+&gt; zimbraMailPort 680
+coba cek, apakah sudah diset sama dengan diatas:
+
+zimbra@mail2:~$ zmprov -l gs `zmhostname` | grep -i port
+zimbraAdminImapImportNumThreads: 20
+zimbraAdminPort: 7071
+zimbraAdminProxyPort: 9071
+zimbraBackupReportEmailSubjectPrefix: ZCS Backup Report
+zimbraImapBindPort: 6143
+zimbraImapProxyBindPort: 7143
+zimbraImapSSLBindPort: 6993
+zimbraImapSSLProxyBindPort: 7993
+zimbraLmtpBindPort: 7025
+zimbraMailPort: 680
+zimbraMailProxyPort: 8080
+zimbraMailSSLClientCertPort: 9443
+zimbraMailSSLPort: 6443
+zimbraMailSSLProxyClientCertPort: 3443
+zimbraMailSSLProxyPort: 8443
+zimbraMemcachedBindPort: 11211
+zimbraMessageChannelPort: 7285
+zimbraMilterBindPort: 7026
+zimbraNotifyBindPort: 7035
+zimbraNotifySSLBindPort: 7036
+zimbraPop3BindPort: 6110
+zimbraPop3ProxyBindPort: 7110
+zimbraPop3SSLBindPort: 6995
+zimbraPop3SSLProxyBindPort: 7995
+zimbraRemoteManagementPort: 22
+zimbraSmtpPort: 25
+jika sudah, lalu restart zmcontrol:
+zimbra@mail2:~$ zmcontrol restart
+Host mail2.abc.co.id
+    Stopping vmware-ha...Done.
+    Stopping zmconfigd...Done.
+    Stopping stats...Done.
+    Stopping mta...Done.
+    Stopping spell...Done.
+    Stopping snmp...Done.
+    Stopping cbpolicyd...Done.
+    Stopping archiving...Done.
+    Stopping opendkim...Done.
+    Stopping antivirus...Done.
+    Stopping antispam...Done.
+    Stopping proxy...Done.
+    Stopping memcached...Done.
+    Stopping mailbox...Done.
+    Stopping logger...Done.
+    Stopping ldap...Done.
+Host mail2.abc.co.id
+    Starting ldap...Done.
+    Starting zmconfigd...Done.
+    Starting logger...Done.
+    Starting mailbox...Done.
+    Starting proxy...Done.
+    Starting antispam...Done.
+    Starting antivirus...Done.
+    Starting opendkim...Done.
+    Starting snmp...Done.
+    Starting mta...Done.
+    Starting stats...Done.
+zimbra@mail2:~$
+</code></pre>
+<p>lalu set port yang benar dan restart zimbra:</p>
+<pre><code>zimbra@mail2:~$ zmprov ms `zmhostname` \
+&gt; zimbraImapBindPort 7143 \
+&gt; zimbraImapProxyBindPort 143 \
+&gt; zimbraImapSSLBindPort 7993 \
+&gt; zimbraImapSSLProxyBindPort 993 \
+&gt; zimbraPop3BindPort 7110 \
+&gt; zimbraPop3ProxyBindPort 110 \
+&gt; zimbraPop3SSLBindPort 7995 \
+&gt; zimbraPop3SSLProxyBindPort 995 \
+&gt; zimbraMailSSLPort 7443 \
+&gt; zimbraMailSSLProxyPort 443 \
+&gt; zimbraReverseProxyHttpEnabled TRUE \
+&gt; zimbraMailProxyPort 80 \
+&gt; zimbraMailPort 8080 \
+&gt; zimbraMailMode https \
+&gt; zimbraReverseProxyMailMode https \
+&gt; zimbraReverseProxySSLToUpstreamEnabled TRUE
+You have new mail in /var/mail/zimbra
+zimbra@mail2:~$ zmcontrol restart
+Host mail2.abc.co.id
+    Stopping vmware-ha...Done.
+    Stopping zmconfigd...Done.
+    Stopping stats...Done.
+    Stopping mta...Done.
+    Stopping spell...Done.
+    Stopping snmp...Done.
+    Stopping cbpolicyd...Done.
+    Stopping archiving...Done.
+    Stopping opendkim...Done.
+    Stopping antivirus...Done.
+    Stopping antispam...Done.
+    Stopping proxy...Done.
+    Stopping memcached...Done.
+    Stopping mailbox...Done.
+    Stopping logger...Done.
+    Stopping ldap...Done.
+Host mail2.abc.co.id
+    Starting ldap...Done.
+    Starting zmconfigd...Done.
+    Starting logger...Done.
+    Starting mailbox...Done.
+    Starting proxy...Done.
+    Starting antispam...Done.
+    Starting antivirus...Done.
+    Starting opendkim...Done.
+    Starting snmp...Done.
+    Starting mta...Done.
+    Starting stats...Done.
+zimbra@mail2:~$
+</code></pre>
+<p>Setting SSL Config</p>
+<pre><code>zimbra@mail2:~$ zmprov mcf zimbraReverseProxySSLCiphers 'EECDH:EDH:SHA256:SHA384:!RC4:HIGH:!aNULL:!MD5:!kEDH:!AD:!SSLv2:!NULL:!3DES'
+</code></pre>
+<p>edit file-file berikut yang ada di /opt/zimbra/conf/nginx/templates/ . pastikan dibackup terlebih dahulu.</p>
+<pre><code>nginx.conf.mail.imaps.default.template
+nginx.conf.mail.imaps.template
+nginx.conf.mail.imap.default.template (for starttls)
+nginx.conf.mail.imap.template (for starttls)
+nginx.conf.mail.pop3s.default.template
+nginx.conf.mail.pop3s.template
+nginx.conf.mail.pop3.default.template (for starttls)
+nginx.conf.mail.pop3.template (for starttls)
+nginx.conf.mail.template
+nginx.conf.web.admin.default.template
+nginx.conf.web.admin.template
+nginx.conf.web.https.default.template
+nginx.conf.web.https.template
+nginx.conf.web.sso.default.template
+nginx.conf.web.sso.template
+</code></pre>
+<p>tambahkan setiap blok ssl dari setiap file diatas dengan opsi dibawah ini:</p>
+<pre><code>ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+</code></pre>
+<p>misal awal blok ssl seperti ini:</p>
+<pre><code> ssl                     on;
+ ssl_prefer_server_ciphers ${web.ssl.preferserverciphers};
+ ssl_ciphers             ${web.ssl.ciphers};
+ ssl_certificate         ${ssl.crt.default};
+ ssl_certificate_key     ${ssl.key.default};
+</code></pre>
+<p>akan menjadi seperti:</p>
+<pre><code> ssl                     on;
+ ssl_prefer_server_ciphers ${web.ssl.preferserverciphers};
+ ssl_ciphers             ${web.ssl.ciphers};
+ ssl_certificate         ${ssl.crt.default};
+ ssl_certificate_key     ${ssl.key.default};
+ ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+</code></pre>
+<p>khusus untuk file <code>nginx.conf.web.https.default.template</code> dan <code>nginx.conf.web.https.template</code> tambahkan seperti dibawah ini:</p>
+<pre><code>ssl on; 
+ssl_prefer_server_ciphers ${web.ssl.preferserverciphers}; 
+# Add extra items for A+ rating 
+ssl_protocols TLSv1 TLSv1.1 TLSv1.2; 
+add_header Strict-Transport-Security max-age=15768000; 
+ssl_ciphers ${web.ssl.ciphers};
+</code></pre>
+<p>lalu restart zmproxy:</p>
+<pre><code>zmproxyctl restart
+</code></pre>
+<ol>
+<li>Disable Weak SSL/TLS Cipher mailbox</li>
+</ol>
+<p>jalankan command dibawah ini:</p>
+<pre><code>zimbra@mail2:~$ zmprov mcf +zimbraSSLExcludeCipherSuites TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 \
+ +zimbraSSLExcludeCipherSuites TLS_DHE_RSA_WITH_AES_256_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites DHE-RSA-AES256-SHA  \
+ +zimbraSSLExcludeCipherSuites TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 \
+ +zimbraSSLExcludeCipherSuites DHE-RSA-AES256-SHA256 \
+ +zimbraSSLExcludeCipherSuites TLS_RSA_WITH_AES_256_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites SSL_RSA_WITH_DES_CBC_SHA  \
+ +zimbraSSLExcludeCipherSuites SSL_DHE_RSA_WITH_DES_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites SSL_DHE_DSS_WITH_DES_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites SSL_RSA_EXPORT_WITH_RC4_40_MD5 \
+ +zimbraSSLExcludeCipherSuites SSL_RSA_EXPORT_WITH_DES40_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites SSL_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites SSL_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites TLS_DHE_RSA_WITH_AES_128_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites TLS_RSA_WITH_AES_128_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites SSL_RSA_WITH_3DES_EDE_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites TLS_RSA_EXPORT_WITH_DES40_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites TLS_RSA_WITH_DES_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 \
+ +zimbraSSLExcludeCipherSuites TLS_RSA_WITH_AES_128_CBC_SHA256 \
+ +zimbraSSLExcludeCipherSuites TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 \
+ +zimbraSSLExcludeCipherSuites TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA \
+ +zimbraSSLExcludeCipherSuites TLS_RSA_WITH_AES_256_CBC_SHA256 
+zimbra@mail2:~$ zmproxyctl restart
+Stopping nginx...done.
+Starting nginx...done.
+You have new mail in /var/mail/zimbra
+zimbra@mail2:~$
+</code></pre>
+<p>lalu restart mailbox:</p>
+<pre><code>zimbra@mail2:~$ zmmailboxdctl restart
+Stopping mailboxd...done.
+Starting mailboxd...done.
+zimbra@mail2:~$
+</code></pre>
+<ol>
+<li>Patching OpenSSL</li>
+</ol>
+<p>pindah directory ke <code>/tmp/</code> lalu download file <code>"http://files.zimbra.com/downloads/security/zmopenssl-updater.sh"</code></p>
+<pre><code>root@mail2:/opt/zimbra/conf/nginx/templates# cd /tmp/
+root@mail2:/tmp# wget -c "http://files.zimbra.com/downloads/security/zmopenssl-updater.sh"
+--2015-04-07 12:58:22--  http://files.zimbra.com/downloads/security/zmopenssl-updater.sh
+Resolving files.zimbra.com (files.zimbra.com)... 54.230.159.200
+Connecting to files.zimbra.com (files.zimbra.com)|54.230.159.200|:80... connected.
+HTTP request sent, awaiting response... 301 Moved Permanently
+Location: https://files.zimbra.com/downloads/security/zmopenssl-updater.sh [following]
+--2015-04-07 12:58:26--  https://files.zimbra.com/downloads/security/zmopenssl-updater.sh
+Connecting to files.zimbra.com (files.zimbra.com)|54.230.159.200|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 2788 (2.7K) [application/x-unknown-content-type]
+Saving to: `zmopenssl-updater.sh'
+100%[==============================================================================================================================&gt;] 2,788       --.-K/s   in 0s      
+2015-04-07 12:58:31 (697 MB/s) - `zmopenssl-updater.sh' saved [2788/2788]
+
+beri permission lalu eksekusi:
+root@mail2:/tmp# chmod a+rx zmopenssl-updater.sh
+root@mail2:/tmp# ./zmopenssl-updater.sh 
+Downloading patched openssl
+Validating patched openssl: success
+Backing up old openssl: complete
+Installing patched openssl: complete
+OpenSSL patch process complete.
+Please restart Zimbra Collaboration Suite as the Zimbra user via zmcontrol restart
+root@mail2:/tmp#
+</code></pre>
+<p>restart zimbra dengan zmcontrol lalu check versi openssl:</p>
+<pre><code>zimbra@mail2:~$ zmcontrol restart
+Host mail2.abc.co.id
+    Stopping vmware-ha...Done.
+    Stopping zmconfigd...Done.
+    Stopping stats...Done.
+    Stopping mta...Done.
+    Stopping spell...Done.
+    Stopping snmp...Done.
+    Stopping cbpolicyd...Done.
+    Stopping archiving...Done.
+    Stopping opendkim...Done.
+    Stopping antivirus...Done.
+    Stopping antispam...Done.
+    Stopping proxy...Done.
+    Stopping memcached...Done.
+    Stopping mailbox...Done.
+    Stopping logger...Done.
+    Stopping ldap...Done.
+Host mail2.abc.co.id
+    Starting ldap...Done.
+    Starting zmconfigd...Done.
+    Starting logger...Done.
+    Starting mailbox...Done.
+    Starting proxy...Done.
+    Starting antispam...Done.
+    Starting antivirus...Done.
+    Starting opendkim...Done.
+    Starting snmp...Done.
+    Starting mta...Done.
+    Starting stats...Done.
+zimbra@mail2:~$ openssl version
+OpenSSL 1.0.1h 5 Jun 2014
+You have new mail in /var/mail/zimbra
+zimbra@mail2:~$
+</code></pre>
+<p><em>Testing</em>
+untuk testing:</p>
+<pre><code>root@mail2:/opt/zimbra/conf/nginx/templates# openssl s_time -connect localhost:443 -new -cipher AES256-SHA
+Collecting connection statistics for 30 seconds
+ERROR
+140543357974176:error:14094410:SSL routines:SSL3_READ_BYTES:sslv3 alert handshake failure:s3_pkt.c:1247:SSL alert number 40
+root@mail2:/opt/zimbra/conf/nginx/templates#
+</code></pre>
+<p>dengan for loop</p>
+<pre><code>zimbra@mail2:~$ for p in 993 995 443 ; do echo Port $p ; timeout 3 openssl s_client -connect `zmhostname`:$p -ssl3 |grep failure ; done
+Port 993
+140567794857632:error:14094410:SSL routines:SSL3_READ_BYTES:sslv3 alert handshake failure:s3_pkt.c:1275:SSL alert number 40
+140567794857632:error:1409E0E5:SSL routines:SSL3_WRITE_BYTES:ssl handshake failure:s3_pkt.c:598:
+Port 995
+140486668211872:error:14094410:SSL routines:SSL3_READ_BYTES:sslv3 alert handshake failure:s3_pkt.c:1275:SSL alert number 40
+140486668211872:error:1409E0E5:SSL routines:SSL3_WRITE_BYTES:ssl handshake failure:s3_pkt.c:598:
+Port 443
+140321034884768:error:14094410:SSL routines:SSL3_READ_BYTES:sslv3 alert handshake failure:s3_pkt.c:1275:SSL alert number 40
+140321034884768:error:1409E0E5:SSL routines:SSL3_WRITE_BYTES:ssl handshake failure:s3_pkt.c:598:
+You have new mail in /var/mail/zimbra
+</code></pre>
+<p>atau bisa via ssl labs</p>
+<p><img alt="gradessl" src="https://cloud.githubusercontent.com/assets/275259/8274561/69603ff2-18be-11e5-870b-5f0fbd8b9393.png" /></p>
+<p>selesai</p>
+<p>ref:
+ 1. http://blog.capitar.com/getting-a-better-zimbra-ssl-labs-rating/
+ 2. https://wiki.zimbra.com/wiki/How_to_disable_SSLv3
+ 3. http://wiki.zimbra.com/wiki/ShanxT-Removing-Insecure-SSL-Ciphers
+ 4. http://forums.zimbra.com/announcements/73677-20140606-zimbra-security-advisory-cve-2014-0224-ccs-injection-vulnerability.html </p>
+              
+            </div>
+          </div>
+          <div id="disqus_thread"></div>
+<script>
+
+if ( mkdocs_page_url == "/" ) {
+
+}
+else {
+    
+    var disqus_config = function () {
+        this.page.url = blog.dgprasetya.com; 
+        this.page.identifier = mkdocs_page_url; 
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//blog-dgprasetya-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+
+}
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<footer>             
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../zimbra-mailbox-usages-report/" class="btn btn-neutral float-right" title="Zimbra - Mailbox Usages Report">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../zimbra-AHBL-scoring-issue/" class="btn btn-neutral" title="Zimbra - DNS AHBL Scoring issue"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright (c) 2020 dgprasetya</p>
+    
+  </div>
+
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="https://github.com/snide/sphinx_rtd_theme" target="_blank">Sphinx ReadTheDocs</a> 
+            theme, <a href="https://about.gitlab.com/gitlab-ci/">Gitlab CI</a>, 
+            <a href="https://hub.docker.com/r/devunix/alpine-mkdocs/">Docker Python Stack</a> 
+            dan <a href="https://github.com/deanet/deanet.github.com">Github Pages</a><br/>
+  <br/>
+  Hiring SysAdmin to fix your issues ? <a href="https://www.dgprasetya.com/contactme.html" target="_blank">Contact Me</a> :)
+</footer>
+
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../zimbra-AHBL-scoring-issue/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../zimbra-mailbox-usages-report/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

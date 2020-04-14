@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="dgprasetya">
+  
+  <title>Zimbra - build RBL DNS untuk anti spam based ip address - blog.dgprasetya.com</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/extra.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Zimbra - build RBL DNS untuk anti spam based ip address";
+    var mkdocs_page_input_path = "dns-build-RBL-DNS-untuk-anti-spam-based-ip-address.md";
+    var mkdocs_page_url = "/dns-build-RBL-DNS-untuk-anti-spam-based-ip-address/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-55420243-2', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> blog.dgprasetya.com</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Index</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ci-cd-with-gitlab/">CI/CD with Gitlab</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../net-boot-ipxe-docker-tomcat-centos-coreos/">Docker auto setup via IPXE for Centos and Core OS</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-connect-two-instances-with-ip-private-via-vpc-peering/">GCP - How to connect two instances with IP Private via VPC Peering</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-multiple-nics-with-vpc-peering/">GCP - How to connect Multiple Nics with VPC Peering at Google Cloud Platform</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../kimsufi-dns-ipv6-openvz-promox/">OVH - Build DNS Server IPV6 dengan DBNDNS di Kimsufi menggunakan OpenVZ Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-7-network-configuration-without-network-manager/">OVH - Centos 7 Network configuration without network manager daemon</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-upgrade-7-to-8/">Centos - Upgrade from 7 to 8</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ceph-osds-troubleshooting/">OpenStack - Ceph OSDS Troubleshooting</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../freebsd-11-upgrade-to-12/">FreeBSD - Upgrade from 11 to 12</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lets-encrypt-autossl-wildcard-acme.sh/">Lets Encrypt - Create wildcard ssl with acme.sh</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-from-rocky-to-stein/">OpenStack - Upgrade from Rocky to Stein Release</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-integrasi-ceph-dengan-openstack/">OpenStack - Integrasi dengan Ceph Cluster</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-ceph-mimic-ke-nautilus/">OpenStack - Upgrade Ceph Mimic ke Nautilus</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-install-with-packstack-puppet/">OpenStack - Install OpenStack dengan PackStack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7/">VMWare  - How to upgrade Esxi 5.5 to 6.7 </a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7-vum/">VMWare  - How to upgrade Esxi 5.5 to 6.7 with VCenter Update Manager</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Patch-Upgrade-ESXi-15018017-to-latest-build/">VMWare - Patch Upgrade ESXi 15018017 ke latest version</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../proxmox-extend-lvm-partition/">Proxmox - How to extend LVM Partition on Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../promox-extend-lvm-partition-ofly/">Promox - How to extend LVM Partition VM Proxmox on the Fly</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-native-smtp-server-dengan-support-submission-authentication/">Postfix - Build native Postix smtp server dengan support submission authentication</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth/">Postfix - Build load balancer native smtp server dengan postfix dan saslauth</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-add-intermediate-cert-untuk-trusted-android/">RapidSSL - Menambahkan Intermediate Cert agar Trusted Cert Security di Android</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vestacp-exim-roundcube-manage-sieve-plugins-setting/">VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-clustering-large-deployment-mail-servers/">Zimbra - Clustering large deployment Mail Servers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zabbix-install-4.4-version/">Zabbix - Install zabbix latest version with Telegram Notifications</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-server-performance-dan-Tuning/">Zimbra - Set Performance dan Tuning</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../reject-fake-email-dari-certain-domain/">Zimbra - Reject Fake Email Certain Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../rate-limit-user-mail-server-zimbra/">Zimbra - Rate Limit user di Mail server Zimbra</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-queue/">Zimbra - Monitoring Queue Mail</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Zimbra - build RBL DNS untuk anti spam based ip address</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#build-rbl-dns-untuk-anti-spam-based-ip-address">build RBL DNS untuk anti spam based ip address</a></li>
+                
+                    <li><a class="toctree-l4" href="#requirements">Requirements:</a></li>
+                
+                    <li><a class="toctree-l4" href="#mysql-server-menggunakan-mysql-server-pastikan-telah-terinstall-dengan-baik-pada-percobaan-kali-ini-dengan-os-centos-65">MySQL server. Menggunakan mysql server. pastikan telah terinstall dengan baik. pada percobaan kali ini dengan Os CentOs 6.5</a></li>
+                
+                    <li><a class="toctree-l4" href="#installasi">installasi</a></li>
+                
+                    <li><a class="toctree-l4" href="#konfigurasi">Konfigurasi</a></li>
+                
+                    <li><a class="toctree-l4" href="#create-file-konfig">create file konfig</a></li>
+                
+                    <li><a class="toctree-l4" href="#setting-ns-record">setting NS record</a></li>
+                
+                    <li><a class="toctree-l4" href="#testing">Testing:</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-enable-original-ip-nginx-proxy/">Zimbra - Enable Original IP Public Nginx Proxy</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-setting-glusterfs-untuk-backup-mail-account/">Zimbra - setup GlusterFS untuk NFS sharing backup email account zimbra di Ubuntu 12.04</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-diagnosa-vmware-55-psod-kernel-panic/">Zimbra - Diagnosa kernel Panic PSOD VMware 5.5 HP StoreEasy 1430 Storage</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-black-list-domain/">Zimbra - black list domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-disclaimer/">Zimbra - Setting Disclaimer</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-backup-restore/">Zimbra - Cara Backup dan Restore Mail Account</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-build-saml-server-untuk-google-apps/">Zimbra - Build SAML server untuk google apps</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-AHBL-scoring-issue/">Zimbra - DNS AHBL Scoring issue</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-poddle-attack/">Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mailbox-usages-report/">Zimbra - Mailbox Usages Report</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-trusted-domain-zimbra/">Zimbra - Menambahkan Trusted Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-unusual-login-activity/">Zimbra - Unusual Login Activity</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-milter-reject/">Zimbra - message milter-reject: END-OF-MESSAGE</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-filter-sender-dl/">Zimbra - filter sender distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-reset-password-ldap-admin/">Zimbra - Reset Password zimbra ldap admin</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-update-ssl-non-wilcard-ke-wildcard/">Zimbra - Update ssl non wildcard ke wildcard</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-send-as-distribution-list/">Zimbra - send as distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-create-mass-account-mail-via-CLI/">Zimbra - Create mass Account Mail via CLI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-relay-certain-domain-to-exim/">Zimbra - Relay certain domain to Exim via ESMTP</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install/">Gammu - Installation</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install-configure-playsms/">Gammu - Install dan Configure PlaySMS Web Interface</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-configure-multiple-modem-playsms/">Gammu - How to configure multiple modem PlaySMS Gammu</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cpanel-force-ssl-username/">CPanel - How to force generate autossl for the user CPanel</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-osticket/">Nginx - Osticket</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-PageSpeed-module/">Nginx - Build PageSpeed Module for Nginx di Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-conf-dan-server-xml-tomcat-SSL-Jira/">Nginx - conf dan server.xml tomcat SSL Jira</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../wazuh-monitoring-log-management/">Wazuh - Monitoring dan Log Management</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">blog.dgprasetya.com</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Zimbra - build RBL DNS untuk anti spam based ip address</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="build-rbl-dns-untuk-anti-spam-based-ip-address">build RBL DNS untuk anti spam based ip address</h1>
+<h3 id="requirements">Requirements:</h3>
+<h3 id="mysql-server-menggunakan-mysql-server-pastikan-telah-terinstall-dengan-baik-pada-percobaan-kali-ini-dengan-os-centos-65">MySQL server. Menggunakan mysql server. pastikan telah terinstall dengan baik. pada percobaan kali ini dengan Os CentOs 6.5</h3>
+<p>persiapkan database, username dan password untuk akses mysql. create database misal: rbldns</p>
+<pre><code>mysql&gt; create database rbldns;
+mysql&gt; grant all privileges on rbldns.* to 'rbldns'@'localhost' identified by 'rbl1231';
+lalu create table ips di database rbldns;
+CREATE TABLE `ips` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `ipaddress` varchar(40) NOT NULL DEFAULT '',
+  `dateadded` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `reportedby` varchar(40) DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  `attacknotes` text,
+  `b_or_w` char(1) NOT NULL DEFAULT 'b',
+  PRIMARY KEY (`id`),
+  KEY `dateadded` (`dateadded`),
+  KEY `b_or_w` (`b_or_w`)
+) ENGINE=MyISAM AUTO_INCREMENT=189220 DEFAULT CHARSET=latin1 COMMENT='spammer list';
+</code></pre>
+<p>sampai di sini database untuk rbl dns sudah siap.
+RBL DNS daemon. menggunakan rbldnsd (http://www.corpit.ru/mjt/rbldnsd.html).</p>
+<h3 id="installasi">installasi</h3>
+<pre><code># wget -c "http://www.corpit.ru/mjt/rbldnsd/rbldnsd-0.997a.tar.gz"
+# tar -xvf rbldnsd-0.997a.tar.gz 
+# cd rbldnsd-0.997a
+# ./configure 
+# make
+# cp -a rbldnsd /usr/local/sbin/rbldnsd
+</code></pre>
+<h3 id="konfigurasi">Konfigurasi</h3>
+<p>tambahkan user rbldns yang akan digunakan sebagai daemon user:</p>
+<pre><code>useradd rbldns
+</code></pre>
+<p>create directory</p>
+<pre><code># mkdir -p /var/lib/rbldns/{dsbl,log}
+</code></pre>
+<h3 id="create-file-konfig">create file konfig</h3>
+<pre><code># touch /var/lib/rbldns/dsbl/{dsbl,rbl,forward,spammerlist,whitelist,rbl.log}
+# touch /var/lib/rbldns/log/rbl.log
+</code></pre>
+<p>unduh file rebuild rbldns yang akan digunakan untuk export dari mysql ke dalam bentuk file txt (spammerlist).</p>
+<pre><code># wget -O /usr/local/bin/rebuild_rbldns.pl http://www.blue-quartz.com/rbl/rebuild_rbldns.txt
+</code></pre>
+<p>chmod 750 lalu edit</p>
+<pre><code># chmod 750 /usr/local/bin/rebuild_rbldns.pl
+# vim /usr/local/bin/rebuild_rbldns.pl
+</code></pre>
+<p>edit user, pass, nama database yang sesuai.</p>
+<pre><code>#!/usr/bin/perl
+# rebuild_rbldns.pl
+# Copyright (c) 2006 by Herb Rubin herbr@pfinders.com covered under GPL license
+$version = "1.01"; # Mar 20, 2009
+#
+# Purpose: rebuild a flatfile of IP addresses from mysql ips table for RBL blacklist server
+# Expects: database table named ips
+#
+# CREATE TABLE `ips` (
+#  `ipaddress` varchar(15) NOT NULL default '',
+#  `dateadded` datetime NOT NULL default '0000-00-00 00:00:00',
+#  `reportedby` varchar(40) default NULL,
+#  `updated` datetime default NULL,
+#  `attacknotes` text,
+#  `b_or_w` char(1) NOT NULL default 'b',
+#  PRIMARY KEY  (`ipaddress`),
+#  KEY `dateadded` (`dateadded`),
+#  KEY `b_or_w` (`b_or_w`)
+#) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='spammer list';
+#
+# Begin User Defined Section
+#----------------------------
+my $blacklist_file = "/var/lib/rbldns/dsbl/spammerlist";
+my $whitelist_file = "/var/lib/rbldns/dsbl/whitelist";
+my $rbl_domain     = "rbldns.abc.co.id";
+my $mysql_user     = "rbldns";
+my $mysql_pass     = "pass";
+my $mysql_database = "rbldns";
+my $mysql_host     = "localhost";
+my $datasource     = "dbi:mysql:database=$mysql_database;host=$mysql_host";
+my $temp_file      = "/var/lib/rbldns/dsbl/templist";
+#----------------------------
+# End User Defined Section
+$progname = $0;
+$progname = $1 if ($progname =~ /([\w\._]+)$/); # trim off path
+use Getopt::Std;
+use DBI;
+
+$pid = $$;
+&amp;getopts("fhvV",\%Options);
+&amp;usage if ($Options{'h'}); # then exit
+my $dbh;
+
+if ($Options{"V"}) {
+    print "$progname version $version\n";
+    exit 0; # good exit
+}
+if ($dbh = DBI-&gt;connect($datasource, $mysql_user, $mysql_pass, { PrintError =&gt; 0, RaiseError =&gt; 0 }) ) {
+    #########################
+    # Logged in to database #
+    #########################
+    &amp;build_file($blacklist_file, "b"); 
+    &amp;build_file($whitelist_file, "w");
+    $dbh-&gt;disconnect;
+} else {
+    #################################
+    # failed to connect to database #
+    #################################
+    print DBI-&gt;errstr . "\n" if ($Options{'v'});
+    print "Error: Could not connect to local MySQL database. (did password change?)\n";
+    exit 1; # bad exit
+}
+exit;
+##########################
+# subroutines start here #
+##########################
+sub usage {
+    print &lt;&lt;EOF;
+$progname usage:
+
+   $progname [-hmtvV]
+   Rebuild the rbl dns flat file from a mysql database.
+   rbl means relay blacklist.
+
+   Recommendation: Run this as a cronjob on a regular basis.
+ where:
+    -h         Display this help
+    -v         Verbose mode
+    -V         Show $progname version.
+EOF
+}
+sub build_file {
+###########################################################
+# create a file from mysql, either blacklist or whitelist #
+###########################################################
+  my ($file, $type) = @_;
+  if (open RBL, "&gt;$temp_file") {
+      #########################################
+      # first line of file is always the same #
+      #########################################
+      print RBL ":127.0.0.2:spammer must die -netsysadmin k24-\n";
+      my $sql = "SELECT ipaddress FROM ips WHERE b_or_w='$type' ORDER BY dateadded, ipaddress";
+      my $sth = $dbh-&gt;prepare($sql);
+      $sth-&gt;execute;
+      my $count = 0;
+      while ($hash_ref   = $sth-&gt;fetchrow_hashref) {
+         my $ipaddress   = $$hash_ref{'ipaddress'};
+         #my $dateadded   = $$hash_ref{'dateadded'};
+         #my $reportedby  = $$hash_ref{'reportedby'};
+         #my $updated     = $$hash_ref{'updated'};
+         #my $attacknotes = $$hash_ref{'attacknotes'};
+         #my $borw        = $$hash_ref{'borw'};
+         $count ++;
+         if ($type eq "w") {
+             print RBL "!$ipaddress\n";
+         } else {
+             print RBL "$ipaddress\n";
+         }
+      }
+      close RBL;
+      `mv $temp_file $file`;
+      print "$count ips of type $type\n" if ($Options{'v'});
+  } else {
+      print "Failed to open $file for writing\n";
+  }
+}
+</code></pre>
+<p>create file script daemon untuk rbl dns seperti dibawah ini:
+simpan dengan nama /etc/sysconfig/rbldnsd:</p>
+<pre><code># My boot rbldnsd options
+# -----------------------------------------
+# TTL 35m, check files every 60s for changes, -f = smooth reloads
+# -l logfilepath
+# Please change 101.102.103.104 to your real public IP that you want the dns daemon to listen on
+# Please change mydomain.com to your real domain name.
+#
+#RBLDNSD="-u rbldnsd -l /var/lib/rbldns/log/rbl.log -f -r/var/lib/rbldns/dsbl -b 192.168.1.50 rbldns.abc.co.id:ip4set:spammerlist,whitelist rbldns.abc.co.id:generic:forward"
+OPTIONS="-u rbldns -p /var/run/rbldnsd.pid -l /var/lib/rbldns/log/rbl.log -f -r/var/lib/rbldns/dsbl -b 0.0.0.0 rbldns.abc.co.id:ip4set:spammerlist,whitelist rbldns.abc.co.id:generic:forward"
+</code></pre>
+<p>simpan dengan nama /etc/init.d/rbldnsd:</p>
+<pre><code>#!/bin/bash
+#
+# chkconfig: 2345 85 15
+# description: rbldnsd is a DNS server designed for dnsbls.  
+# processname: rbldnsd
+# pidfile: /var/run/rbldnsd.pid
+# source function library
+. /etc/init.d/functions
+
+prog="rbldnsd"
+lockfile=/var/lock/subsys/$prog
+PID_FILE=/var/run/rbldnsd.pid
+[ -e /etc/sysconfig/rbldnsd ] &amp;&amp; . /etc/sysconfig/rbldnsd 
+RETVAL=0
+start() {
+        echo -n $"Starting rbldnsd service: "
+        daemon /usr/local/sbin/rbldnsd $OPTIONS
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] &amp;&amp; touch /var/lock/subsys/rbldnsd
+}
+stop() {
+        echo -n $"Shutting down rbldnsd service: "
+        killproc rbldnsd
+        RETVAL=$?
+        echo
+        [ $RETVAL -eq 0 ] &amp;&amp; rm -f /var/lock/subsys/rbldnsd
+}
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        stop
+        start
+        RETVAL=$?
+        ;;
+  condrestart)
+        if [ -f /var/lock/subsys/rbldnsd ]; then
+            stop
+            start
+            RETVAL=$?
+        fi
+        ;;
+  status)
+        status -p $PID_FILE rbldnsd
+        RETVAL=$?
+                if [ $RETVAL -eq 3 -a -f $lockfile ] ; then
+                        RETVAL=2
+                fi
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+        exit 1
+esac
+exit $RETVAL
+</code></pre>
+<p>start daemon rbldns</p>
+<pre><code># chmod a+x /etc/init.d/rbldnsd
+# /etc/init.d/rbldnsd start
+</code></pre>
+<p>lalu cek service apakah sudah listen atau belum:</p>
+<pre><code>[root@rbldns ~]# netstat -ntlpu | grep rbldns
+udp        0      0 0.0.0.0:53                  0.0.0.0:*                               7237/rbldnsd        
+[root@rbldns ~]#
+</code></pre>
+<p>Jika sudah listen smpai dengan langkah ini sudah ready untuk digunakan.</p>
+<p><strong>Setting DNS untuk rbldns.abc.co.id</strong></p>
+<p>Agar RBL DNS dapat digunakan di mail server, khususnya zimbra maka kita perlu menambahkan dns ns record rbldns.abc.co.id (misalnya) ke dns manager dari abc.co.id</p>
+<h3 id="setting-ns-record">setting NS record</h3>
+<p><img alt="nsrbl" src="https://cloud.githubusercontent.com/assets/275259/8274630/8a324eb8-18bf-11e5-8f4e-adc823e1b252.png" /></p>
+<p>lalu setting a records daripada a.rbldns.abc.co.id</p>
+<p><img alt="arecordsrbl" src="https://cloud.githubusercontent.com/assets/275259/8274632/8d2e6552-18bf-11e5-8ea0-a07387ef7f41.png" /></p>
+<p>Pastikan Firewall Mikrotik sudah disetup port forwarding 53 udp dari ip  202.169.239.180 ke ip internal 192.168.1.50</p>
+<h3 id="testing">Testing:</h3>
+<p>Untuk menguji apakah RBL DNS sudah berjalan sebelum diterapkan di mail server bisa dengan cara berikut:
+insert ip dengan perintah:</p>
+<pre><code>mysql&gt; INSERT INTO ips SET  ipaddress='207.126.164.135',  reportedby='manual',  attacknotes='spammers',  b_or_w='b',  dateadded=now(),  updated=now();"
+Jika sudah, lalu build dan restart services rbldnsd:
+[root@rbldns tmp]# /usr/local/bin/rebuild_rbldns.pl;/etc/init.d/rbldnsd restart
+Shutting down rbldnsd service:                             [  OK  ]
+Starting rbldnsd service: rbldnsd: listening on 0.0.0.0/53
+rbldnsd: ip4set:spammerlist,whitelist: 20150518 022140: e32/24/16/8=189204/0/0/0
+rbldnsd: generic:forward: 20140617 122159: e=0
+rbldnsd: zones reloaded, time 0.2e/0.2u sec, mem arena=280 free=129 mmap=2960 Kb
+rbldnsd: rbldnsd version 0.997a (23 Jul 2013) started (1 socket(s), 1 zone(s))
+                                                           [  OK  ]
+[root@rbldns tmp]#
+</code></pre>
+<p>cek file spammerlist</p>
+<pre><code>[root@rbldns ~]# cat /var/lib/rbldns/dsbl/spammerlist | grep 207.126.164.135
+207.126.164.135
+[root@rbldns ~]#
+</code></pre>
+<p>ip yang diblok sudah masuk kedalam list,.</p>
+<p>cek terakhir via lookup dig dns.</p>
+<pre><code>dian@it-infra ~ $ dig 135.164.126.207.rbldns.abc.co.id @202.169.239.180
+; &lt;&lt;&gt;&gt; DiG 9.9.5-3-Ubuntu &lt;&lt;&gt;&gt; 135.164.126.207.rbldns.abc.co.id @202.169.239.180
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 64533
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 1, ADDITIONAL: 2
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;135.164.126.207.rbldns.abc.co.id. IN   A
+;; ANSWER SECTION:
+135.164.126.207.rbldns.abc.co.id. 2100 IN A 127.0.0.2
+;; AUTHORITY SECTION:
+rbldns.abc.co.id.   1800    IN  NS  a.rbldns.abc.co.id.
+;; ADDITIONAL SECTION:
+a.rbldns.abc.co.id. 1800    IN  A   202.169.239.180
+;; Query time: 302 msec
+;; SERVER: 202.169.239.180#53(202.169.239.180)
+;; WHEN: Mon May 18 10:21:36 WIB 2015
+;; MSG SIZE  rcvd: 109
+</code></pre>
+<p>Jika ada answer, dengan results 127.0.0.2 , maka ip sudah masuk ke RBL DNS. dan sudah bekerja dengan baik. Jika tidak ada results, maka ip tidak diblok.</p>
+<pre><code>dian@it-infra ~ $ dig 35.64.102.117.rbldns.abc.co.id @202.169.239.180
+; &lt;&lt;&gt;&gt; DiG 9.9.5-3-Ubuntu &lt;&lt;&gt;&gt; 35.64.102.117.rbldns.abc.co.id @202.169.239.180
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NXDOMAIN, id: 50561
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;35.64.102.117.rbldns.abc.co.id.    IN  A
+;; Query time: 134 msec
+;; SERVER: 202.169.239.180#53(202.169.239.180)
+;; WHEN: Mon May 18 10:23:38 WIB 2015
+;; MSG SIZE  rcvd: 59
+dian@it-infra ~ $
+</code></pre>
+<p>Langkah terakhir memasang RBL DNS di zimbra mudah sekali, cukup seperti digambar bawah ini lalu save dan restart services </p>
+<p><img alt="zimbrarbldns" src="https://cloud.githubusercontent.com/assets/275259/8274662/caf44d98-18bf-11e5-80bb-7b085b64d99f.png" /></p>
+<p><strong>restart services amavis dan milter</strong></p>
+<pre><code>zmamavisdctl reload
+zmmtactl reload
+</code></pre>
+<p>Results:</p>
+<p><img alt="blockeddns" src="https://cloud.githubusercontent.com/assets/275259/8274667/d228a456-18bf-11e5-916f-617ca20cb7aa.png" /></p>
+<p>ref: 
+<a href="http://www.blue-quartz.com/rbl/">http://www.blue-quartz.com/rbl/</a></p>
+              
+            </div>
+          </div>
+          <div id="disqus_thread"></div>
+<script>
+
+if ( mkdocs_page_url == "/" ) {
+
+}
+else {
+    
+    var disqus_config = function () {
+        this.page.url = blog.dgprasetya.com; 
+        this.page.identifier = mkdocs_page_url; 
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//blog-dgprasetya-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+
+}
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<footer>             
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../zimbra-enable-original-ip-nginx-proxy/" class="btn btn-neutral float-right" title="Zimbra - Enable Original IP Public Nginx Proxy">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../zimbra-mail-queue/" class="btn btn-neutral" title="Zimbra - Monitoring Queue Mail"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright (c) 2020 dgprasetya</p>
+    
+  </div>
+
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="https://github.com/snide/sphinx_rtd_theme" target="_blank">Sphinx ReadTheDocs</a> 
+            theme, <a href="https://about.gitlab.com/gitlab-ci/">Gitlab CI</a>, 
+            <a href="https://hub.docker.com/r/devunix/alpine-mkdocs/">Docker Python Stack</a> 
+            dan <a href="https://github.com/deanet/deanet.github.com">Github Pages</a><br/>
+  <br/>
+  Hiring SysAdmin to fix your issues ? <a href="https://www.dgprasetya.com/contactme.html" target="_blank">Contact Me</a> :)
+</footer>
+
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../zimbra-mail-queue/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../zimbra-enable-original-ip-nginx-proxy/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

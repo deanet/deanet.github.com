@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="dgprasetya">
+  
+  <title>OpenStack - Integrasi dengan Ceph Cluster - blog.dgprasetya.com</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/extra.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "OpenStack - Integrasi dengan Ceph Cluster";
+    var mkdocs_page_input_path = "openstack-integrasi-ceph-dengan-openstack.md";
+    var mkdocs_page_url = "/openstack-integrasi-ceph-dengan-openstack/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-55420243-2', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> blog.dgprasetya.com</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Index</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ci-cd-with-gitlab/">CI/CD with Gitlab</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../net-boot-ipxe-docker-tomcat-centos-coreos/">Docker auto setup via IPXE for Centos and Core OS</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-connect-two-instances-with-ip-private-via-vpc-peering/">GCP - How to connect two instances with IP Private via VPC Peering</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-multiple-nics-with-vpc-peering/">GCP - How to connect Multiple Nics with VPC Peering at Google Cloud Platform</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../kimsufi-dns-ipv6-openvz-promox/">OVH - Build DNS Server IPV6 dengan DBNDNS di Kimsufi menggunakan OpenVZ Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-7-network-configuration-without-network-manager/">OVH - Centos 7 Network configuration without network manager daemon</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-upgrade-7-to-8/">Centos - Upgrade from 7 to 8</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ceph-osds-troubleshooting/">OpenStack - Ceph OSDS Troubleshooting</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../freebsd-11-upgrade-to-12/">FreeBSD - Upgrade from 11 to 12</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lets-encrypt-autossl-wildcard-acme.sh/">Lets Encrypt - Create wildcard ssl with acme.sh</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-from-rocky-to-stein/">OpenStack - Upgrade from Rocky to Stein Release</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">OpenStack - Integrasi dengan Ceph Cluster</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#pengantar">Pengantar</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#topology">Topology</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#requierements">Requierements</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#installasi-ceph-cluster">Installasi CEPH Cluster</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#integrasi-ceph-cluster-dengan-openstack-rocky">Integrasi Ceph Cluster dengan OpenStack Rocky</a></li>
+                
+                    <li><a class="toctree-l4" href="#install-requierements">Install requierements</a></li>
+                
+                    <li><a class="toctree-l4" href="#setup-cinder">Setup Cinder</a></li>
+                
+                    <li><a class="toctree-l4" href="#setup-glance">Setup Glance</a></li>
+                
+                    <li><a class="toctree-l4" href="#nova-compute">Nova compute</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#hasil-openstack-yang-sudah-terkoneksi-dengan-ceph-cluster">Hasil OpenStack yang sudah terkoneksi dengan Ceph Cluster</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-ceph-mimic-ke-nautilus/">OpenStack - Upgrade Ceph Mimic ke Nautilus</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-install-with-packstack-puppet/">OpenStack - Install OpenStack dengan PackStack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7/">VMWare  - How to upgrade Esxi 5.5 to 6.7 </a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7-vum/">VMWare  - How to upgrade Esxi 5.5 to 6.7 with VCenter Update Manager</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Patch-Upgrade-ESXi-15018017-to-latest-build/">VMWare - Patch Upgrade ESXi 15018017 ke latest version</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../proxmox-extend-lvm-partition/">Proxmox - How to extend LVM Partition on Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../promox-extend-lvm-partition-ofly/">Promox - How to extend LVM Partition VM Proxmox on the Fly</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-native-smtp-server-dengan-support-submission-authentication/">Postfix - Build native Postix smtp server dengan support submission authentication</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth/">Postfix - Build load balancer native smtp server dengan postfix dan saslauth</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-add-intermediate-cert-untuk-trusted-android/">RapidSSL - Menambahkan Intermediate Cert agar Trusted Cert Security di Android</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vestacp-exim-roundcube-manage-sieve-plugins-setting/">VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-clustering-large-deployment-mail-servers/">Zimbra - Clustering large deployment Mail Servers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zabbix-install-4.4-version/">Zabbix - Install zabbix latest version with Telegram Notifications</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-server-performance-dan-Tuning/">Zimbra - Set Performance dan Tuning</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../reject-fake-email-dari-certain-domain/">Zimbra - Reject Fake Email Certain Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../rate-limit-user-mail-server-zimbra/">Zimbra - Rate Limit user di Mail server Zimbra</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-queue/">Zimbra - Monitoring Queue Mail</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../dns-build-RBL-DNS-untuk-anti-spam-based-ip-address/">Zimbra - build RBL DNS untuk anti spam based ip address</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-enable-original-ip-nginx-proxy/">Zimbra - Enable Original IP Public Nginx Proxy</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-setting-glusterfs-untuk-backup-mail-account/">Zimbra - setup GlusterFS untuk NFS sharing backup email account zimbra di Ubuntu 12.04</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-diagnosa-vmware-55-psod-kernel-panic/">Zimbra - Diagnosa kernel Panic PSOD VMware 5.5 HP StoreEasy 1430 Storage</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-black-list-domain/">Zimbra - black list domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-disclaimer/">Zimbra - Setting Disclaimer</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-backup-restore/">Zimbra - Cara Backup dan Restore Mail Account</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-build-saml-server-untuk-google-apps/">Zimbra - Build SAML server untuk google apps</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-AHBL-scoring-issue/">Zimbra - DNS AHBL Scoring issue</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-poddle-attack/">Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mailbox-usages-report/">Zimbra - Mailbox Usages Report</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-trusted-domain-zimbra/">Zimbra - Menambahkan Trusted Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-unusual-login-activity/">Zimbra - Unusual Login Activity</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-milter-reject/">Zimbra - message milter-reject: END-OF-MESSAGE</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-filter-sender-dl/">Zimbra - filter sender distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-reset-password-ldap-admin/">Zimbra - Reset Password zimbra ldap admin</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-update-ssl-non-wilcard-ke-wildcard/">Zimbra - Update ssl non wildcard ke wildcard</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-send-as-distribution-list/">Zimbra - send as distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-create-mass-account-mail-via-CLI/">Zimbra - Create mass Account Mail via CLI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-relay-certain-domain-to-exim/">Zimbra - Relay certain domain to Exim via ESMTP</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install/">Gammu - Installation</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install-configure-playsms/">Gammu - Install dan Configure PlaySMS Web Interface</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-configure-multiple-modem-playsms/">Gammu - How to configure multiple modem PlaySMS Gammu</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cpanel-force-ssl-username/">CPanel - How to force generate autossl for the user CPanel</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-osticket/">Nginx - Osticket</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-PageSpeed-module/">Nginx - Build PageSpeed Module for Nginx di Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-conf-dan-server-xml-tomcat-SSL-Jira/">Nginx - conf dan server.xml tomcat SSL Jira</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../wazuh-monitoring-log-management/">Wazuh - Monitoring dan Log Management</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">blog.dgprasetya.com</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>OpenStack - Integrasi dengan Ceph Cluster</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="pengantar">Pengantar</h1>
+<p>Setelah <a href="https://blog.dgprasetya.com/openstack-install-with-packstack-puppet/">sebelumnya</a> kita melakukan installasi OpenStack dengan PackStack. Dalam skenario kali ini kita akan menggantikan disk space yang digunakan oleh, block storage dan image stock dengan Ceph.</p>
+<p>Ceph (diucapkan /ˈsɛf/ atau /ˈkɛf/ ) adalah perangkat lunak sumber terbuka penyimpanan terdistribusi yang berbasis penyimpanan objek pada suatu kluster komputer. Ceph menyediakan antarmuka penyimpanan dengan level objek, blok- dan berkas. Tujuan utama Ceph adalah menyediakan penyimpanan terdistribusi tanpa satu titik kegagalan, dapat ditingkatkan hingga skala exabyte, dan tersedia secara bebas. <a href="https://id.wikipedia.org/wiki/Ceph_(perangkat_lunak)">https://id.wikipedia.org/wiki/Ceph_(perangkat_lunak)</a></p>
+<p>Pastikan OpenStack sudah berjalan dengan lancar, tidak ada kendala baik didalam networkingnya maupun instances, dan lain-lain.</p>
+<h1 id="topology">Topology</h1>
+<pre><code>                                                          +--------------------------+
+                                                          |                          |
+                                                          |                          |
+                                                          |   - Compute (Nova)       |
+                                +-----------------------&gt; |                          +------------+
+                                |                         |                          |            |
++---------------------------+   |                         |                          |            |
+|                           |   |                         |                          |            |
+| - Controller              |   |                         +--------------------------+            |
+| | Compute (Nova)          | +-^                                                                 |
+| | Images Storage (glance) | |                                                                   |
+| - Block Storage (cinder)  | |                           +---------------------------+           |
+|                           | +-------------------------&gt; |                           | &lt;---------+
+|                           | |                           |  ceph mon atau ceph1      |           |
++---------------------------+ |                           |                           |           |
+                              |                           +---------------------------+           |
+                              |                           +---------------------------+           |
+                              |                           |                           |           |
+                              +-------------------------&gt; |  osd0                     | &lt;---------+
+                              |                           |                           |           |
+                              |                           +---------------------------+           |
+                              |                           +---------------------------+           |
+                              |                           |                           |           |
+                              +-------------------------&gt; |  osd1                     | &lt;---------+
+                                                          |                           |
+                                                          +---------------------------+
+
+
+10.10.2.205 ceph-mon ceph1
+10.10.2.206 osd0
+10.10.2.207 osd1
+10.10.2.205 mds0
+10.10.2.204 controller compute0 labopenstack.local
+10.10.2.202 compute1 compute compute.localdomain
+</code></pre>
+<p>Disk <code>ceph-mon</code>:</p>
+<pre><code>[ceph-mon][INFO  ] Disk /dev/sda: 34.4 GB, 34359738368 bytes, 67108864 sectors
+[ceph-mon][INFO  ] Disk /dev/sdb: 68.7 GB, 68719476736 bytes, 134217728 sectors
+[ceph-mon][INFO  ] Disk /dev/sdc: 68.7 GB, 68719476736 bytes, 134217728 sectors
+[ceph-mon][INFO  ] Disk /dev/sdd: 68.7 GB, 68719476736 bytes, 134217728 sectors
+</code></pre>
+<p>Disk <code>osd0</code>:</p>
+<pre><code>[osd0][INFO  ] Disk /dev/sdb: 68.7 GB, 68719476736 bytes, 134217728 sectors
+[osd0][INFO  ] Disk /dev/sda: 34.4 GB, 34359738368 bytes, 67108864 sectors
+[osd0][INFO  ] Disk /dev/sdc: 68.7 GB, 68719476736 bytes, 134217728 sectors
+</code></pre>
+<p>Disk <code>osd1</code>:</p>
+<pre><code>[osd1][INFO  ] Disk /dev/sda: 34.4 GB, 34359738368 bytes, 67108864 sectors
+[osd1][INFO  ] Disk /dev/sdb: 68.7 GB, 68719476736 bytes, 134217728 sectors
+</code></pre>
+<h1 id="requierements">Requierements</h1>
+<ul>
+<li>siapkan <code>kopi lampung</code> dulu :D , langkah lumayan panjang soalnya :D</li>
+<li>openstack yg sudah running well.</li>
+<li>untuk kebutuhan ini, kita butuh ceph server paling tidak 1 atau 2 server dengan minimal ram 8GB.</li>
+<li>matikan terlebih dahulu firewall dan network manager:</li>
+</ul>
+<p>jalankan dengan perintah:</p>
+<pre><code>    sudo systemctl disable firewalld
+    sudo systemctl stop firewalld
+    sudo systemctl disable NetworkManager
+    sudo systemctl stop NetworkManager
+    sudo systemctl enable network
+    sudo systemctl start network
+</code></pre>
+<h1 id="installasi-ceph-cluster">Installasi CEPH Cluster</h1>
+<ul>
+<li>
+<p>install ceph repo dan update, lakukan di mesin <code>ceph-mon</code></p>
+<pre><code>yum install epel-release
+yum install wget -y
+yum -y install vim screen crudini
+yum install epel-release yum-plugin-priorities https://download.ceph.com/rpm-mimic/el7/noarch/ceph-release-1-1.el7.noarch.rpm
+yum install https://download.ceph.com/rpm-mimic/el7/noarch/ceph-deploy-2.0.1-0.noarch.rpm
+yum repolist
+yum -y update
+</code></pre>
+</li>
+<li>
+<p>install ntp, lakukan di mesin <code>ceph-mon</code></p>
+<pre><code>yum -y install chrony
+systemctl enable chronyd.service
+systemctl restart chronyd.service
+systemctl status chronyd.service
+</code></pre>
+</li>
+<li>
+<p>create sudoer untuk user stack. user ini digunakan untuk manajemen ceph. lakukan di mesin <code>ceph-mon</code>, <code>osd0</code>, <code>osd1</code></p>
+<pre><code>cat &lt;&lt; EOF &gt;/etc/sudoers.d/stack
+stack ALL = (root) NOPASSWD:ALL
+Defaults:stack !requiretty
+EOF
+
+useradd -d /home/stack -m stack
+passwd stack
+chmod 0440 /etc/sudoers.d/stack
+setenforce 0
+getenforce
+sed -i 's/SELINUX\=enforcing/SELINUX\=permissive/g' /etc/selinux/config
+cat /etc/selinux/config
+</code></pre>
+</li>
+<li>
+<p>setup auto ssh </p>
+</li>
+</ul>
+<p>setup auto ssh berjalan dari mesin <code>ceph-mon</code> ke <code>osd0</code> ataupun <code>osd1</code> dan mesin <code>ceph-mon</code> sendiri.</p>
+<p>lakukan di mesin <code>ceph-mon</code></p>
+<pre><code>[stack@ceph1 ~]$ cat .ssh/config 
+Host ceph1
+   Hostname ceph1
+   User stack
+Host osd0
+   Hostname osd0
+   User stack
+Host ceph-osd1
+   Hostname osd1
+   User stack
+[stack@ceph1 ~]$
+</code></pre>
+<p>copy public key:</p>
+<pre><code>ssh-copy-id -i ~/.ssh/id_rsa.pub 10.10.2.205
+ssh-copy-id -i ~/.ssh/id_rsa.pub 10.10.2.206
+ssh-copy-id -i ~/.ssh/id_rsa.pub 10.10.2.207
+</code></pre>
+<ul>
+<li>Deploy Ceph</li>
+</ul>
+<p>lakukan di mesin <code>ceph-mon</code> sebagai user <code>stack</code></p>
+<pre><code>mkdir os-ceph
+cd os-ceph/
+ceph-deploy new ceph-mon
+</code></pre>
+<p><code>note</code>: pada saat percobaan ini menggunakan host <code>ceph1</code> daripada host <code>ceph-mon</code>. Jika ada penulisan dengan host <code>ceph-mon</code> itu artinya mesin <code>ceph1</code>. Intinya kedua host tersebut mengarah ke mesin yang sama.</p>
+<p>Set jumlah replica 2 (sehingga data yang tersimpan pada cluster ceph akan di replica sebanyak 2)</p>
+<pre><code>echo "osd pool default size = 2" &gt;&gt; ceph.conf
+echo "osd pool default min size = 1" &gt;&gt; ceph.conf
+echo "osd crush chooseleaf type = 1" &gt;&gt; ceph.conf
+echo "osd journal size  = 100" &gt;&gt; ceph.conf
+</code></pre>
+<p><strong>Install ceph mengunakan ceph-deploy:</strong></p>
+<pre><code>ceph-deploy install ceph-mon
+ceph-deploy install osd0 osd1
+</code></pre>
+<p><strong>Membuat initial monitor:</strong></p>
+<pre><code>ceph-deploy mon create-initial
+ceph-deploy mon create
+</code></pre>
+<p><strong>Melihat disk list di mesin <code>osd0</code></strong></p>
+<pre><code>[stack@ceph1 osceph2]$ ceph-deploy disk list osd0
+[ceph_deploy.conf][DEBUG ] found configuration file at: /home/stack/.cephdeploy.conf
+[ceph_deploy.cli][INFO  ] Invoked (2.0.1): /bin/ceph-deploy disk list osd0
+[ceph_deploy.cli][INFO  ] ceph-deploy options:
+[ceph_deploy.cli][INFO  ]  username                      : None
+[ceph_deploy.cli][INFO  ]  verbose                       : False
+[ceph_deploy.cli][INFO  ]  debug                         : False
+[ceph_deploy.cli][INFO  ]  overwrite_conf                : False
+[ceph_deploy.cli][INFO  ]  subcommand                    : list
+[ceph_deploy.cli][INFO  ]  quiet                         : False
+[ceph_deploy.cli][INFO  ]  cd_conf                       : &lt;ceph_deploy.conf.cephdeploy.Conf instance at 0x7f610f1773f8&gt;
+[ceph_deploy.cli][INFO  ]  cluster                       : ceph
+[ceph_deploy.cli][INFO  ]  host                          : ['osd0']
+[ceph_deploy.cli][INFO  ]  func                          : &lt;function disk at 0x7f610f3c9938&gt;
+[ceph_deploy.cli][INFO  ]  ceph_conf                     : None
+[ceph_deploy.cli][INFO  ]  default_release               : False
+[osd0][DEBUG ] connection detected need for sudo
+[osd0][DEBUG ] connected to host: osd0 
+[osd0][DEBUG ] detect platform information from remote host
+[osd0][DEBUG ] detect machine type
+[osd0][DEBUG ] find the location of an executable
+[osd0][INFO  ] Running command: sudo fdisk -l
+[osd0][INFO  ] Disk /dev/sda: 34.4 GB, 34359738368 bytes, 67108864 sectors
+[osd0][INFO  ] Disk /dev/mapper/centos-root: 31.1 GB, 31130124288 bytes, 60801024 sectors
+[osd0][INFO  ] Disk /dev/mapper/centos-swap: 2147 MB, 2147483648 bytes, 4194304 sectors
+[osd0][INFO  ] Disk /dev/sdb: 68.7 GB, 68719476736 bytes, 134217728 sectors
+[osd0][INFO  ] Disk /dev/sdc: 68.7 GB, 68719476736 bytes, 134217728 sectors
+[osd0][INFO  ] Disk /dev/mapper/ceph--455f828c--2454--4f1d--b6f3--887fa8b48e58-osd--block--b1f537f7--8b40--490e--b872--98b84f5f0118: 68.7 GB, 68715282432 bytes, 134209536 sectors
+[osd0][INFO  ] Disk /dev/mapper/ceph--e389bab8--4765--4fd3--868e--26bfb019dc7b-osd--block--087e2243--02c1--4573--afc8--e642fff2afb4: 68.7 GB, 68715282432 bytes, 134209536 sectors
+</code></pre>
+<p><strong>Format multiple disk ceph lewat <code>ceph-deploy</code>:</strong></p>
+<p>jalankan <code>ceph-deploy disk zap osd1 /dev/sdc /dev/sdd</code></p>
+<pre><code>[stack@ceph1 ~]$ ceph-deploy disk zap osd1 /dev/sdc /dev/sdd
+[ceph_deploy.conf][DEBUG ] found configuration file at: /home/stack/.cephdeploy.conf
+[ceph_deploy.cli][INFO  ] Invoked (2.0.1): /bin/ceph-deploy disk zap osd1 /dev/sdc /dev/sdd
+[ceph_deploy.cli][INFO  ] ceph-deploy options:
+[ceph_deploy.cli][INFO  ]  username                      : None
+[ceph_deploy.cli][INFO  ]  verbose                       : False
+[ceph_deploy.cli][INFO  ]  debug                         : False
+[ceph_deploy.cli][INFO  ]  overwrite_conf                : False
+[ceph_deploy.cli][INFO  ]  subcommand                    : zap
+[ceph_deploy.cli][INFO  ]  quiet                         : False
+[ceph_deploy.cli][INFO  ]  cd_conf                       : &lt;ceph_deploy.conf.cephdeploy.Conf instance at 0x7f3d5e9323f8&gt;
+[ceph_deploy.cli][INFO  ]  cluster                       : ceph
+[ceph_deploy.cli][INFO  ]  host                          : osd1
+[ceph_deploy.cli][INFO  ]  func                          : &lt;function disk at 0x7f3d5eb84938&gt;
+[ceph_deploy.cli][INFO  ]  ceph_conf                     : None
+[ceph_deploy.cli][INFO  ]  default_release               : False
+[ceph_deploy.cli][INFO  ]  disk                          : ['/dev/sdc', '/dev/sdd']
+[ceph_deploy.osd][DEBUG ] zapping /dev/sdc on osd1
+[osd1][DEBUG ] connection detected need for sudo
+[osd1][DEBUG ] connected to host: osd1 
+[osd1][DEBUG ] detect platform information from remote host
+[osd1][DEBUG ] detect machine type
+[osd1][DEBUG ] find the location of an executable
+[ceph_deploy.osd][INFO  ] Distro info: CentOS Linux 7.6.1810 Core
+[osd1][DEBUG ] zeroing last few blocks of device
+[osd1][DEBUG ] find the location of an executable
+[osd1][INFO  ] Running command: sudo /usr/sbin/ceph-volume lvm zap /dev/sdc
+[osd1][DEBUG ] --&gt; Zapping: /dev/sdc
+[osd1][DEBUG ] --&gt; --destroy was not specified, but zapping a whole device will remove the partition table
+[osd1][DEBUG ] Running command: /usr/sbin/wipefs --all /dev/sdc
+[osd1][DEBUG ] Running command: /bin/dd if=/dev/zero of=/dev/sdc bs=1M count=10
+[osd1][DEBUG ]  stderr: 10+0 records in
+[osd1][DEBUG ] 10+0 records out
+[osd1][DEBUG ] 10485760 bytes (10 MB) copied
+[osd1][DEBUG ]  stderr: , 0.010268 s, 1.0 GB/s
+[osd1][DEBUG ] --&gt; Zapping successful for: &lt;Raw Device: /dev/sdc&gt;
+[ceph_deploy.osd][DEBUG ] zapping /dev/sdd on osd1
+[osd1][DEBUG ] connection detected need for sudo
+[osd1][DEBUG ] connected to host: osd1
+[osd1][DEBUG ] detect platform information from remote host
+[osd1][DEBUG ] detect machine type
+[osd1][DEBUG ] find the location of an executable
+[ceph_deploy.osd][INFO  ] Distro info: CentOS Linux 7.6.1810 Core
+[osd1][DEBUG ] zeroing last few blocks of device
+[osd1][DEBUG ] find the location of an executable
+[osd1][INFO  ] Running command: sudo /usr/sbin/ceph-volume lvm zap /dev/sdd
+[osd1][DEBUG ] --&gt; Zapping: /dev/sdd
+[osd1][DEBUG ] --&gt; --destroy was not specified, but zapping a whole device will remove the partition table
+[osd1][DEBUG ] Running command: /usr/sbin/wipefs --all /dev/sdd
+[osd1][DEBUG ] Running command: /bin/dd if=/dev/zero of=/dev/sdd bs=1M count=10
+[osd1][DEBUG ]  stderr: 10+0 records in
+[osd1][DEBUG ] 10+0 records out
+[osd1][DEBUG ] 10485760 bytes (10 MB) copied
+[osd1][DEBUG ]  stderr: , 0.00494895 s, 2.1 GB/s
+[osd1][DEBUG ] --&gt; Zapping successful for: &lt;Raw Device: /dev/sdd&gt;
+</code></pre>
+<p>lakukan hal sama pada host <code>ceph-mon</code> dan <code>osd0</code> sesuai dengan disk yang dimiliki.</p>
+<p><strong>Membuat OSD dengan <code>ceph-deploy</code>:</strong></p>
+<pre><code>for a in /dev/sdc /dev/sdd;do ceph-deploy osd create --data $a osd1`;done
+</code></pre>
+<p>lakukan hal sama pada host <code>ceph-mon</code> dan <code>osd0</code> sesuai dengan disk yang dimiliki.</p>
+<p><strong>Copy konfigurasi dan key ke semua node:</strong></p>
+<pre><code>ceph-deploy admin ceph1 osd0 osd1
+sudo chmod +r /etc/ceph/ceph.client.admin.keyring
+</code></pre>
+<p><strong>cek ceph status:</strong></p>
+<pre><code>[stack@ceph1 osceph2]$ ceph -s
+  cluster:
+    id:     10925d88-4e51-4311-88aa-52c81ab14eb6
+    health: HEALTH_WARN
+            no active mgr
+
+  services:
+    mon: 1 daemons, quorum ceph1
+    mgr: no daemons active
+    osd: 6 osds: 6 up, 6 in
+
+  data:
+    pools:   0 pools, 0 pgs   
+    objects: 0  objects, 0 B  
+    usage:   0 B used, 0 B / 0 B avail
+    pgs:
+</code></pre>
+<p><strong><code>no active mgr</code>, untuk mengaktifkannya:</strong></p>
+<pre><code>[stack@ceph1 osceph2]$ ceph-deploy mgr create ceph1
+[ceph_deploy.conf][DEBUG ] found configuration file at: /home/stack/.cephdeploy.conf
+[ceph_deploy.cli][INFO  ] Invoked (2.0.1): /bin/ceph-deploy mgr create ceph1
+[ceph_deploy.cli][INFO  ] ceph-deploy options:
+.....
+[ceph_deploy.mgr][DEBUG ] deploying mgr bootstrap to ceph1
+[ceph1][DEBUG ] write cluster configuration to /etc/ceph/{cluster}.conf
+[ceph1][WARNIN] mgr keyring does not exist yet, creating one
+[ceph1][DEBUG ] create a keyring file
+[ceph1][DEBUG ] create path recursively if it doesn't exist
+[ceph1][INFO  ] Running command: sudo ceph --cluster ceph --name client.bootstrap-mgr --keyring /var/lib/ceph/bootstrap-mgr/ceph.keyring auth get-or-create mgr.ceph1 mon allow profile mgr osd allow * mds allow * -o /var/lib/ceph/mgr/ceph-ceph1/keyring
+[ceph1][INFO  ] Running command: sudo systemctl enable ceph-mgr@ceph1
+[ceph1][WARNIN] Created symlink from /etc/systemd/system/ceph-mgr.target.wants/ceph-mgr@ceph1.service to /usr/lib/systemd/system/ceph-mgr@.service.
+[ceph1][INFO  ] Running command: sudo systemctl start ceph-mgr@ceph1
+[ceph1][INFO  ] Running command: sudo systemctl enable ceph.target
+</code></pre>
+<p><strong>lalu cek dengan command:</strong></p>
+<pre><code>sudo systemctl status ceph-mgr@ceph1
+</code></pre>
+<p><strong>Test create pool:</strong></p>
+<pre><code>ceph osd pool create volumes 128
+ceph osd pool create images 128
+ceph osd pool create backups 128
+ceph osd pool create vms 128
+rbd pool init volumes
+rbd pool init images
+rbd pool init backups
+rbd pool init vms
+</code></pre>
+<p><strong>Cek status:</strong></p>
+<pre><code>[stack@ceph1 osceph2]$ ceph -s
+  cluster:
+    id:     10925d88-4e51-4311-88aa-52c81ab14eb6
+    health: HEALTH_OK
+
+  services:
+    mon: 1 daemons, quorum ceph1
+    mgr: ceph1(active)
+    osd: 6 osds: 6 up, 6 in
+
+  data:
+    pools:   0 pools, 0 pgs
+    objects: 0  objects, 0 B
+    usage:   6.0 GiB used, 378 GiB / 384 GiB avail
+    pgs:
+</code></pre>
+<h1 id="integrasi-ceph-cluster-dengan-openstack-rocky">Integrasi Ceph Cluster dengan OpenStack Rocky</h1>
+<h2 id="install-requierements">Install requierements</h2>
+<p>masuk ke dalam user root di mesin ceph1</p>
+<pre><code>ssh controller sudo yum -y install python-rbd ceph-common
+ssh compute1 sudo yum -y install python-rbd ceph-common
+cat /etc/ceph/ceph.conf | ssh controller sudo tee /etc/ceph/ceph.conf
+cat /etc/ceph/ceph.conf | ssh compute1 sudo tee /etc/ceph/ceph.conf
+</code></pre>
+<p>masuk ke dalam user <code>stack</code></p>
+<p><strong>setup client authentication untuk service cinder:</strong></p>
+<pre><code>[stack@ceph1 osceph2]$ ceph auth get-or-create client.cinder mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=volumes, allow rwx pool=vms, allow rx pool=images'
+[client.cinder]
+        key = AQAmtCJdV85NHBAAhPX88nr0pVPZP6+34IPQhw==
+[stack@ceph1 osceph2]$
+</code></pre>
+<p><strong>setup client authentication untuk service glance:</strong></p>
+<pre><code>[stack@ceph1 osceph2]$ ceph auth get-or-create client.glance mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=images'
+[client.glance]
+        key = AQDDtCJd4aiPLhAALdSwrLdxizoZWZKs2nnBGg==
+[stack@ceph1 osceph2]$
+</code></pre>
+<p><strong>Menambahkan key untuk client.cinder dan client.glance ke masing-masing nodes dan mengganti ownershipnya:</strong></p>
+<p><code>glance@controller</code>:</p>
+<pre><code>[stack@ceph1 osceph2]$ ceph auth get-or-create client.glance | ssh root@controller sudo tee /etc/ceph/ceph.client.glance.keyring
+[client.glance]
+        key = AQDDtCJd4aiPLhAALdSwrLdxizoZWZKs2nnBGg==
+[stack@ceph1 osceph2]$ 
+[stack@ceph1 osceph2]$ ssh root@controller sudo chown glance:glance /etc/ceph/ceph.client.glance.keyring
+[stack@ceph1 osceph2]$
+</code></pre>
+<p><code>cinder@controller</code>:</p>
+<pre><code>[stack@ceph1 osceph2]$ ceph auth get-or-create client.cinder | ssh root@controller sudo tee /etc/ceph/ceph.client.cinder.keyring
+[client.cinder]
+        key = AQAmtCJdV85NHBAAhPX88nr0pVPZP6+34IPQhw==
+[stack@ceph1 osceph2]$ ssh root@controller sudo chown cinder:cinder /etc/ceph/ceph.client.cinder.keyring
+[stack@ceph1 osceph2]$
+</code></pre>
+<p><code>glance@compute</code>:</p>
+<pre><code>[stack@ceph1 osceph2]$ ceph auth get-or-create client.glance | ssh root@compute1 sudo tee /etc/ceph/ceph.client.glance.keyring
+[client.glance]
+        key = AQDDtCJd4aiPLhAALdSwrLdxizoZWZKs2nnBGg==
+[stack@ceph1 osceph2]$
+</code></pre>
+<p><code>cinder@compute</code>:</p>
+<pre><code>[stack@ceph1 osceph2]$ ceph auth get-or-create client.cinder | ssh root@compute1 sudo tee /etc/ceph/ceph.client.cinder.keyring
+[client.cinder]
+        key = AQAmtCJdV85NHBAAhPX88nr0pVPZP6+34IPQhw==
+[stack@ceph1 osceph2]$
+</code></pre>
+<p>copy cinder key:</p>
+<pre><code>[stack@ceph1 osceph2]$ ceph auth get-key client.cinder | ssh root@controller tee client.cinder.key
+AQAmtCJdV85NHBAAhPX88nr0pVPZP6+34IPQhw==[stack@ceph1 osceph2]$ 
+[stack@ceph1 osceph2]$
+
+[stack@ceph1 osceph2]$ ceph auth get-key client.cinder | ssh root@compute1 tee client.cinder.key
+AQAmtCJdV85NHBAAhPX88nr0pVPZP6+34IPQhw==[stack@ceph1 osceph2]$ 
+[stack@ceph1 osceph2]$
+</code></pre>
+<p><strong>Generate a UUID for the secret, and save the UUID of the secret for configuring nova-compute later</strong></p>
+<pre><code>[root@compute ~]# uuidgen &gt; uuid-secret.txt
+[root@compute ~]# cat uuid-secret.txt 
+eba93c91-5641-4890-aad7-42606c3c3e66
+</code></pre>
+<p><strong>Then, on the compute nodes, add the secret key to libvirt:</strong></p>
+<pre><code>cat &gt; secret.xml &lt;&lt;EOF
+&lt;secret ephemeral='no' private='no'&gt;
+  &lt;uuid&gt;`cat uuid-secret.txt`&lt;/uuid&gt;
+  &lt;usage type='ceph'&gt;
+    &lt;name&gt;client.cinder secret&lt;/name&gt;
+  &lt;/usage&gt;
+&lt;/secret&gt;
+EOF
+</code></pre>
+<p>go:</p>
+<pre><code>[root@compute ~]# cat &gt; secret.xml &lt;&lt;EOF
+&gt; &lt;secret ephemeral='no' private='no'&gt;
+&gt;   &lt;uuid&gt;`cat uuid-secret.txt`&lt;/uuid&gt;
+&gt;   &lt;usage type='ceph'&gt;
+&gt;     &lt;name&gt;client.cinder secret&lt;/name&gt;
+&gt;   &lt;/usage&gt;
+&gt; &lt;/secret&gt;
+&gt; EOF
+
+
+
+[root@compute ~]# virsh secret-define --file secret.xml
+Secret eba93c91-5641-4890-aad7-42606c3c3e66 created
+[root@compute ~]# virsh secret-set-value --secret $(cat uuid-secret.txt) --base64 $(cat client.cinder.key)
+Secret value set
+[root@compute ~]#
+</code></pre>
+<p>Jika compute node ada di controller, maka perlu dilakukan juga.</p>
+<h2 id="setup-cinder"><strong>Setup Cinder</strong></h2>
+<p>Cinder digunakan untuk menyimpan disk dari vm yg ada di openstack.</p>
+<p>masuk ke mesin controller, edit file <code>/etc/cinder/cinder.conf</code> lalu tambahkan ke section <code>[DEFAULT]</code>  dan aktifkan <code>Ceph</code> sebagai backend dari cinder.</p>
+<pre><code>enabled_backends = ceph
+glance_api_version = 2
+</code></pre>
+<p>tambahkan section <code>ceph</code>:</p>
+<pre><code>[ceph]
+rbd_flatten_volume_from_snapshot = false
+rbd_max_clone_depth = 5
+rbd_store_chunk_size = 4
+rados_connect_timeout = -1
+volume_driver = cinder.volume.drivers.rbd.RBDDriver
+rbd_ceph_conf = /etc/ceph/ceph.conf
+rbd_pool = volumes
+rbd_user = cinder
+glance_api_version = 2
+rbd_secret_uuid = eba93c91-5641-4890-aad7-42606c3c3e66
+volume_backend_name = ceph
+rbd_cluster_name = ceph
+</code></pre>
+<p>rbd_secret_uuid sesuaikan dengan hasil <code>uuidgen</code>.</p>
+<p>hasil akhir <code>cinder.conf</code>: </p>
+<pre><code>[DEFAULT]
+backup_swift_url=http://10.10.2.204:8080/v1/AUTH_
+backup_swift_container=volumebackups
+backup_driver=cinder.backup.drivers.swift
+enable_v3_api=True
+storage_availability_zone=nova
+default_availability_zone=nova
+#default_volume_type=iscsi
+
+default_volume_type=ceph
+auth_strategy=keystone
+enabled_backends=ceph
+glance_api_version = 2
+osapi_volume_listen=0.0.0.0
+osapi_volume_workers=4
+debug=False
+log_dir=/var/log/cinder
+transport_url=rabbit://guest:guest@10.10.2.204:5672/
+control_exchange=openstack
+api_paste_config=/etc/cinder/api-paste.ini
+glance_host=10.10.2.204
+
+[backend]
+
+[backend_defaults]
+
+[barbican]
+
+[brcd_fabric_example]
+
+[cisco_fabric_example]
+
+[coordination]
+
+[cors]
+
+[database]
+
+connection=mysql+pymysql://cinder:1c36661a5efa4c2b@10.10.2.204/cinder
+
+[fc-zone-manager]
+
+[healthcheck]
+
+[key_manager]
+
+backend=cinder.keymgr.conf_key_mgr.ConfKeyManager
+
+[keystone_authtoken]
+
+www_authenticate_uri=http://10.10.2.204:5000/
+
+auth_uri=http://10.10.2.204:5000/
+
+auth_type=password
+
+auth_url=http://10.10.2.204:35357
+username=cinder
+password=e3f3c81d1b41459b
+user_domain_name=Default
+project_name=services
+project_domain_name=Default
+
+[matchmaker_redis]
+
+[nova]
+
+[oslo_concurrency]
+
+lock_path=/var/lib/cinder/tmp
+
+[oslo_messaging_amqp]
+
+[oslo_messaging_kafka]
+
+[oslo_messaging_notifications]
+
+driver=messagingv2
+
+[oslo_messaging_rabbit]
+
+ssl=False
+
+[oslo_messaging_zmq]
+
+[oslo_middleware]
+
+[oslo_policy]
+
+policy_file=/etc/cinder/policy.json
+
+[oslo_reports]
+
+[oslo_versionedobjects]
+
+[profiler]
+
+[sample_remote_file_source]
+
+[service_user]
+
+[ssl]
+
+[vault]
+#[lvm]
+#volume_backend_name=lvm
+#volume_driver=cinder.volume.drivers.lvm.LVMVolumeDriver
+#iscsi_ip_address=10.10.2.204
+#iscsi_helper=lioadm
+#volume_group=cinder-volumes
+#volumes_dir=/var/lib/cinder/volumes
+
+[ceph]
+##volume_driver = cinder.volume.drivers.rbd.RBDDriver
+##rbd_pool = volumes
+##rbd_user = cinder
+##rbd_ceph_conf = /etc/ceph/ceph.conf
+rbd_flatten_volume_from_snapshot = false
+rbd_max_clone_depth = 5
+rbd_store_chunk_size = 4
+rados_connect_timeout = -1
+volume_driver = cinder.volume.drivers.rbd.RBDDriver
+rbd_ceph_conf = /etc/ceph/ceph.conf
+rbd_pool = volumes
+rbd_user = cinder
+glance_api_version = 2
+rbd_secret_uuid = eba93c91-5641-4890-aad7-42606c3c3e66
+volume_backend_name = ceph
+rbd_cluster_name = ceph
+
+#volume_driver = cinder.volume.drivers.rbd.RBDDriver
+#rbd_pool = volumes
+#rbd_ceph_conf = /etc/ceph/ceph.conf
+#rbd_flatten_volume_from_snapshot = false
+#rbd_max_clone_depth = 5
+#rbd_store_chunk_size = 4
+#rados_connect_timeout = -1
+#rbd_user = cinder
+#rbd_secret_uuid = ca405f73-e2c9-40aa-ab67-34cf47f7caf9
+</code></pre>
+<p><strong>Restart Service Cinder</strong></p>
+<p>restart dengan perintah:</p>
+<pre><code>[root@controller ~(keystone_admin)]# service openstack-cinder-api restart
+Redirecting to /bin/systemctl restart openstack-cinder-api.service
+[root@controller ~(keystone_admin)]# service openstack-cinder-scheduler restart
+Redirecting to /bin/systemctl restart openstack-cinder-scheduler.service
+[root@controller ~(keystone_admin)]# service openstack-cinder-volume restart
+Redirecting to /bin/systemctl restart openstack-cinder-volume.service
+[root@controller ~(keystone_admin)]#
+</code></pre>
+<p>lalu test dengan perintah <code>rbd --id cinder ls volumes</code></p>
+<pre><code>[root@controller ~(keystone_admin)]#  rbd --id cinder ls volumes
+2019-07-18 10:49:20.216 7f8210d64b00 -1 asok(0x55b893fd64f0) AdminSocketConfigObs::init: failed: AdminSocket::bind_and_listen: failed to bind the UNIX domain socket to '/var/run/ceph/guests/ceph-client.cinder.28025.94251245209344.asok': (2) No such file or directory
+volume-23d36d36-5969-49e2-a542-9f6350359b38
+volume-8ec1920f-b3fe-4ce8-9a45-456645ac480c
+volume-8f7c693b-a32f-4c7e-9cf8-cc6b490687f8
+volume-9ffa5128-31d6-4ae9-a668-949ac49b5255
+volume-a711ee9e-418a-4b39-a661-d7a5990270d5
+volume-b3e0396b-b346-42c7-9ff3-1058e839f870
+volume-dd948a95-6d6a-4624-a000-1949e4a915a4
+volume-f9a9bb00-6f5a-4f57-ae16-3a6368d9ec5c
+[root@controller ~(keystone_admin)]#
+</code></pre>
+<p>Test Create volume:</p>
+<pre><code>[root@controller ~(keystone_admin)]# cinder create --volume-type ceph --display-name testCephVolTut 5
++--------------------------------+--------------------------------------+
+| Property                       | Value                                |
++--------------------------------+--------------------------------------+
+| attachments                    | []                                   |
+| availability_zone              | nova                                 |
+| bootable                       | false                                |
+| consistencygroup_id            | None                                 |
+| created_at                     | 2019-07-18T03:51:11.000000           |
+| description                    | None                                 |
+| encrypted                      | False                                |
+| id                             | 4897b2b4-c9eb-4c40-b3e8-f0fb75fed592 |
+| metadata                       | {}                                   |
+| migration_status               | None                                 |
+| multiattach                    | False                                |
+| name                           | testCephVolTut                       |
+| os-vol-host-attr:host          | None                                 |
+| os-vol-mig-status-attr:migstat | None                                 |
+| os-vol-mig-status-attr:name_id | None                                 |
+| os-vol-tenant-attr:tenant_id   | b0a4a8851d114a3f9bf4265c9e4c5a9c     |
+| replication_status             | None                                 |
+| size                           | 5                                    |
+| snapshot_id                    | None                                 |
+| source_volid                   | None                                 |
+| status                         | creating                             |
+| updated_at                     | None                                 |
+| user_id                        | dfba230d76a8486287912da65d815769     |
+| volume_type                    | ceph                                 |
++--------------------------------+--------------------------------------+
+[root@controller ~(keystone_admin)]#
+</code></pre>
+<p>lihat list volume:</p>
+<pre><code>[root@controller ~(keystone_admin)]# cinder list
++--------------------------------------+-----------+----------------+------+-------------+----------+--------------------------------------+
+| ID                                   | Status    | Name           | Size | Volume Type | Bootable | Attached to                          |
++--------------------------------------+-----------+----------------+------+-------------+----------+--------------------------------------+
+| 23d36d36-5969-49e2-a542-9f6350359b38 | available | testCephVold   | 5    | ceph        | false    |                                      |
+| 4897b2b4-c9eb-4c40-b3e8-f0fb75fed592 | available | testCephVolTut | 5    | ceph        | false    |                                      |
+| 88a95ab2-7f9b-4367-bee0-211926ab2bcc | error     | testaja        | 2    | ceph        | false    |                                      |
+| 8ec1920f-b3fe-4ce8-9a45-456645ac480c | in-use    |                | 40   | ceph        | true     | 45644d8c-4cf3-4faf-95c7-02a8bc9095c2 |
+| 8f7c693b-a32f-4c7e-9cf8-cc6b490687f8 | available | test           | 1    | ceph        | false    |                                      |
+| 9ffa5128-31d6-4ae9-a668-949ac49b5255 | available | testCephVasdol | 5    | ceph        | false    |                                      |
+| a711ee9e-418a-4b39-a661-d7a5990270d5 | available | testCephVol    | 5    | ceph        | false    |                                      |
+| b3e0396b-b346-42c7-9ff3-1058e839f870 | available | cephvol        | 2    | ceph        | false    |                                      |
+| dd948a95-6d6a-4624-a000-1949e4a915a4 | in-use    |                | 10   | ceph        | true     | bac4ed05-4c5d-458f-b6ec-6276d54b52e5 |
+| f9a9bb00-6f5a-4f57-ae16-3a6368d9ec5c | in-use    | freebsd        | 40   | ceph        | true     | 0736390f-3f9e-4ebb-a08e-05d9b0611703 |
++--------------------------------------+-----------+----------------+------+-------------+----------+--------------------------------------+
+[root@controller ~(keystone_admin)]# openstack volume list
++--------------------------------------+----------------+-----------+------+---------------------------------+
+| ID                                   | Name           | Status    | Size | Attached to                     |
++--------------------------------------+----------------+-----------+------+---------------------------------+
+| 4897b2b4-c9eb-4c40-b3e8-f0fb75fed592 | testCephVolTut | available |    5 |                                 |
+| 8ec1920f-b3fe-4ce8-9a45-456645ac480c |                | in-use    |   40 | Attached to centos on /dev/vda  |
+| dd948a95-6d6a-4624-a000-1949e4a915a4 |                | in-use    |   10 | Attached to cirros on /dev/vda  |
+| f9a9bb00-6f5a-4f57-ae16-3a6368d9ec5c | freebsd        | in-use    |   40 | Attached to fbsd on /dev/vda    |
+| 23d36d36-5969-49e2-a542-9f6350359b38 | testCephVold   | available |    5 |                                 |
+| 9ffa5128-31d6-4ae9-a668-949ac49b5255 | testCephVasdol | available |    5 |                                 |
+| 88a95ab2-7f9b-4367-bee0-211926ab2bcc | testaja        | error     |    2 |                                 |
+| a711ee9e-418a-4b39-a661-d7a5990270d5 | testCephVol    | available |    5 |                                 |
+| b3e0396b-b346-42c7-9ff3-1058e839f870 | cephvol        | available |    2 |                                 |
+| 8f7c693b-a32f-4c7e-9cf8-cc6b490687f8 | test           | available |    1 |                                 |
++--------------------------------------+----------------+-----------+------+---------------------------------+
+[root@controller ~(keystone_admin)]#
+</code></pre>
+<p>lihat <code>service-list</code> status dari <code>cinder</code>:</p>
+<pre><code>[root@controller ~(keystone_admin)]# cinder service-list
++------------------+-----------------+------+----------+-------+----------------------------+-----------------+
+| Binary           | Host            | Zone | Status   | State | Updated_at                 | Disabled Reason |
++------------------+-----------------+------+----------+-------+----------------------------+-----------------+
+| cinder-backup    | controller      | nova | enabled  | down  | 2019-07-12T07:02:01.000000 | -               |
+| cinder-scheduler | controller      | nova | enabled  | up    | 2019-07-18T03:54:33.000000 | -               |
+| cinder-volume    | controller@ceph | nova | enabled  | up    | 2019-07-18T03:54:36.000000 | -               |
+| cinder-volume    | controller@lvm  | nova | disabled | down  | 2019-07-08T07:11:04.000000 | migratekeCeph   |
++------------------+-----------------+------+----------+-------+----------------------------+-----------------+
+</code></pre>
+<p>jika ingin menonaktifkan <code>service-list</code>:</p>
+<pre><code>openstack volume service set --disable --disable-reason migratekeCeph controller@lvm cinder-volume
+</code></pre>
+<p>melihat type storage dari cinder:</p>
+<pre><code>[root@controller ~(keystone_admin)]# cinder type-list
+
++--------------------------------------+-------+-------------+-----------+
+| ID                                   | Name  | Description | Is_Public |
++--------------------------------------+-------+-------------+-----------+
+| 16e4f895-3f64-4a3d-b9be-6accd740a3fc | ceph  | -           | True      |
+| 513f6ef6-58af-4db6-97c3-76911c812d55 | iscsi | -           | True      |
++--------------------------------------+-------+-------------+-----------+
+[root@controller ~(keystone_admin)]# cinder extra-specs-list
++--------------------------------------+-------+---------------------------------+
+| ID                                   | Name  | extra_specs                     |
++--------------------------------------+-------+---------------------------------+
+| 16e4f895-3f64-4a3d-b9be-6accd740a3fc | ceph  | {'volume_backend_name': 'ceph'} |
+| 513f6ef6-58af-4db6-97c3-76911c812d55 | iscsi | {'volume_backend_name': 'lvm'}  |
++--------------------------------------+-------+---------------------------------+
+</code></pre>
+<p>set ceph sebagai default backend:</p>
+<pre><code>openstack-config --set /etc/cinder/cinder.conf DEFAULT enabled_backends ceph
+</code></pre>
+<h2 id="setup-glance"><strong>Setup Glance</strong></h2>
+<p>Glance digunakan untuk menyimpan iso ataupun images yang akan digunakan vm di OpenStack.</p>
+<p>edit file <code>/etc/glance/glance-api.conf</code> dan tambahkan:</p>
+<pre><code>stores=rbd,file,http,swift
+default_store=rbd
+##file
+rbd_store_chunk_size = 8
+rbd_store_pool = images
+rbd_store_user = glance
+rbd_store_ceph_conf = /etc/ceph/ceph.conf
+</code></pre>
+<p>hasil akhir <code>glance-api.conf</code>: </p>
+<pre><code>[DEFAULT]
+bind_host=0.0.0.0
+bind_port=9292
+workers=4
+image_cache_dir=/var/lib/glance/image-cache
+registry_host=0.0.0.0
+debug=False
+log_file=/var/log/glance/api.log
+log_dir=/var/log/glance
+transport_url=rabbit://guest:guest@10.10.2.204:5672/
+enable_v1_api=False
+
+[cors]
+[database]
+connection=mysql+pymysql://glance:4d819a8b65594569@10.10.2.204/glance
+
+[glance_store]
+
+stores=rbd,file,http,swift
+
+default_store=rbd
+##file
+
+rbd_store_chunk_size = 8
+rbd_store_pool = images
+rbd_store_user = glance
+rbd_store_ceph_conf = /etc/ceph/ceph.conf
+
+filesystem_store_datadir=/var/lib/glance/images/
+
+os_region_name=RegionOne
+
+[image_format]
+
+[keystone_authtoken]
+
+www_authenticate_uri=http://10.10.2.204:5000/v3
+
+auth_uri=http://10.10.2.204:5000/v3
+
+auth_type=password
+
+auth_url=http://10.10.2.204:35357
+username=glance
+password=21de7a56246541aa
+user_domain_name=Default
+project_name=services
+project_domain_name=Default
+
+[matchmaker_redis]
+
+[oslo_concurrency]
+
+[oslo_messaging_amqp]
+
+[oslo_messaging_kafka]
+[oslo_messaging_notifications]
+
+driver=messagingv2
+
+topics=notifications
+
+[oslo_messaging_rabbit]
+
+ssl=False
+
+default_notification_exchange=glance
+
+[oslo_messaging_zmq]
+
+[oslo_middleware]
+
+[oslo_policy]
+
+policy_file=/etc/glance/policy.json
+
+[paste_deploy]
+
+flavor=keystone
+
+[profiler]
+
+[store_type_location_strategy]
+
+[task]
+
+[taskflow_executor]
+</code></pre>
+<p><strong>restart service glance</strong></p>
+<pre><code>service openstack-glance-api restart
+service gpenstack-glance-registry restart
+</code></pre>
+<p>check images lewat rbd</p>
+<pre><code>[root@controller ~(keystone_admin)]# rbd --id glance ls images
+2019-07-18 13:29:24.350 7f4ebe2f1b00 -1 asok(0x55d34ebfb4f0) AdminSocketConfigObs::init: failed: AdminSocket::bind_and_listen: failed to bind the UNIX domain socket to '/var/run/ceph/guests/ceph-client.glance.24598.94366047655680.asok': (2) No such file or directory
+5759f626-32c2-45c7-b2e4-6972f606ae68
+9991376d-b436-437a-b76a-e9e68bb6e8e4
+ca03be4c-d5ce-4a1a-b0a0-d769edd6b703
+[root@controller ~(keystone_admin)]#
+</code></pre>
+<p>check image list:</p>
+<pre><code>[root@controller ~(keystone_admin)]# glance image-list
++--------------------------------------+---------------------+
+| ID                                   | Name                |
++--------------------------------------+---------------------+
+| 5759f626-32c2-45c7-b2e4-6972f606ae68 | CentOS-7-x86_64     |
+| 9991376d-b436-437a-b76a-e9e68bb6e8e4 | Cirros              |
+| ca03be4c-d5ce-4a1a-b0a0-d769edd6b703 | FreeBSD-11.2-stable |
++--------------------------------------+---------------------+
+</code></pre>
+<p>Jika masih kosong, bisa diisi sendiri:</p>
+<pre><code>wget -c https://download.freebsd.org/ftp/snapshots/VM-IMAGES/11.2-STABLE/amd64/Latest/FreeBSD-11.2-STABLE-amd64.qcow2.xz
+tar -xvf FreeBSD-11.2-STABLE-amd64.qcow2.xz
+openstack image create --container-format bare --disk-format qcow2 --file FreeBSD-11.2-STABLE-amd64.qcow2 --public FreeBSD-11.2-stable
+</code></pre>
+<p>lalu check lagi:</p>
+<pre><code>[root@controller ~(keystone_admin)]# openstack image list
++--------------------------------------+---------------------+--------+
+| ID                                   | Name                | Status |
++--------------------------------------+---------------------+--------+
+| 5759f626-32c2-45c7-b2e4-6972f606ae68 | CentOS-7-x86_64     | active |
+| 9991376d-b436-437a-b76a-e9e68bb6e8e4 | Cirros              | active |
+| ca03be4c-d5ce-4a1a-b0a0-d769edd6b703 | FreeBSD-11.2-stable | active |
++--------------------------------------+---------------------+--------+
+[root@controller ~(keystone_admin)]#
+</code></pre>
+<p>coba test dengan <code>centos image</code>;</p>
+<pre><code>wget -c "http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2.xz"
+unxz CentOS-7-x86_64-GenericCloud.qcow2.xz
+</code></pre>
+<p>create image lagi:</p>
+<pre><code>[root@controller ~(keystone_admin)]#  openstack image create --container-format bare --disk-format qcow2 --file CentOS-7-x86_64-GenericCloud.qcow2 --public CentOS-7-Test
+</code></pre>
+<p>lalu check:</p>
+<pre><code>[root@controller ~(keystone_admin)]# openstack image list
++--------------------------------------+---------------------+--------+
+| ID                                   | Name                | Status |
++--------------------------------------+---------------------+--------+
+| 0d9d18de-df05-46b0-96fc-10c9e1e8cc8a | CentOS-7-Test       | active |
+| 5759f626-32c2-45c7-b2e4-6972f606ae68 | CentOS-7-x86_64     | active |
+| 9991376d-b436-437a-b76a-e9e68bb6e8e4 | Cirros              | active |
+| ca03be4c-d5ce-4a1a-b0a0-d769edd6b703 | FreeBSD-11.2-stable | active |
++--------------------------------------+---------------------+--------+
+[root@controller ~(keystone_admin)]#
+</code></pre>
+<p>ok done.</p>
+<h2 id="nova-compute"><strong>Nova compute</strong></h2>
+<p>Disetiap node <code>nova-compute</code> edit file <code>/etc/ceph/ceph.conf</code> dan tambahkan:</p>
+<pre><code>[client]
+rbd cache = true
+rbd cache writethrough until flush = true
+rbd concurrent management ops = 20
+admin socket = /var/run/ceph/guests/$cluster-$type.$id.$pid.$cctid.asok
+log file = /var/log/ceph/qemu-guest-$pid.log
+</code></pre>
+<p>hasil akhir <code>ceph.conf</code>: </p>
+<pre><code>[global]
+fsid = ac9b148c-e413-48ae-8adc-93a5cca6e88a
+mon_initial_members = ceph1
+mon_host = 10.10.2.205
+auth_cluster_required = cephx
+auth_service_required = cephx
+auth_client_required = cephx
+
+osd pool default size = 2
+osd pool default min size = 1
+osd crush chooseleaf type = 1
+osd journal size  = 100
+
+[client]
+rbd cache = true
+rbd cache writethrough until flush = true
+rbd concurrent management ops = 20
+admin socket = /var/run/ceph/guests/$cluster-$type.$id.$pid.$cctid.asok
+log file = /var/log/ceph/qemu-guest-$pid.log
+</code></pre>
+<p><strong>restart nova services</strong></p>
+<pre><code>systemctl restart openstack-nova-compute
+</code></pre>
+<p>check <code>hypervisor</code> list:</p>
+<pre><code>[root@controller ~(keystone_admin)]# nova hypervisor-list
+
++--------------------------------------+---------------------+-------+---------+
+| ID                                   | Hypervisor hostname | State | Status  |
++--------------------------------------+---------------------+-------+---------+
+| 62391ec9-6b71-4b00-be98-1d89bee17129 | controller          | up    | enabled |
+| a3a253c0-10fe-464a-a77c-f85de9ff3720 | compute1            | up    | enabled |
++--------------------------------------+---------------------+-------+---------+
+</code></pre>
+<p>via <code>openstack</code> cli</p>
+<pre><code>[root@controller ~(keystone_admin)]# openstack compute service list
++----+------------------+------------+----------+---------+-------+----------------------------+
+| ID | Binary           | Host       | Zone     | Status  | State | Updated At                 |
++----+------------------+------------+----------+---------+-------+----------------------------+
+|  3 | nova-conductor   | controller | internal | enabled | up    | 2019-07-18T06:55:09.000000 |
+|  5 | nova-scheduler   | controller | internal | enabled | up    | 2019-07-18T06:55:08.000000 |
+|  7 | nova-consoleauth | controller | internal | enabled | up    | 2019-07-18T06:55:15.000000 |
+|  9 | nova-compute     | controller | nova     | enabled | up    | 2019-07-18T06:55:09.000000 |
+| 13 | nova-compute     | compute1   | nova     | enabled | up    | 2019-07-18T06:55:17.000000 |
++----+------------------+------------+----------+---------+-------+----------------------------+
+</code></pre>
+<p>via <code>nova</code> cli:</p>
+<pre><code>[root@controller ~(keystone_admin)]# nova service-list
++--------------------------------------+------------------+------------+----------+---------+-------+----------------------------+-----------------+-------------+
+| Id                                   | Binary           | Host       | Zone     | Status  | State | Updated_at                 | Disabled Reason | Forced down |
++--------------------------------------+------------------+------------+----------+---------+-------+----------------------------+-----------------+-------------+
+| b77d04ea-302d-4470-a171-9ccf04c6535b | nova-conductor   | controller | internal | enabled | up    | 2019-07-18T06:57:29.000000 | -               | False       |
+| 45a49f72-bce0-4800-b97e-2ec4f6b8ee54 | nova-scheduler   | controller | internal | enabled | up    | 2019-07-18T06:57:38.000000 | -               | False       |
+| bbe646df-3028-4e5a-a8bd-577cc6860b44 | nova-consoleauth | controller | internal | enabled | up    | 2019-07-18T06:57:35.000000 | -               | False       |
+| 77660dbd-a5ad-47c5-b93f-38e1bcf5045b | nova-compute     | controller | nova     | enabled | up    | 2019-07-18T06:57:29.000000 | -               | False       |
+| 98c1c43d-c78c-4445-b36f-91c8ffe4fde5 | nova-compute     | compute1   | nova     | enabled | up    | 2019-07-18T06:57:37.000000 | -               | False       |
++--------------------------------------+------------------+------------+----------+---------+-------+----------------------------+-----------------+-------------+
+[root@controller ~(keystone_admin)]#
+</code></pre>
+<p>cara hapus service via <code>nova</code></p>
+<pre><code>nova service-delete 0d770b47-d95d-4ba5-a366-5e5baa29aebd
+</code></pre>
+<p>cara <code>menonaktifkan</code> dan <code>mengaktifkan</code>:</p>
+<pre><code>nova service-disable 0d770b47-d95d-4ba5-a366-5e5baa29aebd
+nova service-enable 0d770b47-d95d-4ba5-a366-5e5baa29aebd
+</code></pre>
+<p>cara hapus service lewat <code>openstack</code> cli:</p>
+<pre><code>openstack compute service delete 12
+</code></pre>
+<p><code>Note</code>: Jika terjadi perbedaan antara compute node record di host openstack di horizon dengan versi cli, solusinya:</p>
+<pre><code>`delete service-list yang bersangkutan, hingga tersisa yg masih running well saja`
+</code></pre>
+<p>lalu discover lagi:</p>
+<pre><code>nova-manage discover_hosts
+</code></pre>
+<p>lihat list services:    </p>
+<pre><code>openstack hypervisor list;nova hypervisor-list;nova service-list;openstack compute service list;
+</code></pre>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/61440129-03b16e80-a96d-11e9-810b-5f29a3ed14b1.png" /></p>
+<p>done.</p>
+<h1 id="hasil-openstack-yang-sudah-terkoneksi-dengan-ceph-cluster">Hasil OpenStack yang sudah terkoneksi dengan Ceph Cluster</h1>
+<p><img alt="vol-ceph-stein" src="https://user-images.githubusercontent.com/275259/61438278-4709de00-a969-11e9-8c81-7463ba026606.png" /></p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/61439901-969dd900-a96c-11e9-9799-513bf462ac38.png" /></p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/61439939-aa493f80-a96c-11e9-9def-54eb7ae4c13f.png" /></p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/61440064-e54b7300-a96c-11e9-95d6-6888a70b69df.png" /></p>
+<p>Referensi:</p>
+<ol>
+<li><a href="https://gist.github.com/zhanghui9700/9874686">https://gist.github.com/zhanghui9700/9874686</a></li>
+<li><a href="https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/2/html/ceph_block_device_to_openstack_guide/configuring_openstack_to_use_ceph">https://access.redhat.com/documentation/en-us/red_hat_ceph_storage/2/html/ceph_block_device_to_openstack_guide/configuring_openstack_to_use_ceph</a></li>
+<li><a href="http://docs.ceph.com/docs/master/rbd/rbd-openstack/">http://docs.ceph.com/docs/master/rbd/rbd-openstack/</a></li>
+<li><a href="https://ask.openstack.org/en/question/119889/openstack-compute-node-not-recognized-as-hypervisor/">https://ask.openstack.org/en/question/119889/openstack-compute-node-not-recognized-as-hypervisor/</a></li>
+</ol>
+              
+            </div>
+          </div>
+          <div id="disqus_thread"></div>
+<script>
+
+if ( mkdocs_page_url == "/" ) {
+
+}
+else {
+    
+    var disqus_config = function () {
+        this.page.url = blog.dgprasetya.com; 
+        this.page.identifier = mkdocs_page_url; 
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//blog-dgprasetya-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+
+}
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<footer>             
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../openstack-upgrade-ceph-mimic-ke-nautilus/" class="btn btn-neutral float-right" title="OpenStack - Upgrade Ceph Mimic ke Nautilus">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../openstack-upgrade-from-rocky-to-stein/" class="btn btn-neutral" title="OpenStack - Upgrade from Rocky to Stein Release"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright (c) 2020 dgprasetya</p>
+    
+  </div>
+
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="https://github.com/snide/sphinx_rtd_theme" target="_blank">Sphinx ReadTheDocs</a> 
+            theme, <a href="https://about.gitlab.com/gitlab-ci/">Gitlab CI</a>, 
+            <a href="https://hub.docker.com/r/devunix/alpine-mkdocs/">Docker Python Stack</a> 
+            dan <a href="https://github.com/deanet/deanet.github.com">Github Pages</a><br/>
+  <br/>
+  Hiring SysAdmin to fix your issues ? <a href="https://www.dgprasetya.com/contactme.html" target="_blank">Contact Me</a> :)
+</footer>
+
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../openstack-upgrade-from-rocky-to-stein/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../openstack-upgrade-ceph-mimic-ke-nautilus/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

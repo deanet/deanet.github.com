@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="dgprasetya">
+  
+  <title>VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos - blog.dgprasetya.com</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/extra.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos";
+    var mkdocs_page_input_path = "vestacp-exim-roundcube-manage-sieve-plugins-setting.md";
+    var mkdocs_page_url = "/vestacp-exim-roundcube-manage-sieve-plugins-setting/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-55420243-2', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> blog.dgprasetya.com</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Index</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ci-cd-with-gitlab/">CI/CD with Gitlab</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../net-boot-ipxe-docker-tomcat-centos-coreos/">Docker auto setup via IPXE for Centos and Core OS</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-connect-two-instances-with-ip-private-via-vpc-peering/">GCP - How to connect two instances with IP Private via VPC Peering</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-multiple-nics-with-vpc-peering/">GCP - How to connect Multiple Nics with VPC Peering at Google Cloud Platform</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../kimsufi-dns-ipv6-openvz-promox/">OVH - Build DNS Server IPV6 dengan DBNDNS di Kimsufi menggunakan OpenVZ Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-7-network-configuration-without-network-manager/">OVH - Centos 7 Network configuration without network manager daemon</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-upgrade-7-to-8/">Centos - Upgrade from 7 to 8</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ceph-osds-troubleshooting/">OpenStack - Ceph OSDS Troubleshooting</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../freebsd-11-upgrade-to-12/">FreeBSD - Upgrade from 11 to 12</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lets-encrypt-autossl-wildcard-acme.sh/">Lets Encrypt - Create wildcard ssl with acme.sh</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-from-rocky-to-stein/">OpenStack - Upgrade from Rocky to Stein Release</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-integrasi-ceph-dengan-openstack/">OpenStack - Integrasi dengan Ceph Cluster</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-ceph-mimic-ke-nautilus/">OpenStack - Upgrade Ceph Mimic ke Nautilus</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-install-with-packstack-puppet/">OpenStack - Install OpenStack dengan PackStack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7/">VMWare  - How to upgrade Esxi 5.5 to 6.7 </a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7-vum/">VMWare  - How to upgrade Esxi 5.5 to 6.7 with VCenter Update Manager</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Patch-Upgrade-ESXi-15018017-to-latest-build/">VMWare - Patch Upgrade ESXi 15018017 ke latest version</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../proxmox-extend-lvm-partition/">Proxmox - How to extend LVM Partition on Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../promox-extend-lvm-partition-ofly/">Promox - How to extend LVM Partition VM Proxmox on the Fly</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-native-smtp-server-dengan-support-submission-authentication/">Postfix - Build native Postix smtp server dengan support submission authentication</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth/">Postfix - Build load balancer native smtp server dengan postfix dan saslauth</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-add-intermediate-cert-untuk-trusted-android/">RapidSSL - Menambahkan Intermediate Cert agar Trusted Cert Security di Android</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#how-to-enable-manage-sieve-plugin-on-roundcube-vestacp">How to enable manage sieve plugin on Roundcube VestaCP</a></li>
+                
+                    <li><a class="toctree-l4" href="#konfig-sieve">Konfig Sieve</a></li>
+                
+                    <li><a class="toctree-l4" href="#konfig-exim">Konfig Exim</a></li>
+                
+                    <li><a class="toctree-l4" href="#setting-exim-delivery">Setting Exim Delivery</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-clustering-large-deployment-mail-servers/">Zimbra - Clustering large deployment Mail Servers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zabbix-install-4.4-version/">Zabbix - Install zabbix latest version with Telegram Notifications</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-server-performance-dan-Tuning/">Zimbra - Set Performance dan Tuning</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../reject-fake-email-dari-certain-domain/">Zimbra - Reject Fake Email Certain Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../rate-limit-user-mail-server-zimbra/">Zimbra - Rate Limit user di Mail server Zimbra</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-queue/">Zimbra - Monitoring Queue Mail</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../dns-build-RBL-DNS-untuk-anti-spam-based-ip-address/">Zimbra - build RBL DNS untuk anti spam based ip address</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-enable-original-ip-nginx-proxy/">Zimbra - Enable Original IP Public Nginx Proxy</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-setting-glusterfs-untuk-backup-mail-account/">Zimbra - setup GlusterFS untuk NFS sharing backup email account zimbra di Ubuntu 12.04</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-diagnosa-vmware-55-psod-kernel-panic/">Zimbra - Diagnosa kernel Panic PSOD VMware 5.5 HP StoreEasy 1430 Storage</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-black-list-domain/">Zimbra - black list domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-disclaimer/">Zimbra - Setting Disclaimer</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-backup-restore/">Zimbra - Cara Backup dan Restore Mail Account</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-build-saml-server-untuk-google-apps/">Zimbra - Build SAML server untuk google apps</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-AHBL-scoring-issue/">Zimbra - DNS AHBL Scoring issue</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-poddle-attack/">Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mailbox-usages-report/">Zimbra - Mailbox Usages Report</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-trusted-domain-zimbra/">Zimbra - Menambahkan Trusted Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-unusual-login-activity/">Zimbra - Unusual Login Activity</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-milter-reject/">Zimbra - message milter-reject: END-OF-MESSAGE</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-filter-sender-dl/">Zimbra - filter sender distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-reset-password-ldap-admin/">Zimbra - Reset Password zimbra ldap admin</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-update-ssl-non-wilcard-ke-wildcard/">Zimbra - Update ssl non wildcard ke wildcard</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-send-as-distribution-list/">Zimbra - send as distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-create-mass-account-mail-via-CLI/">Zimbra - Create mass Account Mail via CLI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-relay-certain-domain-to-exim/">Zimbra - Relay certain domain to Exim via ESMTP</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install/">Gammu - Installation</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install-configure-playsms/">Gammu - Install dan Configure PlaySMS Web Interface</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-configure-multiple-modem-playsms/">Gammu - How to configure multiple modem PlaySMS Gammu</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cpanel-force-ssl-username/">CPanel - How to force generate autossl for the user CPanel</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-osticket/">Nginx - Osticket</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-PageSpeed-module/">Nginx - Build PageSpeed Module for Nginx di Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-conf-dan-server-xml-tomcat-SSL-Jira/">Nginx - conf dan server.xml tomcat SSL Jira</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../wazuh-monitoring-log-management/">Wazuh - Monitoring dan Log Management</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">blog.dgprasetya.com</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="how-to-enable-manage-sieve-plugin-on-roundcube-vestacp">How to enable manage sieve plugin on Roundcube VestaCP</h1>
+<p>asumsikan kita sudah menginstall VestaCP dengan baik di Centos.</p>
+<h2 id="konfig-sieve">Konfig Sieve</h2>
+<p>Install paket dovecot-pigeonhole:</p>
+<pre><code>yum install dovecot-pigeonhole
+</code></pre>
+<p>tambahkan protokol:</p>
+<pre><code># vim /etc/dovecot/dovecot.conf
+protocols = imap pop3 lmtp sieve
+listen = *
+base_dir = /var/run/dovecot/
+!include conf.d/*.conf
+</code></pre>
+<p>tambahkan <code>auth-master</code> ke dalam <code>auth</code> (file 10-master.conf):</p>
+<pre><code>service auth {
+  unix_listener auth-client {
+    group = mail
+    mode = 0660
+    user = dovecot
+  }
+  unix_listener auth-master {
+    group = mail
+    mode = 0660
+    user = dovecot
+  }
+  user = dovecot
+}
+</code></pre>
+<p>tambahkan konfig berikut diakhir baris konfigurasi 10-master.conf:</p>
+<pre><code>service managesieve-login {
+  inet_listener sieve {
+  port = 4190
+  }
+}
+service managesieve {
+}
+protocol sieve {
+    managesieve_max_line_length = 65536
+    managesieve_implementation_string = dovecot
+    log_path = /var/log/dovecot-sieve-errors.log
+    info_log_path = /var/log/dovecot-sieve.log
+}
+plugin {
+    sieve = ~/.dovecot.sieve
+    sieve_global_path = /etc/dovecot/sieve/default.sieve
+    sieve_dir = ~/sieve
+    sieve_global_dir = /etc/dovecot/sieve/global/
+}
+lda_mailbox_autocreate = yes
+lda_mailbox_autosubscribe = yes
+protocol lda {
+    mail_plugins = $mail_plugins autocreate sieve quota
+    postmaster_address = postmaster@sys.dgprasetya.com
+    hostname = sys.dgprasetya.com
+    auth_socket_path = /var/run/dovecot/auth-master
+    log_path = /var/log/dovecot-lda-errors.log
+    info_log_path = /var/log/dovecot-lda.log
+}
+protocol lmtp {
+    mail_plugins = $mail_plugins autocreate sieve quota
+    log_path = /var/log/dovecot-lmtp-errors.log
+    info_log_path = /var/log/dovecot-lmtp.log
+}
+</code></pre>
+<p>set permission dan owner:</p>
+<pre><code># touch /var/log/{dovecot-lda-errors.log,dovecot-lda.log}
+# touch /var/log/{dovecot-sieve-errors.log,dovecot-sieve.log}
+# touch /var/log/{dovecot-lmtp-errors.log,dovecot-lmtp.log}
+# mkdir -p /etc/dovecot/sieve/global
+# chown dovecot: -R /etc/dovecot/sieve
+# chown mail:mail /var/log/dovecot-*
+</code></pre>
+<p>restart exim <code>service exim restart</code> lalu cek apakah sieve sudah running <code>netstat -tunlp | grep :4190</code></p>
+<h2 id="konfig-exim">Konfig Exim</h2>
+<p>setting global spam filter:</p>
+<pre><code># vim /etc/dovecot/sieve/default.sieve
+require ["fileinto"];
+# rule:[SPAM]
+if header :contains "X-Spam-Flag" "YES" {
+        fileinto "Spam";
+}
+# rule:[SPAM2]
+elsif header :matches "Subject" ["*money*","*Viagra*","Cialis"] {
+        fileinto "Spam";
+}
+</code></pre>
+<p>enable <code>managesieve</code> plugin:</p>
+<pre><code># vim /etc/roundcubemail/main.inc.php
+$rcmail_config['plugins'] = array('password','managesieve');
+</code></pre>
+<p>konfig managesieve plugin:</p>
+<pre><code>vim /usr/share/roundcubemail/plugins/managesieve/
+$config['managesieve_port'] = 4190;
+$config['managesieve_default'] = '/etc/dovecot/sieve/default.sieve';
+</code></pre>
+<h2 id="setting-exim-delivery">Setting Exim Delivery</h2>
+<p>set local user delivery di bagian router config:</p>
+<pre><code>localuser:
+    driver = accept
+    #transport = local_delivery
+    transport = dovecot
+
+    #transport = dovecot_virtual_delivery
+    condition = ${lookup{$local_part}lsearch{/etc/exim/domains/$domain/passwd}{true}{false}}
+</code></pre>
+<p>set transpot dovecot di bagian Transpot:</p>
+<pre><code>dovecot:
+    driver = pipe
+    command = /usr/libexec/dovecot/dovecot-lda -e -d $local_part@$domain -f $sender_address -a $original_local_part@$original_domain
+    return_path_add
+    log_output = true
+    delivery_date_add
+    envelope_to_add
+    user = ${extract{2}{:}{${lookup{$local_part}lsearch{/etc/exim/domains/$domain/passwd}}}}
+    group = mail
+    return_output
+</code></pre>
+<p>restart exim <code>service exim restart</code>. create filter via roundbox webmail: <code>Settings &gt; Filters</code></p>
+<p>lihat log exim untuk detail:</p>
+<pre><code>2015-09-30 12:35:36 1ZhA3E-00058e-KT &lt;= root@abc.def.co.id H=abc.def.co.id [1xx.2xx.xx7.1xx] P=esmtps X=UNKNOWN:AES256-GCM-SHA384:256 S=1482 id=E1ZhA3D-003cU6-Ms@abc.def.co.id
+2015-09-30 12:35:36 1ZhA3E-00058e-KT =&gt; noc &lt;abc@def.dgprasetya.com&gt; R=localuser T=dovecot
+</code></pre>
+<p><img alt="sc" src="https://cloud.githubusercontent.com/assets/275259/10185642/7b599320-6774-11e5-8e82-b18e20f4c008.png" /></p>
+<p>tested on Centos 6.7 VestaCP 0.9.8.</p>
+<p>Ref:</p>
+<ol>
+<li><a href="https://www.rosehosting.com/blog/how-to-set-up-server-side-email-filtering-with-dovecot-sieve-and-roundcube-on-a-centos-6-vps/">rosehosting</a></li>
+<li><a href="https://forum.directadmin.com/showthread.php?t=43332">forum direct admin</a></li>
+<li><a href="https://forum.vestacp.com/viewtopic.php?f=31&amp;t=6263">forum vesta cp</a></li>
+</ol>
+              
+            </div>
+          </div>
+          <div id="disqus_thread"></div>
+<script>
+
+if ( mkdocs_page_url == "/" ) {
+
+}
+else {
+    
+    var disqus_config = function () {
+        this.page.url = blog.dgprasetya.com; 
+        this.page.identifier = mkdocs_page_url; 
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//blog-dgprasetya-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+
+}
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<footer>             
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../zimbra-clustering-large-deployment-mail-servers/" class="btn btn-neutral float-right" title="Zimbra - Clustering large deployment Mail Servers">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../nginx-add-intermediate-cert-untuk-trusted-android/" class="btn btn-neutral" title="RapidSSL - Menambahkan Intermediate Cert agar Trusted Cert Security di Android"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright (c) 2020 dgprasetya</p>
+    
+  </div>
+
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="https://github.com/snide/sphinx_rtd_theme" target="_blank">Sphinx ReadTheDocs</a> 
+            theme, <a href="https://about.gitlab.com/gitlab-ci/">Gitlab CI</a>, 
+            <a href="https://hub.docker.com/r/devunix/alpine-mkdocs/">Docker Python Stack</a> 
+            dan <a href="https://github.com/deanet/deanet.github.com">Github Pages</a><br/>
+  <br/>
+  Hiring SysAdmin to fix your issues ? <a href="https://www.dgprasetya.com/contactme.html" target="_blank">Contact Me</a> :)
+</footer>
+
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../nginx-add-intermediate-cert-untuk-trusted-android/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../zimbra-clustering-large-deployment-mail-servers/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

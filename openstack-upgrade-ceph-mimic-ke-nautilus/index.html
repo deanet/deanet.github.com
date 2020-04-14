@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="dgprasetya">
+  
+  <title>OpenStack - Upgrade Ceph Mimic ke Nautilus - blog.dgprasetya.com</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/extra.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "OpenStack - Upgrade Ceph Mimic ke Nautilus";
+    var mkdocs_page_input_path = "openstack-upgrade-ceph-mimic-ke-nautilus.md";
+    var mkdocs_page_url = "/openstack-upgrade-ceph-mimic-ke-nautilus/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-55420243-2', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> blog.dgprasetya.com</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Index</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ci-cd-with-gitlab/">CI/CD with Gitlab</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../net-boot-ipxe-docker-tomcat-centos-coreos/">Docker auto setup via IPXE for Centos and Core OS</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-connect-two-instances-with-ip-private-via-vpc-peering/">GCP - How to connect two instances with IP Private via VPC Peering</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-multiple-nics-with-vpc-peering/">GCP - How to connect Multiple Nics with VPC Peering at Google Cloud Platform</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../kimsufi-dns-ipv6-openvz-promox/">OVH - Build DNS Server IPV6 dengan DBNDNS di Kimsufi menggunakan OpenVZ Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-7-network-configuration-without-network-manager/">OVH - Centos 7 Network configuration without network manager daemon</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-upgrade-7-to-8/">Centos - Upgrade from 7 to 8</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ceph-osds-troubleshooting/">OpenStack - Ceph OSDS Troubleshooting</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../freebsd-11-upgrade-to-12/">FreeBSD - Upgrade from 11 to 12</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lets-encrypt-autossl-wildcard-acme.sh/">Lets Encrypt - Create wildcard ssl with acme.sh</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-from-rocky-to-stein/">OpenStack - Upgrade from Rocky to Stein Release</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-integrasi-ceph-dengan-openstack/">OpenStack - Integrasi dengan Ceph Cluster</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">OpenStack - Upgrade Ceph Mimic ke Nautilus</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#ceph-deploy">Ceph Deploy</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#prosedur-upgrade">Prosedur Upgrade</a></li>
+                
+                    <li><a class="toctree-l4" href="#upgrade-monitors">Upgrade Monitors</a></li>
+                
+                    <li><a class="toctree-l4" href="#upgrade-osd">Upgrade OSD</a></li>
+                
+                    <li><a class="toctree-l4" href="#upgrade-metadata-server">Upgrade Metadata Server</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#troubleshoot">Troubleshoot:</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#summary-code">Summary Code</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#binbash">!/bin/bash</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-install-with-packstack-puppet/">OpenStack - Install OpenStack dengan PackStack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7/">VMWare  - How to upgrade Esxi 5.5 to 6.7 </a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7-vum/">VMWare  - How to upgrade Esxi 5.5 to 6.7 with VCenter Update Manager</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Patch-Upgrade-ESXi-15018017-to-latest-build/">VMWare - Patch Upgrade ESXi 15018017 ke latest version</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../proxmox-extend-lvm-partition/">Proxmox - How to extend LVM Partition on Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../promox-extend-lvm-partition-ofly/">Promox - How to extend LVM Partition VM Proxmox on the Fly</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-native-smtp-server-dengan-support-submission-authentication/">Postfix - Build native Postix smtp server dengan support submission authentication</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth/">Postfix - Build load balancer native smtp server dengan postfix dan saslauth</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-add-intermediate-cert-untuk-trusted-android/">RapidSSL - Menambahkan Intermediate Cert agar Trusted Cert Security di Android</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vestacp-exim-roundcube-manage-sieve-plugins-setting/">VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-clustering-large-deployment-mail-servers/">Zimbra - Clustering large deployment Mail Servers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zabbix-install-4.4-version/">Zabbix - Install zabbix latest version with Telegram Notifications</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-server-performance-dan-Tuning/">Zimbra - Set Performance dan Tuning</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../reject-fake-email-dari-certain-domain/">Zimbra - Reject Fake Email Certain Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../rate-limit-user-mail-server-zimbra/">Zimbra - Rate Limit user di Mail server Zimbra</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-queue/">Zimbra - Monitoring Queue Mail</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../dns-build-RBL-DNS-untuk-anti-spam-based-ip-address/">Zimbra - build RBL DNS untuk anti spam based ip address</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-enable-original-ip-nginx-proxy/">Zimbra - Enable Original IP Public Nginx Proxy</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-setting-glusterfs-untuk-backup-mail-account/">Zimbra - setup GlusterFS untuk NFS sharing backup email account zimbra di Ubuntu 12.04</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-diagnosa-vmware-55-psod-kernel-panic/">Zimbra - Diagnosa kernel Panic PSOD VMware 5.5 HP StoreEasy 1430 Storage</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-black-list-domain/">Zimbra - black list domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-disclaimer/">Zimbra - Setting Disclaimer</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-backup-restore/">Zimbra - Cara Backup dan Restore Mail Account</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-build-saml-server-untuk-google-apps/">Zimbra - Build SAML server untuk google apps</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-AHBL-scoring-issue/">Zimbra - DNS AHBL Scoring issue</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-poddle-attack/">Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mailbox-usages-report/">Zimbra - Mailbox Usages Report</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-trusted-domain-zimbra/">Zimbra - Menambahkan Trusted Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-unusual-login-activity/">Zimbra - Unusual Login Activity</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-milter-reject/">Zimbra - message milter-reject: END-OF-MESSAGE</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-filter-sender-dl/">Zimbra - filter sender distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-reset-password-ldap-admin/">Zimbra - Reset Password zimbra ldap admin</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-update-ssl-non-wilcard-ke-wildcard/">Zimbra - Update ssl non wildcard ke wildcard</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-send-as-distribution-list/">Zimbra - send as distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-create-mass-account-mail-via-CLI/">Zimbra - Create mass Account Mail via CLI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-relay-certain-domain-to-exim/">Zimbra - Relay certain domain to Exim via ESMTP</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install/">Gammu - Installation</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install-configure-playsms/">Gammu - Install dan Configure PlaySMS Web Interface</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-configure-multiple-modem-playsms/">Gammu - How to configure multiple modem PlaySMS Gammu</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cpanel-force-ssl-username/">CPanel - How to force generate autossl for the user CPanel</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-osticket/">Nginx - Osticket</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-PageSpeed-module/">Nginx - Build PageSpeed Module for Nginx di Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-conf-dan-server-xml-tomcat-SSL-Jira/">Nginx - conf dan server.xml tomcat SSL Jira</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../wazuh-monitoring-log-management/">Wazuh - Monitoring dan Log Management</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">blog.dgprasetya.com</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>OpenStack - Upgrade Ceph Mimic ke Nautilus</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>OpenStack - Upgrade Ceph Mimic ke Nautilus</p>
+<p>Kita bisa mengupgrade daemon di dalam Ceph cluster sementara cluster dalam keadaaan online. Ada beberapa tipe upgrade berdasarkan urutan dependensi. Untuk urutan upgrade direkomendasikan seperti berikut:</p>
+<pre><code>1. Ceph Deploy
+2. Ceph Monitors
+3. Ceph OSD Daemons
+4. Ceph Metadata Servers
+5. Ceph Object Gateways
+</code></pre>
+<h2 id="ceph-deploy">Ceph Deploy</h2>
+<p>sebelum upgrade <code>ceph daemons</code>, upgrade tool <code>ceph-deploy</code></p>
+<pre><code># yum install ceph-deploy
+</code></pre>
+<h2 id="prosedur-upgrade">Prosedur Upgrade</h2>
+<h3 id="upgrade-monitors">Upgrade Monitors</h3>
+<p>Untuk mengupgrade <code>monitors</code>, lakukan langkah berikut:</p>
+<p>Upgrade paket Ceph untuk setiap daemon atau bisa semua sekaligus:</p>
+<pre><code>[stack@ceph1 ~]$ ceph-deploy install --release nautilus ceph-mon
+</code></pre>
+<p>Update juga untuk binary ceph:</p>
+<pre><code>[stack@ceph1 ~]$ sudo yum update &amp;&amp; sudo yum install ceph
+</code></pre>
+<p>restart <code>ceph mon services</code>    </p>
+<pre><code>[stack@ceph1 ~]$  systemctl restart ceph-mon@ceph1
+</code></pre>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/62610173-527b7400-b92d-11e9-919a-164e50e72e67.png" /></p>
+<p>cek monitor ceph:</p>
+<pre><code>[stack@ceph1 ~]$  ceph mon stat
+</code></pre>
+<h3 id="upgrade-osd">Upgrade OSD</h3>
+<p>Untuk mengupgrade <code>osd daemon</code>, lakukan langkah berikut:</p>
+<p>Gunakan tool <code>ceph-deploy</code> untuk upgrade semua node <code>OSD</code> daemon:</p>
+<pre><code>[stack@ceph1 ~]$ ceph-deploy install --release nautilus osd0 osd1
+</code></pre>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/62610240-7f2f8b80-b92d-11e9-92ed-732d142815a9.png" /></p>
+<p>Update juga untuk binary ceph:</p>
+<pre><code>[stack@ceph1 ~]$ ssh osd0
+[stack@osd0 ~]$ sudo yum update &amp;&amp; sudo yum install ceph
+[stack@ceph1 ~]$ ssh osd1
+[stack@osd1 ~]$ sudo yum update &amp;&amp; sudo yum install ceph
+</code></pre>
+<p>restart <code>OSD</code>:</p>
+<pre><code>systemctl restart ceph-osd@1
+systemctl restart ceph-osd@2
+systemctl restart ceph-osd@3
+
+[stack@ceph1 ~]$ systemctl status ceph-osd@1
+� ceph-osd@1.service - Ceph object storage daemon osd.1
+   Loaded: loaded (/usr/lib/systemd/system/ceph-osd@.service; enabled-runtime; vendor preset: disabled)
+   Active: active (running) since Tue 2019-08-06 15:39:40 WIB; 24h ago
+  Process: 12624 ExecStartPre=/usr/lib/ceph/ceph-osd-prestart.sh --cluster ${CLUSTER} --id %i (code=exited, status=0/SUCCESS)
+ Main PID: 12629 (ceph-osd)
+   CGroup: /system.slice/system-ceph\x2dosd.slice/ceph-osd@1.service
+           ��12629 /usr/bin/ceph-osd -f --cluster ceph --id 1 --setuser ceph --setgroup ceph
+[stack@ceph1 ~]$
+</code></pre>
+<h3 id="upgrade-metadata-server">Upgrade Metadata Server</h3>
+<p>jalankan:</p>
+<pre><code>[stack@ceph1 ~]$ ceph-deploy install --release nautilus mds0
+[stack@ceph1 ~]$ sudo yum update &amp;&amp; sudo yum install ceph-mds
+[stack@ceph1 ~]$ systemctl restart ceph-mgr@ceph1
+</code></pre>
+<p>jika metadata server diinstall satu server dengan ceph-mon. maka langkah ini tidak diperlukan lagi.</p>
+<p>sampai dengan disini <code>ceph</code> server seharusnya sudah menjadi versi <code>nautilus</code>. cek dengan command <code>ceph -s</code> untuk melihat status cluster.</p>
+<h2 id="troubleshoot">Troubleshoot:</h2>
+<p><code>Monitor not have enabled msgr2</code></p>
+<p>Error Log:</p>
+<pre><code>Monitor not have enabled msgr2
+</code></pre>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/62610327-abe3a300-b92d-11e9-8d6e-233f7caaf28f.png" /></p>
+<p>Jalankan:</p>
+<pre><code>ceph mon enable-msgr2
+</code></pre>
+<p>lalu cek lagi <code>ceph -s</code></p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/62610452-eea57b00-b92d-11e9-968d-e74ae121a23e.png" /></p>
+<p><code>Legacy BlueStore stats reporting detected</code></p>
+<p>Error Log:</p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/62610509-067cff00-b92e-11e9-84bb-4ab0ed7f5d9b.png" /></p>
+<p>How to solve:</p>
+<p>repair <code>OSD</code> satu per satu:</p>
+<p>Contoh:</p>
+<pre><code>sudo ceph-bluestore-tool repair --path /var/lib/ceph/osd/ceph-1/
+sudo ceph-bluestore-tool repair --path /var/lib/ceph/osd/ceph-2/
+sudo ceph-bluestore-tool repair --path /var/lib/ceph/osd/ceph-3/
+</code></pre>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/62610581-257b9100-b92e-11e9-9550-79801fb5efd4.png" /></p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/62610622-3d531500-b92e-11e9-9401-ed3668044c6c.png" /></p>
+<p>solved:</p>
+<p><img alt="image" src="https://user-images.githubusercontent.com/275259/62610706-5fe52e00-b92e-11e9-96cb-8da5208a4995.png" /></p>
+<h1 id="summary-code">Summary Code</h1>
+<h1 id="binbash">!/bin/bash</h1>
+<pre><code>ceph-deploy install --release nautilus ceph-mon
+sudo yum update -y &amp;&amp; sudo yum install ceph -y
+sudo systemctl restart ceph-mon@ceph1
+
+#osd upgrade
+ceph-deploy install --release nautilus osd0 osd1
+
+
+ssh osd0 "sudo yum update -y &amp;&amp; sudo yum install ceph -y"
+ssh osd1 "sudo yum update -y &amp;&amp; sudo yum install ceph -y"
+
+
+ceph-deploy install --release nautilus mds0
+sudo yum update -y &amp;&amp; sudo yum install ceph-mds -y
+
+systemctl restart ceph-mgr@ceph1
+ceph --version
+ssh osd0 "ceph --version"
+ssh osd1 "ceph --version"
+</code></pre>
+<p>Ref:</p>
+<ol>
+<li><a href="https://docs.ceph.com/docs/master/install/upgrading-ceph/">Ceph Docs</a></li>
+</ol>
+              
+            </div>
+          </div>
+          <div id="disqus_thread"></div>
+<script>
+
+if ( mkdocs_page_url == "/" ) {
+
+}
+else {
+    
+    var disqus_config = function () {
+        this.page.url = blog.dgprasetya.com; 
+        this.page.identifier = mkdocs_page_url; 
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//blog-dgprasetya-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+
+}
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<footer>             
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../openstack-install-with-packstack-puppet/" class="btn btn-neutral float-right" title="OpenStack - Install OpenStack dengan PackStack">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../openstack-integrasi-ceph-dengan-openstack/" class="btn btn-neutral" title="OpenStack - Integrasi dengan Ceph Cluster"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright (c) 2020 dgprasetya</p>
+    
+  </div>
+
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="https://github.com/snide/sphinx_rtd_theme" target="_blank">Sphinx ReadTheDocs</a> 
+            theme, <a href="https://about.gitlab.com/gitlab-ci/">Gitlab CI</a>, 
+            <a href="https://hub.docker.com/r/devunix/alpine-mkdocs/">Docker Python Stack</a> 
+            dan <a href="https://github.com/deanet/deanet.github.com">Github Pages</a><br/>
+  <br/>
+  Hiring SysAdmin to fix your issues ? <a href="https://www.dgprasetya.com/contactme.html" target="_blank">Contact Me</a> :)
+</footer>
+
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../openstack-integrasi-ceph-dengan-openstack/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../openstack-install-with-packstack-puppet/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

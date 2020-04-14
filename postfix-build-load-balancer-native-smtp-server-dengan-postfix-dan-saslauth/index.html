@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="dgprasetya">
+  
+  <title>Postfix - Build load balancer native smtp server dengan postfix dan saslauth - blog.dgprasetya.com</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/extra.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Postfix - Build load balancer native smtp server dengan postfix dan saslauth";
+    var mkdocs_page_input_path = "postfix-build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth.md";
+    var mkdocs_page_url = "/postfix-build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-55420243-2', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> blog.dgprasetya.com</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Index</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ci-cd-with-gitlab/">CI/CD with Gitlab</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../net-boot-ipxe-docker-tomcat-centos-coreos/">Docker auto setup via IPXE for Centos and Core OS</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-connect-two-instances-with-ip-private-via-vpc-peering/">GCP - How to connect two instances with IP Private via VPC Peering</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-multiple-nics-with-vpc-peering/">GCP - How to connect Multiple Nics with VPC Peering at Google Cloud Platform</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../kimsufi-dns-ipv6-openvz-promox/">OVH - Build DNS Server IPV6 dengan DBNDNS di Kimsufi menggunakan OpenVZ Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-7-network-configuration-without-network-manager/">OVH - Centos 7 Network configuration without network manager daemon</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-upgrade-7-to-8/">Centos - Upgrade from 7 to 8</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ceph-osds-troubleshooting/">OpenStack - Ceph OSDS Troubleshooting</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../freebsd-11-upgrade-to-12/">FreeBSD - Upgrade from 11 to 12</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lets-encrypt-autossl-wildcard-acme.sh/">Lets Encrypt - Create wildcard ssl with acme.sh</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-from-rocky-to-stein/">OpenStack - Upgrade from Rocky to Stein Release</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-integrasi-ceph-dengan-openstack/">OpenStack - Integrasi dengan Ceph Cluster</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-ceph-mimic-ke-nautilus/">OpenStack - Upgrade Ceph Mimic ke Nautilus</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-install-with-packstack-puppet/">OpenStack - Install OpenStack dengan PackStack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7/">VMWare  - How to upgrade Esxi 5.5 to 6.7 </a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7-vum/">VMWare  - How to upgrade Esxi 5.5 to 6.7 with VCenter Update Manager</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Patch-Upgrade-ESXi-15018017-to-latest-build/">VMWare - Patch Upgrade ESXi 15018017 ke latest version</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../proxmox-extend-lvm-partition/">Proxmox - How to extend LVM Partition on Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../promox-extend-lvm-partition-ofly/">Promox - How to extend LVM Partition VM Proxmox on the Fly</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-native-smtp-server-dengan-support-submission-authentication/">Postfix - Build native Postix smtp server dengan support submission authentication</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Postfix - Build load balancer native smtp server dengan postfix dan saslauth</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth">Build load balancer native smtp server dengan postfix dan saslauth</a></li>
+                
+                    <li><a class="toctree-l4" href="#persiapan">Persiapan:</a></li>
+                
+                    <li><a class="toctree-l4" href="#setup-load-balancer">Setup Load Balancer</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-add-intermediate-cert-untuk-trusted-android/">RapidSSL - Menambahkan Intermediate Cert agar Trusted Cert Security di Android</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vestacp-exim-roundcube-manage-sieve-plugins-setting/">VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-clustering-large-deployment-mail-servers/">Zimbra - Clustering large deployment Mail Servers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zabbix-install-4.4-version/">Zabbix - Install zabbix latest version with Telegram Notifications</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-server-performance-dan-Tuning/">Zimbra - Set Performance dan Tuning</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../reject-fake-email-dari-certain-domain/">Zimbra - Reject Fake Email Certain Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../rate-limit-user-mail-server-zimbra/">Zimbra - Rate Limit user di Mail server Zimbra</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-queue/">Zimbra - Monitoring Queue Mail</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../dns-build-RBL-DNS-untuk-anti-spam-based-ip-address/">Zimbra - build RBL DNS untuk anti spam based ip address</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-enable-original-ip-nginx-proxy/">Zimbra - Enable Original IP Public Nginx Proxy</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-setting-glusterfs-untuk-backup-mail-account/">Zimbra - setup GlusterFS untuk NFS sharing backup email account zimbra di Ubuntu 12.04</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-diagnosa-vmware-55-psod-kernel-panic/">Zimbra - Diagnosa kernel Panic PSOD VMware 5.5 HP StoreEasy 1430 Storage</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-black-list-domain/">Zimbra - black list domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-disclaimer/">Zimbra - Setting Disclaimer</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-backup-restore/">Zimbra - Cara Backup dan Restore Mail Account</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-build-saml-server-untuk-google-apps/">Zimbra - Build SAML server untuk google apps</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-AHBL-scoring-issue/">Zimbra - DNS AHBL Scoring issue</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-poddle-attack/">Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mailbox-usages-report/">Zimbra - Mailbox Usages Report</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-trusted-domain-zimbra/">Zimbra - Menambahkan Trusted Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-unusual-login-activity/">Zimbra - Unusual Login Activity</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-milter-reject/">Zimbra - message milter-reject: END-OF-MESSAGE</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-filter-sender-dl/">Zimbra - filter sender distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-reset-password-ldap-admin/">Zimbra - Reset Password zimbra ldap admin</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-update-ssl-non-wilcard-ke-wildcard/">Zimbra - Update ssl non wildcard ke wildcard</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-send-as-distribution-list/">Zimbra - send as distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-create-mass-account-mail-via-CLI/">Zimbra - Create mass Account Mail via CLI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-relay-certain-domain-to-exim/">Zimbra - Relay certain domain to Exim via ESMTP</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install/">Gammu - Installation</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install-configure-playsms/">Gammu - Install dan Configure PlaySMS Web Interface</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-configure-multiple-modem-playsms/">Gammu - How to configure multiple modem PlaySMS Gammu</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cpanel-force-ssl-username/">CPanel - How to force generate autossl for the user CPanel</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-osticket/">Nginx - Osticket</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-PageSpeed-module/">Nginx - Build PageSpeed Module for Nginx di Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-conf-dan-server-xml-tomcat-SSL-Jira/">Nginx - conf dan server.xml tomcat SSL Jira</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../wazuh-monitoring-log-management/">Wazuh - Monitoring dan Log Management</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">blog.dgprasetya.com</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Postfix - Build load balancer native smtp server dengan postfix dan saslauth</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth">Build load balancer native smtp server dengan postfix dan saslauth</h1>
+<p>Setelah bisa build native smtp server dengan postfix, dengan autentikasi model 
+submission port 587. selanjutnya kita akan membuat smtp tersebut mempunyai 2 ip public sebagai sendernya.</p>
+<p>ada beberapa cara agar kita bisa sending email dengan beberapa ip public:
+1.  Assign ip public ke dalam smtp server tersebut, lalu binding ip addressnya dan gunakan ip public tersebut ( <a href="http://marinovl.blogspot.co.id/2012/09/postfix-how-to-balance-outgoing-emails.html">http://marinovl.blogspot.co.id/2012/09/postfix-how-to-balance-outgoing-emails.html</a> ). 
+Cara ini tidak bisa, karena digital ocean hanya menerapkan floating ip (forwarding). ip public tidak bisa diassign langsung via interface os.
+2.  Dengan cara relay ke dalam 2 ip public tersebut dari mesin yang lain. 
+Tentunya kita harus menyiapkan 3 buah mesin os. 2 mesin untuk sender, 1 mesin sebagai load balance. masing2 mesin os mempunyai ip public sendiri. untuk konsep load balance, cukup dengan dns round robin saja yang paling mudah.</p>
+<h3 id="persiapan">Persiapan:</h3>
+<ol>
+<li>Clone droplets / mesin os yang sudah kita build dari tutorial <a href="../blog.dgprasetya.com/postfix-build-native-smtp-server-dengan-support-submission-authentication/">"build native smtp server dengan support submission authentication"</a></li>
+<li>Enable masing2 private ip.</li>
+</ol>
+<p>setting hostname mesin:</p>
+<ol>
+<li>nws1.abc.co.id , dan cek semua yg berkaitan dengan hostname di postfix nya. set spf dari domain abc.co.id ke ip hostname ini.</li>
+<li>nws2.abc.co.id , dan cek semua yg berkaitan dengan hostname di postfix nya. set spf dari domain abc.co.id ke ip hostname ini.</li>
+</ol>
+<p>test 2 droplet tersebut dengan phpmailer , pastikan spf, rdns sudha diset dengan baik. 
+jika 2 mesin tersebut sudah ok maka bisa build untuk load balancernya.</p>
+<h3 id="setup-load-balancer">Setup Load Balancer</h3>
+<p>Load balancer smtp dibuild dengan os ubuntu based debian, dengan enable ip private dan dengan hostname blsmtp.abc.co.id</p>
+<h4 id="install-smtp-server-postfix">install smtp server postfix.</h4>
+<pre><code>apt-get install postfix sasl2-bin
+</code></pre>
+<p>config main.cf</p>
+<pre><code>relayhost = [mpl.abc.co.id]:587
+smtp_sasl_auth_enable = yes
+smtp_sasl_security_options = noanonymous
+
+relay_domains =
+home_mailbox = Maildir/
+mydomain = blsmtp.abc.co.id
+smtpd_use_tls = yes
+smtpd_tls_key_file = /root/abc.co.id/abc.co.id.key
+smtpd_tls_cert_file = /root/abc.co.id/chained.crt
+smtpd_tls_auth_only=yes
+smtp_tls_security_level=may
+
+smtpd_tls_mandatory_protocols = !SSLv2, !SSLv3
+smtpd_tls_protocols = !SSLv2, !SSLv3
+smtp_tls_mandatory_protocols = !SSLv2, !SSLv3
+smtp_tls_protocols = !SSLv2, !SSLv3
+
+smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination
+
+
+mailbox_size_limit = 256000000
+myorigin = abc.co.id
+myhostname = abc.co.id
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 10.15.0.8 128.199.193.151
+mydestination = newsletter.abc.co.id, localhost.localdomain, localhost
+recipient_delimiter = +
+inet_interfaces = all
+smtp_tls_CApath = /etc/ssl/certs
+smtpd_sasl_local_domain = $myhostname
+
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+</code></pre>
+<p>define sasl user password untuk relay ke 2 mesin smtp:</p>
+<pre><code>vim /etc/postfix/sasl_passwd
+[mpl.abc.co.id]:587 u:p
+[10.130.11.5]:587 u@blsmtp.abc.co.id:p
+</code></pre>
+<p>jangan lupa set dns untuk  mpl.abc.co.id ke ip private masing2 mesin smtp server.</p>
+<p>set master.cf seperti berikut</p>
+<pre><code>smtp      inet  n       -       -       -       -       smtpd
+submission inet n       -       -       -       -       smtpd
+  -o smtpd_tls_security_level=encrypt
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_reject_unlisted_sender=yes
+  -o smtpd_recipient_restrictions=permit_sasl_authenticated,reject
+  -o broken_sasl_auth_clients=yes
+  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+smtps     inet  n       -       -       -       -       smtpd
+  -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+  -o broken_sasl_auth_clients=yes
+  -o content_filter=
+  -o smtpd_recipient_restrictions=permit_sasl_authenticated,reject
+  -o milter_macro_daemon_name=ORIGINATING
+pickup    unix  n       -       -       60      1       pickup
+cleanup   unix  n       -       -       -       0       cleanup
+qmgr      unix  n       -       n       300     1       qmgr
+tlsmgr    unix  -       -       -       1000?   1       tlsmgr
+rewrite   unix  -       -       -       -       -       trivial-rewrite
+bounce    unix  -       -       -       -       0       bounce
+defer     unix  -       -       -       -       0       bounce
+trace     unix  -       -       -       -       0       bounce
+verify    unix  -       -       -       -       1       verify
+flush     unix  n       -       -       1000?   0       flush
+proxymap  unix  -       -       n       -       -       proxymap
+proxywrite unix -       -       n       -       1       proxymap
+smtp      unix  -       -       -       -       -       smtp
+relay     unix  -       -       -       -       -       smtp
+showq     unix  n       -       -       -       -       showq
+error     unix  -       -       -       -       -       error
+retry     unix  -       -       -       -       -       error
+discard   unix  -       -       -       -       -       discard
+local     unix  -       n       n       -       -       local
+virtual   unix  -       n       n       -       -       virtual
+lmtp      unix  -       -       -       -       -       lmtp
+anvil     unix  -       -       -       -       1       anvil
+scache    unix  -       -       -       -       1       scache
+maildrop  unix  -       n       n       -       -       pipe
+  flags=DRhu user=vmail argv=/usr/bin/maildrop -d ${recipient}
+uucp      unix  -       n       n       -       -       pipe
+  flags=Fqhu user=uucp argv=uux -r -n -z -a$sender - $nexthop!rmail ($recipient)
+ifmail    unix  -       n       n       -       -       pipe
+  flags=F user=ftn argv=/usr/lib/ifmail/ifmail -r $nexthop ($recipient)
+bsmtp     unix  -       n       n       -       -       pipe
+  flags=Fq. user=bsmtp argv=/usr/lib/bsmtp/bsmtp -t$nexthop -f$sender $recipient
+scalemail-backend unix  -   n   n   -   2   pipe
+  flags=R user=scalemail argv=/usr/lib/scalemail/bin/scalemail-store ${nexthop} ${user} ${extension}
+mailman   unix  -       n       n       -       -       pipe
+  flags=FR user=list argv=/usr/lib/mailman/bin/postfix-to-mailman.py
+  ${nexthop} ${user}
+</code></pre>
+<p>set /etc/postfix/sasl/smtpd.conf</p>
+<pre><code>pwcheck_method: auxprop
+auxprop_plugin: sasldb
+mech_list: PLAIN LOGIN
+</code></pre>
+<p>set /etc/default/saslauthd:</p>
+<pre><code>START=yes
+DESC="SASL Authentication Daemon"
+NAME="saslauthd"
+MECHANISMS="shadow"
+MECH_OPTIONS="PLAIN LOGIN"
+THREADS=5
+OPTIONS="-c -m /var/run/saslauthd"
+</code></pre>
+<p>create user via sasl</p>
+<pre><code>saslpasswd2 -c -u domain user
+</code></pre>
+<p>untuk check user:</p>
+<pre><code>sasldblistusers2
+</code></pre>
+<p>setelah selesai, tinggal test ke smtp load balancer dengan user dan password yg telah dibuat:</p>
+<p>vim blsmtp.php</p>
+<pre><code>&lt;?php
+//require_once('class.phpmailer.php');
+require 'PHPMailerAutoload.php';
+
+$imeladdress = "userp@k24.co.id";
+$mail = new PHPMailer(); // create a new object
+$mail-&gt;IsSMTP(); // enable SMTP
+$mail-&gt;SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+$mail-&gt;SMTPAuth = true; // authentication enabled
+//$mail-&gt;SMTPSecure = ''; // secure transfer enabled REQUIRED for GMail
+$mail-&gt;Host = "blsmtp.abc.co.id";
+$mail-&gt;Port = 587; // or 587
+$mail-&gt;IsHTML(true);
+$mail-&gt;XMailer = ' ';
+//$mail-&gt;Username = "user@i.abc.co.id";
+//$mail-&gt;Username = "oksoft@i.abc.co.id";
+$mail-&gt;Username = "useren@blsmtp.abc.co.id";
+$mail-&gt;Password = "p%";
+$mail-&gt;SetFrom('newsletter@abc.co.id', 'abc.co.id');
+//$mail-&gt;AddReplyTo('user@abc.co.id', 'abc.co.id');
+$mail-&gt;Sender="newsletter@abc.co.id";
+$mail-&gt;Subject = "Inspirasi sehat";
+//$mail-&gt;addCustomHeader("List-Unsubscribe",'&lt;mailto:unsubscribe@abc.co.id?subject=Unsubscribe&gt;, &lt;http://abc.co.id&gt;');
+//$mail-&gt;Body = file_get_contents('file.html');
+//$mail-&gt;Body = file_get_contents('gmail.html');
+$mail-&gt;Body = "testaja";
+$mail-&gt;AddAddress("$imeladdress");
+ if(!$mail-&gt;Send())
+    {
+    echo "Mailer Error: " . $mail-&gt;ErrorInfo;
+    }
+    else
+    {
+    echo "Message has been sent";
+    }
+?&gt;
+
+
+
+
+user@it-infra ~/Downloads/PHPMailer-master $ php blsmtp.php 
+2016-08-23 03:41:18 CLIENT -&gt; SERVER: EHLO it-infra
+2016-08-23 03:41:18 CLIENT -&gt; SERVER: STARTTLS
+2016-08-23 03:41:18 CLIENT -&gt; SERVER: EHLO it-infra
+2016-08-23 03:41:18 CLIENT -&gt; SERVER: AUTH LOGIN
+2016-08-23 03:41:18 CLIENT -&gt; SERVER: ZVd1YTVtazI0LmNvLmlk
+2016-08-23 03:41:18 CLIENT -&gt; SERVER: OFlzYelI=
+2016-08-23 03:41:18 CLIENT -&gt; SERVER: MAIL FROM:&lt;newsletter@abc.co.id&gt;
+2016-08-23 03:41:18 CLIENT -&gt; SERVER: RCPT TO:&lt;userp@k24.co.id&gt;
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: DATA
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: Date: Tue, 23 Aug 2016 11:41:17 +0800
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: To: userp@k24.co.id
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: From: noreply@abc.co.id
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: Subject: inspirasi sehat
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: Message-ID: &lt;c3bf4cf888fb9f37e7257d0fc1462bec@it-infra&gt;
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: X-Mailer: PHPMailer 5.2.13 (https://github.com/PHPMailer/PHPMailer)
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: MIME-Version: 1.0
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: Content-Type: text/html; charset=iso-8859-1
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: Content-Transfer-Encoding: quoted-printable
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: 233);"&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;=0A
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: .
+2016-08-23 03:41:19 CLIENT -&gt; SERVER: QUIT
+</code></pre>
+<p>hasil email dengan menggunakan random ip address:</p>
+<p>terlihat ip menggunakan 128.x.x.180 setelah diterima dari ip internal 10.130.11.5, dimana ip internal ini adalah ip dari blsmtp.abc.co.id (mesin load balancer).</p>
+<p>terlihat ip address menggunakan 188.x.x.205 setelah diterima dari ip internal 10.130.11.5, dimana ip internal ini adalah ip dari blsmtp.abc.co.id (mesin load balancer)</p>
+<p>selesai.</p>
+<p>ref: 
+<a href="https://wiki.debian.org/PostfixAndSASL">https://wiki.debian.org/PostfixAndSASL</a></p>
+              
+            </div>
+          </div>
+          <div id="disqus_thread"></div>
+<script>
+
+if ( mkdocs_page_url == "/" ) {
+
+}
+else {
+    
+    var disqus_config = function () {
+        this.page.url = blog.dgprasetya.com; 
+        this.page.identifier = mkdocs_page_url; 
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//blog-dgprasetya-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+
+}
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<footer>             
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../nginx-add-intermediate-cert-untuk-trusted-android/" class="btn btn-neutral float-right" title="RapidSSL - Menambahkan Intermediate Cert agar Trusted Cert Security di Android">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../postfix-build-native-smtp-server-dengan-support-submission-authentication/" class="btn btn-neutral" title="Postfix - Build native Postix smtp server dengan support submission authentication"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright (c) 2020 dgprasetya</p>
+    
+  </div>
+
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="https://github.com/snide/sphinx_rtd_theme" target="_blank">Sphinx ReadTheDocs</a> 
+            theme, <a href="https://about.gitlab.com/gitlab-ci/">Gitlab CI</a>, 
+            <a href="https://hub.docker.com/r/devunix/alpine-mkdocs/">Docker Python Stack</a> 
+            dan <a href="https://github.com/deanet/deanet.github.com">Github Pages</a><br/>
+  <br/>
+  Hiring SysAdmin to fix your issues ? <a href="https://www.dgprasetya.com/contactme.html" target="_blank">Contact Me</a> :)
+</footer>
+
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../postfix-build-native-smtp-server-dengan-support-submission-authentication/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../nginx-add-intermediate-cert-untuk-trusted-android/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

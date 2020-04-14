@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="dgprasetya">
+  
+  <title>Docker auto setup via IPXE for Centos and Core OS - blog.dgprasetya.com</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/extra.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Docker auto setup via IPXE for Centos and Core OS";
+    var mkdocs_page_input_path = "net-boot-ipxe-docker-tomcat-centos-coreos.md";
+    var mkdocs_page_url = "/net-boot-ipxe-docker-tomcat-centos-coreos/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-55420243-2', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> blog.dgprasetya.com</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Index</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ci-cd-with-gitlab/">CI/CD with Gitlab</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Docker auto setup via IPXE for Centos and Core OS</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#setup-net-boot-dhcp-server-with-ipxe-boot-enable">Setup Net Boot / DHCP Server with IPXE boot enable</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#configuration">configuration</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#requierements">Requierements</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#kickstart">Kickstart</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#done">Done</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-connect-two-instances-with-ip-private-via-vpc-peering/">GCP - How to connect two instances with IP Private via VPC Peering</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-multiple-nics-with-vpc-peering/">GCP - How to connect Multiple Nics with VPC Peering at Google Cloud Platform</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../kimsufi-dns-ipv6-openvz-promox/">OVH - Build DNS Server IPV6 dengan DBNDNS di Kimsufi menggunakan OpenVZ Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-7-network-configuration-without-network-manager/">OVH - Centos 7 Network configuration without network manager daemon</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-upgrade-7-to-8/">Centos - Upgrade from 7 to 8</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ceph-osds-troubleshooting/">OpenStack - Ceph OSDS Troubleshooting</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../freebsd-11-upgrade-to-12/">FreeBSD - Upgrade from 11 to 12</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lets-encrypt-autossl-wildcard-acme.sh/">Lets Encrypt - Create wildcard ssl with acme.sh</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-from-rocky-to-stein/">OpenStack - Upgrade from Rocky to Stein Release</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-integrasi-ceph-dengan-openstack/">OpenStack - Integrasi dengan Ceph Cluster</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-ceph-mimic-ke-nautilus/">OpenStack - Upgrade Ceph Mimic ke Nautilus</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-install-with-packstack-puppet/">OpenStack - Install OpenStack dengan PackStack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7/">VMWare  - How to upgrade Esxi 5.5 to 6.7 </a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7-vum/">VMWare  - How to upgrade Esxi 5.5 to 6.7 with VCenter Update Manager</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Patch-Upgrade-ESXi-15018017-to-latest-build/">VMWare - Patch Upgrade ESXi 15018017 ke latest version</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../proxmox-extend-lvm-partition/">Proxmox - How to extend LVM Partition on Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../promox-extend-lvm-partition-ofly/">Promox - How to extend LVM Partition VM Proxmox on the Fly</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-native-smtp-server-dengan-support-submission-authentication/">Postfix - Build native Postix smtp server dengan support submission authentication</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth/">Postfix - Build load balancer native smtp server dengan postfix dan saslauth</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-add-intermediate-cert-untuk-trusted-android/">RapidSSL - Menambahkan Intermediate Cert agar Trusted Cert Security di Android</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vestacp-exim-roundcube-manage-sieve-plugins-setting/">VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-clustering-large-deployment-mail-servers/">Zimbra - Clustering large deployment Mail Servers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zabbix-install-4.4-version/">Zabbix - Install zabbix latest version with Telegram Notifications</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-server-performance-dan-Tuning/">Zimbra - Set Performance dan Tuning</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../reject-fake-email-dari-certain-domain/">Zimbra - Reject Fake Email Certain Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../rate-limit-user-mail-server-zimbra/">Zimbra - Rate Limit user di Mail server Zimbra</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-queue/">Zimbra - Monitoring Queue Mail</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../dns-build-RBL-DNS-untuk-anti-spam-based-ip-address/">Zimbra - build RBL DNS untuk anti spam based ip address</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-enable-original-ip-nginx-proxy/">Zimbra - Enable Original IP Public Nginx Proxy</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-setting-glusterfs-untuk-backup-mail-account/">Zimbra - setup GlusterFS untuk NFS sharing backup email account zimbra di Ubuntu 12.04</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-diagnosa-vmware-55-psod-kernel-panic/">Zimbra - Diagnosa kernel Panic PSOD VMware 5.5 HP StoreEasy 1430 Storage</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-black-list-domain/">Zimbra - black list domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-disclaimer/">Zimbra - Setting Disclaimer</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-backup-restore/">Zimbra - Cara Backup dan Restore Mail Account</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-build-saml-server-untuk-google-apps/">Zimbra - Build SAML server untuk google apps</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-AHBL-scoring-issue/">Zimbra - DNS AHBL Scoring issue</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-poddle-attack/">Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mailbox-usages-report/">Zimbra - Mailbox Usages Report</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-trusted-domain-zimbra/">Zimbra - Menambahkan Trusted Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-unusual-login-activity/">Zimbra - Unusual Login Activity</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-milter-reject/">Zimbra - message milter-reject: END-OF-MESSAGE</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-filter-sender-dl/">Zimbra - filter sender distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-reset-password-ldap-admin/">Zimbra - Reset Password zimbra ldap admin</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-update-ssl-non-wilcard-ke-wildcard/">Zimbra - Update ssl non wildcard ke wildcard</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-send-as-distribution-list/">Zimbra - send as distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-create-mass-account-mail-via-CLI/">Zimbra - Create mass Account Mail via CLI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-relay-certain-domain-to-exim/">Zimbra - Relay certain domain to Exim via ESMTP</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install/">Gammu - Installation</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install-configure-playsms/">Gammu - Install dan Configure PlaySMS Web Interface</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-configure-multiple-modem-playsms/">Gammu - How to configure multiple modem PlaySMS Gammu</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cpanel-force-ssl-username/">CPanel - How to force generate autossl for the user CPanel</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-osticket/">Nginx - Osticket</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-PageSpeed-module/">Nginx - Build PageSpeed Module for Nginx di Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-conf-dan-server-xml-tomcat-SSL-Jira/">Nginx - conf dan server.xml tomcat SSL Jira</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../wazuh-monitoring-log-management/">Wazuh - Monitoring dan Log Management</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">blog.dgprasetya.com</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Docker auto setup via IPXE for Centos and Core OS</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h3 id="setup-net-boot-dhcp-server-with-ipxe-boot-enable">Setup Net Boot / DHCP Server with IPXE boot enable</h3>
+<p>assume ip address of this server 10.10.4.22.</p>
+<p>install dnsmasq and nginx package for enable ipxe boot </p>
+<pre><code>yum install dnsmasq.x86_64 nginx -y
+</code></pre>
+<h3 id="configuration">configuration</h3>
+<p>config <code>/etc/dnsmasq.conf</code></p>
+<pre><code>dhcp-range=10.10.4.100,10.10.4.200,30m
+dhcp-option=3,10.10.4.1
+dhcp-option=6,8.8.8.8
+
+enable-tftp
+tftp-root=/opt/tftp
+
+# iPXE - chainload to matchbox ipxe boot script
+dhcp-userclass=set:ipxe,iPXE
+#1
+dhcp-boot=centos6.ipxe
+#2
+#dhcp-boot=centos7.ipxe
+#3
+#dhcp-boot=coreos.ipxe
+
+# verbose
+log-queries
+log-dhcp
+</code></pre>
+<p>create file <code>centos6.ipxe</code> at /opt/tftp for <code>centos 6</code>:</p>
+<pre><code>#!ipxe
+set base-url http://10.10.4.22
+kernel -n img ${base-url}/centos6/vmlinuz ks=${base-url}/centos6/kickstart.desktop
+initrd ${base-url}/centos6/initrd.img
+boot img
+</code></pre>
+<p>centos7.ipxe for <code>centos 7</code>:</p>
+<pre><code>#!ipxe
+set base-url http://10.10.4.22
+kernel -n img ${base-url}/centos7/vmlinuz ks=${base-url}/centos7/ks7.desktop
+initrd ${base-url}/centos7/initrd.img
+boot img
+</code></pre>
+<p>coreos.ipxe for <code>core os</code>:</p>
+<pre><code>#!ipxe
+set base-url http://10.10.4.22
+kernel ${base-url}/coreos/coreos_production_pxe.vmlinuz initrd=coreos_production_pxe_image.cpio.gz rootfstype=btrfs console=tty0 console=ttyS0 coreos.autologin=tty1 coreos.autologin=ttyS0 coreos.first_boot=1 coreos.config.url=http://10.10.4.22/coreos/preconf.ign
+initrd ${base-url}/coreos/coreos_production_pxe_image.cpio.gz
+boot
+</code></pre>
+<p>mkdir <code>centos6,centos7,coreos</code> for repositories file:</p>
+<pre><code>mkdir -p /var/www/html/{centos6,centos7,coreos}
+</code></pre>
+<h3 id="requierements">Requierements</h3>
+<p>Download requiered files for <strong>kernel</strong> and <strong>initrd</strong>:</p>
+<p>for <code>centos 6</code>:</p>
+<pre><code>cd /var/www/html/centos6/
+wget -c "http://mirror.centos.org/centos/6.9/os/x86_64/images/pxeboot/vmlinuz"
+wget -c "http://mirror.centos.org/centos/6.9/os/x86_64/images/pxeboot/initrd.img"
+</code></pre>
+<p>for <code>centos 7</code>:</p>
+<pre><code>cd /var/www/html/centos7/
+wget -c "http://mirror.centos.org/centos/7/os/x86_64/images/pxeboot/vmlinuz"
+wget -c "http://mirror.centos.org/centos/7/os/x86_64/images/pxeboot/initrd.img"
+</code></pre>
+<p>for <code>core os</code>:</p>
+<pre><code>cd /var/www/html/coreos/
+wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe.vmlinuz
+wget https://stable.release.core-os.net/amd64-usr/current/coreos_production_pxe_image.cpio.gz
+</code></pre>
+<h3 id="kickstart">Kickstart</h3>
+<p>create Kickstart files:</p>
+<p>for <code>centos 6</code> (no gui):</p>
+<pre><code>text
+skipx
+install
+
+url --url http://mirror.cogentco.com/pub/linux/centos/6.9/os/x86_64/
+repo --name=epel --baseurl=http://download.fedoraproject.org/pub/epel/6/x86_64/
+repo --name=updates --baseurl=http://mirror.cogentco.com/pub/linux/centos/6.9/updates/x86_64/
+
+lang en_US.UTF-8
+keyboard us
+rootpw 123456
+firewall --disabled
+authconfig --enableshadow --passalgo=sha512
+selinux --disabled
+timezone Asia/Jakarta
+bootloader --location=mbr
+zerombr
+clearpart --all --initlabel
+part /boot --fstype ext4 --fsoptions="noatime" --size=200
+part pv.1 --size 1 --grow
+volgroup vg0 --pesize=4096 pv.1
+logvol / --fstype ext4 --fsoptions="noatime" --name=root --vgname=vg0 --size=8192
+logvol swap --fstype swap --name=swap --vgname=vg0 --size 2048
+logvol /var --fstype ext4 --fsoptions="noatime,nodev" --name=var --vgname=vg0 --size=4096
+logvol /home --fstype ext4 --fsoptions="noatime,nodev" --name=home --vgname=vg0 --size=2048
+
+services --enabled=network,ntpd,ntpdate
+
+reboot
+%packages --nobase
+epel-release
+openssh-clients
+openssh-server
+yum
+at
+acpid
+vixie-cron
+cronie-noanacron
+crontabs
+logrotate
+ntp
+ntpdate
+tmpwatch
+rsync
+which
+wget
+curl
+%end
+</code></pre>
+<p>for <code>centos 6</code> kickstart.desktop (with gui):</p>
+<pre><code>text
+skipx
+install
+
+# Use NFS installation media
+##nfs --server=172.16.240.50 --dir=/work/admin/boot/centos6.5/
+
+#url --url http://mirror.centos.org/centos/6.9/os/x86_64/
+#repo --name=epel --baseurl=http://download.fedoraproject.org/pub/epel/6/x86_64/
+#repo --name=updates --baseurl=http://mirror.centos.org/centos/6.9/updates/x86_64/
+
+url --url http://10.10.4.22/centos-mirror/6.9/os/x86_64/
+repo --name=epel --baseurl=http://10.10.4.22/epel-mirror/6/x86_64/
+repo --name=updates --baseurl=http://10.10.4.22/centos-mirror/6.9/updates/x86_64/
+
+lang en_US.UTF-8
+keyboard us
+rootpw F5d9k2lg6
+user --name=asd --password=1231213
+firewall --disabled
+authconfig --enableshadow --passalgo=sha512
+selinux --disabled
+timezone Asia/Jakarta
+bootloader --location=mbr
+zerombr
+clearpart --all --initlabel
+autopart
+
+
+#part /boot --fstype ext4 --fsoptions="noatime" --size=200
+#part pv.1 --size 1 --grow
+#volgroup vg0 --pesize=4096 pv.1
+#logvol / --fstype ext4 --fsoptions="noatime" --name=root --vgname=vg0 --size=0
+#logvol swap --fstype swap --name=swap --vgname=vg0 --size 2048
+#logvol /var --fstype ext4 --fsoptions="noatime,nodev" --name=var --vgname=vg0 --size=4096
+
+xconfig --startxonboot
+services --enabled=network,ntpd,ntpdate
+
+reboot
+
+%packages                                                                                                                                  
+@base                                                                                                                                      
+@core                                                                                                                                       
+@basic-desktop                                                                                                                              
+@desktop-platform    
+@fonts
+@general-desktop
+@internet-browser
+@legacy-x
+@network-file-system-client
+@perl-runtime
+@print-client
+@remote-desktop-clients
+@x11
+device-mapper-persistent-data
+systemtap-client
+jpackage-utils
+xorg-x11-xdm
+libXmu
+perl-DBD-SQLite
+rdesktop
+compat-libstdc++-33
+epel-release
+openssh-clients
+openssh-server
+yum
+at
+acpid
+vixie-cron
+cronie-noanacron
+crontabs
+logrotate
+ntp
+ntpdate
+tmpwatch
+rsync
+which
+wget
+curl
+%end
+
+%post
+chmod a+x /etc/rc.d/rc.local
+
+echo '
+if ! (which catalina.sh &gt; /dev/null 2&gt;&amp;1); then
+
+
+##install java
+export JAVA_HOME=/opt/java
+export JRE_HOME=$JAVA_HOME/jre
+mkdir -p $JAVA_HOME
+cd $JAVA_HOME
+wget -c "http://ftp.heanet.ie/mirrors/funtoo/distfiles/oracle-java/jdk-7u80-linux-x64.tar.gz" -O jdk.tar.gz
+tar -xvf jdk.tar.gz --strip-components=1
+alternatives --install /usr/bin/java java $JAVA_HOME/bin/java 2
+alternatives --install /usr/bin/jar jar $JAVA_HOME/bin/jar 2
+alternatives --install /usr/bin/javac javac $JAVA_HOME/bin/javac 2
+alternatives --set jar $JAVA_HOME/bin/jar
+alternatives --set javac $JAVA_HOME/bin/javac
+alternatives --set java $JAVA_HOME/bin/java
+
+        export CATALINA_HOME=/opt/tomcat
+        export PATH=$CATALINA_HOME/bin:$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+
+        mkdir -p "$CATALINA_HOME"
+        cd $CATALINA_HOME
+
+        export TOMCAT_MAJOR=7
+        export TOMCAT_VERSION=7.0.84
+        export TOMCAT_TGZ_URL=https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
+
+        curl -fSL "$TOMCAT_TGZ_URL" -o tomcat.tar.gz
+        tar -xvf tomcat.tar.gz --strip-components=1
+        $CATALINA_HOME/bin/catalina.sh start
+fi' &gt;&gt; /etc/rc.d/rc.local
+echo '
+export JAVA_HOME=/opt/java
+export JRE_HOME=$JAVA_HOME/jre
+export CATALINA_HOME=/opt/tomcat
+
+export PATH=$CATALINA_HOME/bin:$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
+
+
+' &gt;&gt; /etc/profile
+
+
+%end
+</code></pre>
+<p>for <code>centos 7</code> (no gui):</p>
+<pre><code>install
+lang en_GB.UTF-8
+keyboard us
+timezone Asia/Jakarta
+auth --useshadow --enablemd5
+selinux --disabled
+firewall --disabled
+services --enabled=NetworkManager,sshd
+eula --agreed
+ignoredisk --only-use=sda
+reboot
+
+bootloader --location=mbr
+zerombr
+clearpart --all --initlabel
+autopart
+#part swap --asprimary --fstype="swap" --size=1024
+#part /boot --fstype xfs --size=200
+#part pv.01 --size=1 --grow
+#volgroup rootvg01 pv.01
+#logvol / --fstype ext4 --name=lv01 --vgname=rootvg01 --size=1 --grow
+
+rootpw 123456
+
+repo --name=base --baseurl=http://mirror.cogentco.com/pub/linux/centos/7/os/x86_64/
+url --url="http://mirror.cogentco.com/pub/linux/centos/7/os/x86_64/"
+
+#url --url http://mirror.centos.org/centos/7/os/x86_64/
+#repo --name=base --baseurl=http://mirror.centos.org/centos/7/os/x86_64/
+repo --name=epel --baseurl=http://download.fedoraproject.org/pub/epel/7/x86_64/
+repo --name=updates --baseurl=http://mirror.cogentco.com/pub/linux/centos/7/updates/x86_64/
+
+%packages --nobase --ignoremissing
+@core
+epel-release
+openssh-clients
+openssh-server
+yum
+at
+cronie-noanacron
+crontabs
+logrotate
+ntp
+ntpdate
+tmpwatch
+rsync
+which
+wget
+curl
+%end
+</code></pre>
+<p>for <code>centos 7</code> ks7.desktop (with gui + docker + symmetricDS):</p>
+<pre><code>install
+lang en_GB.UTF-8
+keyboard us
+timezone Asia/Jakarta
+auth --useshadow --enablemd5
+selinux --disabled   
+firewall --disabled  
+services --enabled=NetworkManager,sshd
+#services --disabled=initial-setup-text
+#initial-setup-text --disabled
+firstboot --disable  
+eula --agreed
+ignoredisk --only-use=sda
+reboot
+
+xconfig  --startxonboot
+bootloader --location=mbr
+zerombr
+clearpart --all --initlabel
+autopart
+#part swap --asprimary --fstype="swap" --size=1024
+##part /boot --fstype ext4 --size=200
+#part pv.01 --size=1 --grow
+#volgroup rootvg01 pv.01
+#logvol / --fstype ext4 --name=lv01 --vgname=rootvg01 --size=1 --grow
+
+rootpw 123456
+user --name=asd --password=123123
+
+repo --name=base --baseurl=http://mirror.cogentco.com/pub/linux/centos/7/os/x86_64/
+url --url="http://mirror.cogentco.com/pub/linux/centos/7/os/x86_64/"
+
+#url --url http://mirror.centos.org/centos/7/os/x86_64/
+#repo --name=base --baseurl=http://mirror.centos.org/centos/7/os/x86_64/
+repo --name=epel --baseurl=http://download.fedoraproject.org/pub/epel/7/x86_64/
+repo --name=updates --baseurl=http://mirror.cogentco.com/pub/linux/centos/7/updates/x86_64/
+
+
+%packages
+@^graphical-server-environment
+@base
+@core
+@desktop-debugging   
+@dial-up
+@fonts
+@gnome-desktop
+@guest-agents
+@guest-desktop-agents
+@input-methods
+@internet-browser
+@multimedia
+@print-client
+@x11
+chrony
+kexec-tools
+
+%end
+
+%addon com_redhat_kdump --enable --reserve-mb='auto'
+
+%end
+
+%post
+
+systemctl disable initial-setup-graphical.service
+chmod a+x /etc/rc.d/rc.local
+
+echo '
+if ! (which docker &gt; /dev/null 2&gt;&amp;1); then
+
+        curl "https://gitlab.com/symmetric-ds.tar" &gt; /opt/symmetric-ds.tar
+        cd /opt/;tar -xvf symmetric-ds.tar;
+        mkdir -p /opt/webapps/jspapps;
+        echo "jspapps put here" &gt;&gt; /opt/webapps/jspapps/index.jsp;
+        curl "http://url/install-docker-centos7.sh" &gt; /usr/src/install-docker.sh
+        /bin/bash -x /usr/src/install-docker.sh 2&gt;&amp;1 | tee /usr/src/debug-install.log
+fi
+' &gt;&gt; /etc/rc.d/rc.local
+
+%end
+</code></pre>
+<p>for <code>core os</code> <strong>preconf.ign</strong> (with tomcat container): </p>
+<pre><code>{
+  "ignition": {
+    "config": {},
+    "timeouts": {},
+    "version": "2.1.0"
+  },
+  "networkd": {},
+  "passwd": {},
+  "storage": {
+    "disks": [
+      {
+        "device": "/dev/sda",
+        "partitions": [
+          {
+            "label": "ROOT"
+          }
+        ],
+        "wipeTable": true
+      }
+    ],
+    "filesystems": [
+      {
+        "mount": {
+          "device": "/dev/disk/by-partlabel/ROOT",
+          "format": "ext4",
+          "label": "ROOT",
+          "wipeFilesystem": true
+        }
+      }
+    ],
+    "files": [
+      {
+        "filesystem": "root",
+        "path": "/opt/installer",
+        "mode": 755,
+        "contents": {
+          "source": "http://10.10.4.22/coreos/installer.sh"
+        }
+      },
+      {
+        "filesystem": "root",
+        "path": "/etc/hostname",
+        "mode": 420,
+        "contents": {
+          "source": "data:,installer"
+        }
+      }
+    ]
+  },
+  "systemd": {
+    "units": [
+      {
+        "name": "installer.service",
+        "enabled": true,
+        "contents": "[Unit]\nRequires=network-online.target\nAfter=network-online.target\n[Service]\nType=simple\nExecStart=/opt/installer\n[Install]\nWantedBy=multi-user.target"
+      }
+    ]
+  }
+}
+</code></pre>
+<p>put <code>installer.sh</code> to /var/www/coreos/:</p>
+<pre><code>#!/bin/bash -ex
+
+#curl --retry 10 --fail "{{.ignition_endpoint}}?{{.request.raw_query}}&amp;os=installed" -o ignition.json
+
+curl http://10.10.4.22/coreos/install.ign -o /tmp/install.ign
+coreos-install -d /dev/sda -C stable -i /tmp/install.ign
+#{{.coreos_channel}} -V {{.coreos_version}} -i ignition.json {{if index . "baseurl"}}-b {{.baseurl}}{{end}}
+udevadm settle
+systemctl reboot
+</code></pre>
+<p>put <code>install.ign</code> to /var/www/coreos/:</p>
+<pre><code>{
+  "ignition": {
+    "config": {},
+    "timeouts": {},
+    "version": "2.1.0"
+  },
+  "networkd": {},
+  "passwd": {
+    "users": [
+      {
+        "groups": [
+          "sudo",
+          "docker"
+        ],
+        "name": "asd",
+        "passwordHash": "$6$pk78SVN.I$veAoRIG9GZkstvrVLY0aIRAvOoqOqz3r4YZdZoQ5aZTFD2jrDlF1.GCzLuU.h274MyYmu1KFnuss51SPARMQv."
+      }
+    ]
+  },
+  "storage": {
+    "files": [
+      {
+        "filesystem": "root",
+        "path": "/etc/hostname",
+        "mode": 420,
+        "contents": {
+          "source": "data:,coreos-asd"
+        }
+      },
+        {
+        "filesystem": "root",
+        "path": "/opt/tomcat-install",
+        "mode": 755,
+        "contents": {
+          "source": "http://10.10.4.22/coreos/tomcat-install.sh"
+         }
+        }
+    ]
+  },
+  "systemd": {    "units": [
+  {
+    "name": "tomcat-install.service",
+    "enabled": true,
+    "contents": "[Unit]\nRequires=network-online.target\nAfter=network-online.target\n[Service]\nType=simple\nExecStart=/opt/tomcat-install\n[Install]\nWantedBy=multi-user.target"
+  }
+]}
+}
+</code></pre>
+<p>put <code>tomcat-install.sh</code> to /var/www/html/coreos/:</p>
+<pre><code>#!/bin/bash
+
+docker run -id --rm -p 8888:8080 tomcat:7
+</code></pre>
+<p>start dnsmasq for turn on dhcp services plus ipxe:</p>
+<pre><code>/etc/init.d/dnsmasq start
+</code></pre>
+<h3 id="done">Done</h3>
+<p>and try boot with ipxe.</p>
+<p><img alt="photo6296124071561242608" src="https://user-images.githubusercontent.com/275259/35492008-bda1083c-04dc-11e8-96d6-aac02e8a5a5e.jpg" /></p>
+              
+            </div>
+          </div>
+          <div id="disqus_thread"></div>
+<script>
+
+if ( mkdocs_page_url == "/" ) {
+
+}
+else {
+    
+    var disqus_config = function () {
+        this.page.url = blog.dgprasetya.com; 
+        this.page.identifier = mkdocs_page_url; 
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//blog-dgprasetya-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+
+}
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<footer>             
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../google-cloud-platform-connect-two-instances-with-ip-private-via-vpc-peering/" class="btn btn-neutral float-right" title="GCP - How to connect two instances with IP Private via VPC Peering">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../ci-cd-with-gitlab/" class="btn btn-neutral" title="CI/CD with Gitlab"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright (c) 2020 dgprasetya</p>
+    
+  </div>
+
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="https://github.com/snide/sphinx_rtd_theme" target="_blank">Sphinx ReadTheDocs</a> 
+            theme, <a href="https://about.gitlab.com/gitlab-ci/">Gitlab CI</a>, 
+            <a href="https://hub.docker.com/r/devunix/alpine-mkdocs/">Docker Python Stack</a> 
+            dan <a href="https://github.com/deanet/deanet.github.com">Github Pages</a><br/>
+  <br/>
+  Hiring SysAdmin to fix your issues ? <a href="https://www.dgprasetya.com/contactme.html" target="_blank">Contact Me</a> :)
+</footer>
+
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../ci-cd-with-gitlab/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../google-cloud-platform-connect-two-instances-with-ip-private-via-vpc-peering/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>

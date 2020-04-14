@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="dgprasetya">
+  
+  <title>Zimbra - DNS AHBL Scoring issue - blog.dgprasetya.com</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  <link href="../css/extra.css" rel="stylesheet">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Zimbra - DNS AHBL Scoring issue";
+    var mkdocs_page_input_path = "zimbra-AHBL-scoring-issue.md";
+    var mkdocs_page_url = "/zimbra-AHBL-scoring-issue/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-55420243-2', 'auto');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> blog.dgprasetya.com</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">Index</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ci-cd-with-gitlab/">CI/CD with Gitlab</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../net-boot-ipxe-docker-tomcat-centos-coreos/">Docker auto setup via IPXE for Centos and Core OS</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-connect-two-instances-with-ip-private-via-vpc-peering/">GCP - How to connect two instances with IP Private via VPC Peering</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../google-cloud-platform-multiple-nics-with-vpc-peering/">GCP - How to connect Multiple Nics with VPC Peering at Google Cloud Platform</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../kimsufi-dns-ipv6-openvz-promox/">OVH - Build DNS Server IPV6 dengan DBNDNS di Kimsufi menggunakan OpenVZ Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-7-network-configuration-without-network-manager/">OVH - Centos 7 Network configuration without network manager daemon</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../centos-upgrade-7-to-8/">Centos - Upgrade from 7 to 8</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../ceph-osds-troubleshooting/">OpenStack - Ceph OSDS Troubleshooting</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../freebsd-11-upgrade-to-12/">FreeBSD - Upgrade from 11 to 12</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../lets-encrypt-autossl-wildcard-acme.sh/">Lets Encrypt - Create wildcard ssl with acme.sh</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-from-rocky-to-stein/">OpenStack - Upgrade from Rocky to Stein Release</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-integrasi-ceph-dengan-openstack/">OpenStack - Integrasi dengan Ceph Cluster</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-upgrade-ceph-mimic-ke-nautilus/">OpenStack - Upgrade Ceph Mimic ke Nautilus</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../openstack-install-with-packstack-puppet/">OpenStack - Install OpenStack dengan PackStack</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7/">VMWare  - How to upgrade Esxi 5.5 to 6.7 </a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vmware-esxi-upgrade-5.5-to-6.7-vum/">VMWare  - How to upgrade Esxi 5.5 to 6.7 with VCenter Update Manager</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../Patch-Upgrade-ESXi-15018017-to-latest-build/">VMWare - Patch Upgrade ESXi 15018017 ke latest version</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../proxmox-extend-lvm-partition/">Proxmox - How to extend LVM Partition on Proxmox</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../promox-extend-lvm-partition-ofly/">Promox - How to extend LVM Partition VM Proxmox on the Fly</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-native-smtp-server-dengan-support-submission-authentication/">Postfix - Build native Postix smtp server dengan support submission authentication</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../postfix-build-load-balancer-native-smtp-server-dengan-postfix-dan-saslauth/">Postfix - Build load balancer native smtp server dengan postfix dan saslauth</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-add-intermediate-cert-untuk-trusted-android/">RapidSSL - Menambahkan Intermediate Cert agar Trusted Cert Security di Android</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../vestacp-exim-roundcube-manage-sieve-plugins-setting/">VestaCP - How to enable manage sieve plugin on Roundcube VestaCP Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-clustering-large-deployment-mail-servers/">Zimbra - Clustering large deployment Mail Servers</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zabbix-install-4.4-version/">Zabbix - Install zabbix latest version with Telegram Notifications</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-server-performance-dan-Tuning/">Zimbra - Set Performance dan Tuning</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../reject-fake-email-dari-certain-domain/">Zimbra - Reject Fake Email Certain Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../rate-limit-user-mail-server-zimbra/">Zimbra - Rate Limit user di Mail server Zimbra</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mail-queue/">Zimbra - Monitoring Queue Mail</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../dns-build-RBL-DNS-untuk-anti-spam-based-ip-address/">Zimbra - build RBL DNS untuk anti spam based ip address</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-enable-original-ip-nginx-proxy/">Zimbra - Enable Original IP Public Nginx Proxy</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-setting-glusterfs-untuk-backup-mail-account/">Zimbra - setup GlusterFS untuk NFS sharing backup email account zimbra di Ubuntu 12.04</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-diagnosa-vmware-55-psod-kernel-panic/">Zimbra - Diagnosa kernel Panic PSOD VMware 5.5 HP StoreEasy 1430 Storage</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-black-list-domain/">Zimbra - black list domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-disclaimer/">Zimbra - Setting Disclaimer</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-backup-restore/">Zimbra - Cara Backup dan Restore Mail Account</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-build-saml-server-untuk-google-apps/">Zimbra - Build SAML server untuk google apps</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Zimbra - DNS AHBL Scoring issue</a>
+        
+            <ul>
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-poddle-attack/">Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-mailbox-usages-report/">Zimbra - Mailbox Usages Report</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-trusted-domain-zimbra/">Zimbra - Menambahkan Trusted Domain</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-unusual-login-activity/">Zimbra - Unusual Login Activity</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-milter-reject/">Zimbra - message milter-reject: END-OF-MESSAGE</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-filter-sender-dl/">Zimbra - filter sender distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-reset-password-ldap-admin/">Zimbra - Reset Password zimbra ldap admin</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-cara-update-ssl-non-wilcard-ke-wildcard/">Zimbra - Update ssl non wildcard ke wildcard</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-send-as-distribution-list/">Zimbra - send as distribution list</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-create-mass-account-mail-via-CLI/">Zimbra - Create mass Account Mail via CLI</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../zimbra-relay-certain-domain-to-exim/">Zimbra - Relay certain domain to Exim via ESMTP</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install/">Gammu - Installation</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-install-configure-playsms/">Gammu - Install dan Configure PlaySMS Web Interface</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../gammu-configure-multiple-modem-playsms/">Gammu - How to configure multiple modem PlaySMS Gammu</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../cpanel-force-ssl-username/">CPanel - How to force generate autossl for the user CPanel</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-osticket/">Nginx - Osticket</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-PageSpeed-module/">Nginx - Build PageSpeed Module for Nginx di Centos</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../nginx-conf-dan-server-xml-tomcat-SSL-Jira/">Nginx - conf dan server.xml tomcat SSL Jira</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../wazuh-monitoring-log-management/">Wazuh - Monitoring dan Log Management</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">blog.dgprasetya.com</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Zimbra - DNS AHBL Scoring issue</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github"> Edit on GitHub</a>
+        
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p><strong>Troubleshoot DNS AHBL scoring issue di zimbra</strong></p>
+<p>sample email yang masuk ke Junk folder:</p>
+<pre><code>Return-Path: edy@jmn.net.id
+Received: from 192.168.2.1 (LHLO mail.abc.co.id) (192.168.2.1) by
+ mail.abc.co.id with LMTP; Thu, 26 Mar 2015 10:57:53 +0700 (WIT)
+Received: from localhost (localhost [127.0.0.1])
+    by mail.abc.co.id (Postfix) with ESMTP id 337894480511;
+    Thu, 26 Mar 2015 10:57:53 +0700 (WIB)
+X-Virus-Scanned: amavisd-new at mail.abc.co.id
+X-Spam-Flag: YES
+X-Spam-Score: 9.31
+X-Spam-Level: *********
+X-Spam-Status: Yes, score=9.31 tagged_above=-10 required=6.6
+    tests=[BAYES_50=0.8, DNS_FROM_AHBL_RHSBL=2.699,
+    FSL_HELO_BARE_IP_2=1.738, HTML_MESSAGE=0.001,
+    RCVD_IN_BRBL_LASTEXT=1.449, RCVD_NUMERIC_HELO=1.164, RDNS_NONE=0.793,
+    SPF_SOFTFAIL=0.665, URIBL_BLOCKED=0.001] autolearn=no
+Received: from mail.abc.co.id ([127.0.0.1])
+    by localhost (mail.abc.co.id [127.0.0.1]) (amavisd-new, port 10024)
+    with ESMTP id lyn-kN0HDD6W; Thu, 26 Mar 2015 10:57:52 +0700 (WIB)
+Received: from bakpia.jmn.net.id (unknown [192.168.2.1])
+    by mail.abc.co.id (Postfix) with ESMTPS id 8BAF5448050F
+    for &lt;it@abc.co.id&gt;; Thu, 26 Mar 2015 10:57:52 +0700 (WIB)
+Received: (qmail 23578 invoked by uid 210); 26 Mar 2015 03:51:58 -0000
+Received: from 202.169.224.61 (edy@jmn.net.id@202.169.224.61) by bakpia.jmn.net.id (envelope-from &lt;edy@jmn.net.id&gt;, uid 201) with qmail-scanner-2.05-dn 
+ (clamdscan: 0.97.7/20240. spamassassin: 3.3.1. perlscan: 2.05-dn.  
+ Clear:RC:1(202.169.224.61):. 
+ Processed in 0.035362 secs); 26 Mar 2015 03:51:58 -0000
+Received: from unknown (HELO ?192.168.1.133?) (edy@jmn.net.id@202.169.224.61)
+  by 0 with ESMTPA; 26 Mar 2015 03:51:58 -0000
+Message-ID: &lt;5513825C.9000004@jmn.net.id&gt;
+Date: Thu, 26 Mar 2015 10:51:56 +0700
+From: Edy Mulyono &lt;edy@jmn.net.id&gt;
+User-Agent: Mozilla/5.0 (Windows NT 6.1; rv:31.0) Gecko/20100101 Thunderbird/31.5.0
+MIME-Version: 1.0
+To: "Dian" &lt;dgprasetya@abc.co.id&gt;
+CC: it@abc.co.id, noc@jmn.net.id, c-care@jmn.net.id
+Subject: Re: Link Kotabaru Down
+References: &lt;1762256003.2360852.1427335970075.JavaMail.zimbra@abc.co.id&gt; &lt;55137815.5020306@jmn.net.id&gt; &lt;2089728974.2367864.1427339420605.JavaMail.zimbra@abc.co.id&gt; &lt;489143161.2370429.1427340898658.JavaMail.zimbra@abc.co.id&gt;
+In-Reply-To: &lt;489143161.2370429.1427340898658.JavaMail.zimbra@abc.co.id&gt;
+Content-Type: multipart/alternative;
+ boundary="------------090408000400010701000809"
+X-Zimbra-DL: it@abc.co.id
+</code></pre>
+<p>terlihat score: </p>
+<pre><code>X-Spam-Score: 9.31
+</code></pre>
+<p>dan yang paling tinggi adalah <code>DNS AHBL: 2.699</code> . padahal sejak 1st, Jan 2015 DNS AHBL sudah tidak dimaintain lagi. http://www.ahbl.org/content/changes-ahbl . oleh karena itu kita bisa menetralkan scoring dari DNS AHBL dengan score: 0 atau dengan nilai yang sangat rendah mendekati netral.</p>
+<p>tambahkan di <code>local.cf</code></p>
+<pre><code># vim /opt/zimbra/conf/spamassassin/local.cf
+score DNS_FROM_AHBL_RHSBL 0
+</code></pre>
+<p>tambahkan/rubah seperlunya di <code>50_scores.cf</code></p>
+<pre><code># vim /opt/zimbra/conf/spamassassin/50_scores.cf
+score ALL_TRUSTED -3.000
+score DNS_FROM_AHBL_RHSBL 0 0.001 0 0.001 # n=0 n=2
+</code></pre>
+<p>score untuk <code>TRUSTED</code> di beri nilai negatif 3 agar domain-domain yang telah kita trusted di <code>/opt/zimbra/conf/salocal.cf.in</code> lebih diterima oleh amavisd dan spam assasin.
+setelah itu restart services:</p>
+<pre><code>zmantispamctl restart ; zmmtactl restart
+</code></pre>
+<p>enjoy..</p>
+<p>results:</p>
+<pre><code>Return-Path: xxxx
+Received: from 192.168.2.1 (LHLO mail.abc.co.id) (192.168.2.1) by
+ mail.abc.co.id with LMTP; Wed, 1 Apr 2015 07:44:13 +0700 (WIT)
+Received: from localhost (localhost [127.0.0.1])
+    by mail.abc.co.id (Postfix) with ESMTP id 3CB204491BB6
+    for &lt;xxx@abc.co.id&gt;; Wed,  1 Apr 2015 07:44:13 +0700 (WIB)
+X-Virus-Scanned: amavisd-new at mail.abc.co.id
+X-Spam-Flag: NO
+X-Spam-Score: 5.699
+X-Spam-Level: *****
+X-Spam-Status: No, score=5.699 tagged_above=-10 required=6.6
+    tests=[BAYES_50=0.8, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
+    DKIM_VALID_AU=-0.1, DNS_FROM_AHBL_RHSBL=0.001,
+    RCVD_IN_BRBL_LASTEXT=1.449, RCVD_IN_MSPIKE_BL=0.01,
+    RCVD_IN_MSPIKE_ZBI=0.001, RCVD_IN_RP_RNBL=1.31,
+    RCVD_IN_SORBS_WEB=0.77, RDNS_NONE=0.793, SPF_SOFTFAIL=0.665]
+    autolearn=no
+Authentication-Results: mail.abc.co.id (amavisd-new); dkim=pass (1024-bit key)
+    header.d=xxxx.domain; domainkeys=pass (1024-bit key)
+    header.from=nms@xxxx.domain header.sender=nms@xxxx.domain
+    header.d=xxxx.domain
+Received: from mail.abc.co.id ([127.0.0.1])
+    by localhost (mail.abc.co.id [127.0.0.1]) (amavisd-new, port 10024)
+    with ESMTP id c4_Qro7nk9Yx for &lt;dian.prasetya@abc.co.id&gt;;
+    Wed,  1 Apr 2015 07:44:12 +0700 (WIB)
+Received: from so254-9.mailgun.net (unknown [192.168.2.1])
+    by mail.abc.co.id (Postfix) with ESMTPS id AB87A4491BB4
+    for &lt;dian@abc.co.id&gt;; Wed,  1 Apr 2015 07:44:11 +0700 (WIB)
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=xxxx.domain; q=dns/txt;
+ s=krs; t=1427849109; h=Sender: Message-Id: Date: Subject: To: From;
+ bh=Li5XZ+kJiZbnYuk5YoF+LhsqlGXOMyf5sdYB8xmMNwM=; b=hfGJZm5pDwENJc8r+W5pj9wfiJQtQPonoqFxnoXK5fcF7A7KlGbs63ROqXJiL9I7g2fTyXY6
+ XRx/b5rXM0sJG0Dh/exH4JXaRLnWftyDSLo9V4lKA3Buo8c9/u9GQfEwXVavSSPExiG85ud5
+ fLWvW3pRQrb4Gt/xPtQMDA0s+wI=
+DomainKey-Signature: a=rsa-sha1; c=nofws; d=xxxx.domain; s=krs;
+ q=dns; h=From: To: Subject: Date: Message-Id: Sender;
+ b=UpHKEm/vm3gI4g2uz+KES77gmN1013aAy026GHwRTps+YpSkiXSKurenK0yJ6S7Oesq1xL
+ aK9gdSPzOJbGeEywFUqRJcWS24rNI3HJamhqmqnONQJMjBn2wkXogC5X4cNbQR0PZuUebSwU
+ hD4UT998Q8SYqzCJ9w3CLyd2EcBVc=
+Received: from localhost (host-202-169-239-178.jogjamedianet.com
+ [202.169.239.178]) by mxa.mailgun.org with ESMTP id
+ 551b3f8e.7f18b4f9fae0-in6; Wed, 01 Apr 2015 00:45:02 -0000 (UTC)
+From: &lt;nms@xxxx.domain&gt;
+To: &lt;diana@abc.co.id&gt;
+Subject: OK: Zabbix unreachable poller processes more than 75% busy
+Date: Wed, 01 Apr 2015 07:44:58 +0700
+Trigger: Zabbix unreachable poller processes more than 75% busy
+Message-Id: &lt;20150401004502.91366.42000@xxxx.domain&gt;
+X-Mailgun-Sid: WyI0ZDAxYiIsICJkaWFuLnByYXNldHlhQGsyNC5jby5pZCIsICJlZWMzYTUiXQ==
+Sender: nms@xxxx.domain
+
+Trigger status: OK
+Trigger severity: Average
+Trigger URL:
+
+Item values:
+
+1. Zabbix busy unreachable poller processes, in % (Zabbix server:zabbix[process,unreachable poller,avg,busy]): 41.41 %
+
+
+Original event ID: 3975818
+</code></pre>
+              
+            </div>
+          </div>
+          <div id="disqus_thread"></div>
+<script>
+
+if ( mkdocs_page_url == "/" ) {
+
+}
+else {
+    
+    var disqus_config = function () {
+        this.page.url = blog.dgprasetya.com; 
+        this.page.identifier = mkdocs_page_url; 
+    };
+    
+    (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = '//blog-dgprasetya-com.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+
+}
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<footer>             
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../zimbra-poddle-attack/" class="btn btn-neutral float-right" title="Zimbra - Mengamankan serangan Poddle Attack dan Vulnerability SSL">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../zimbra-build-saml-server-untuk-google-apps/" class="btn btn-neutral" title="Zimbra - Build SAML server untuk google apps"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+      <p>Copyright (c) 2020 dgprasetya</p>
+    
+  </div>
+
+            Documentation built with
+            <a href="http://www.mkdocs.org" target="_blank">MkDocs</a>
+            using the
+            <a href="https://github.com/snide/sphinx_rtd_theme" target="_blank">Sphinx ReadTheDocs</a> 
+            theme, <a href="https://about.gitlab.com/gitlab-ci/">Gitlab CI</a>, 
+            <a href="https://hub.docker.com/r/devunix/alpine-mkdocs/">Docker Python Stack</a> 
+            dan <a href="https://github.com/deanet/deanet.github.com">Github Pages</a><br/>
+  <br/>
+  Hiring SysAdmin to fix your issues ? <a href="https://www.dgprasetya.com/contactme.html" target="_blank">Contact Me</a> :)
+</footer>
+
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/deanet/deanet.github.com" class="icon icon-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../zimbra-build-saml-server-untuk-google-apps/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../zimbra-poddle-attack/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
